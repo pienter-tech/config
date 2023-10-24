@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",
@@ -14,5 +15,3 @@ vim.opt.rtp:prepend(lazypath)
 require("pienter")
 require("lazy").setup("plugins")
 
-vim.cmd [[colorscheme tokyonight]]
--- vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
