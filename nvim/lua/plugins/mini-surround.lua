@@ -4,13 +4,13 @@ return {
         version = "*",
         opts = {
             mappings = {
-                add = "sa",
-                delete = "sd",
-                find = "sf",
-                find_left = "sF",
-                highlight = "sh",
-                replace = "sr",
-                update_n_lines = "sn", -- change number of lines within which surround is searched
+                add = "ta",
+                delete = "td",
+                find = "tf",
+                find_left = "tF",
+                highlight = "th",
+                replace = "tr",
+                update_n_lines = "tn", -- change number of lines within which surround is searched
                 suffix_last = "l",
                 suffix_next = "n",
             }
