@@ -68,9 +68,6 @@ return {
                 opts.desc = "Show documentation for what is under cursor"
                 keymap.set("n", "<F1>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
-                opts.desc = "Format buffer"
-                keymap.set("n", "<F3>", vim.lsp.buf.format, opts)
-
                 opts.desc = "Restart LSP"
                 keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
             end
