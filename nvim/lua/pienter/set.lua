@@ -1,27 +1,37 @@
-vim.opt.nu = true
-vim.opt.relativenumber = true
+local opt = vim.opt
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-
-vim.opt.smartindent = true
-
-vim.opt.wrap = false
-
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
-
-vim.opt.termguicolors = true
-
-vim.opt.scrolloff = 15
-
-vim.opt.updatetime = 50
-
-vim.opt.colorcolumn = "80"
+opt.autowriteall = true --autosave on change focus
+opt.confirm = true --confirm to save changes before exiting buffer
+opt.completeopt = "menu,menuone,noselect"
+opt.cursorline = true
+opt.nu = true
+opt.relativenumber = true
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.formatoptions = "jcroqlnt"
+opt.shiftround = true
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.smartindent = true
+opt.wrap = false
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
+opt.termguicolors = true
+opt.scrolloff = 15
+opt.sidescrolloff = 10
+opt.timeout = true
+opt.timeoutlen = 300
+opt.colorcolumn = "80"
+opt.clipboard = "unnamedplus"
+opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200
+opt.virtualedit = "block"
 
 vim.filetype.add({
     extension = {
@@ -29,4 +39,3 @@ vim.filetype.add({
     }
 })
 
-vim.opt.clipboard = "unnamedplus"
