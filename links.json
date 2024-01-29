@@ -1,0 +1,26 @@
+[
+  {
+    "src": "warp",
+    "dest": "/Users/korneel/.warp"
+  },
+  {
+    "src": "dotfiles/ideavimrc",
+    "dest": "/Users/korneel/.ideavimrc"
+  },
+  {
+    "src": "dotfiles/zshrc",
+    "dest": "/Users/korneel/.zshrc"
+  },
+  {
+    "src": "nvim",
+    "dest": "/Users/korneel/.config/nvim"
+  },
+  {
+    "src": "tmux",
+    "dest": "/Users/korneel/.config/tmux"
+  },
+  {
+    "src": "bin",
+    "dest": "/Users/korneel/.bin"
+  }
+]
