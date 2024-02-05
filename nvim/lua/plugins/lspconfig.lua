@@ -82,11 +82,42 @@ return {
                         on_attach = on_attach,
                     })
                 end,
+                ["volar"] = function()
+                    lspconfig.volar.setup({
+                        capabilities = capabilities,
+                        flags = flags,
+                        on_attach = function(client, bufnr)
+                            local active_clients = vim.lsp.get_active_clients()
+                            for _, active_client in pairs(active_clients) do
+                                if active_client.name == "tsserver" then
+                                    active_client.stop()
+                                    return
+                                end
+                            end
+
+                            on_attach(client, bufnr)
+                        end,
+                        filetypes = {
+                            "vue",
+                            "typescript",
+                        },
+                        root_dir = lspconfig.util.root_pattern("src/App.vue"),
+                    })
+                end,
                 ["tsserver"] = function()
                     lspconfig.tsserver.setup({
                         capabilities = capabilities,
                         flags = flags,
-                        on_attach = on_attach,
+                        on_attach = function(client, bufnr)
+                            local active_clients = vim.lsp.get_active_clients()
+                            for _, active_client in pairs(active_clients) do
+                                if active_client.name == "volar" then
+                                    client.stop()
+                                    return
+                                end
+                            end
+                            on_attach(client, bufnr)
+                        end,
                         filetypes = {
                             "javascript",
                             "javascriptreact",
