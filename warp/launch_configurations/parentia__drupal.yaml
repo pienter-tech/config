@@ -1,0 +1,17 @@
+
+name: parentia__drupal
+windows:
+  - tabs:
+    - title: parentia__drupal
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/parentia/drupal/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/parentia/drupal/
+              - cwd: /Users/korneel/dev/projects/parentia/drupal/
+      color: blue
+        

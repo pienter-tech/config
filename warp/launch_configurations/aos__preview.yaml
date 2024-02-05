@@ -1,0 +1,17 @@
+
+name: aos__preview
+windows:
+  - tabs:
+    - title: aos__preview
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/aos/preview/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/aos/preview/
+              - cwd: /Users/korneel/dev/projects/aos/preview/
+      color: blue
+        

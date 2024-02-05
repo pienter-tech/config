@@ -27,6 +27,7 @@ return {
                 markdown = { "prettier" },
                 graphql = { "prettier" },
                 vue = { "prettier" },
+                php = { "pint" },
             },
         },
     },

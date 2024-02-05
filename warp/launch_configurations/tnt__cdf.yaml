@@ -1,0 +1,17 @@
+
+name: tnt__cdf
+windows:
+  - tabs:
+    - title: tnt__cdf
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/cdf/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/cdf/
+              - cwd: /Users/korneel/dev/projects/tnt/cdf/
+      color: blue
+        

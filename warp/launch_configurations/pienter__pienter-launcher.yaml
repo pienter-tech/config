@@ -1,0 +1,17 @@
+
+name: pienter__pienter-launcher
+windows:
+  - tabs:
+    - title: pienter__pienter-launcher
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/pienter/pienter-launcher/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/pienter/pienter-launcher/
+              - cwd: /Users/korneel/dev/projects/pienter/pienter-launcher/
+      color: blue
+        

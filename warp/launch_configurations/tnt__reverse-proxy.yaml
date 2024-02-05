@@ -1,0 +1,17 @@
+
+name: tnt__reverse-proxy
+windows:
+  - tabs:
+    - title: tnt__reverse-proxy
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/tnt-reverse-proxy/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/tnt-reverse-proxy/
+              - cwd: /Users/korneel/dev/projects/tnt/tnt-reverse-proxy/
+      color: blue
+        

@@ -1,0 +1,17 @@
+
+name: tnt__tnt2020
+windows:
+  - tabs:
+    - title: tnt__tnt2020
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/tnt2020/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/tnt2020/
+              - cwd: /Users/korneel/dev/projects/tnt/tnt2020/
+      color: blue
+        

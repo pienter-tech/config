@@ -1,0 +1,17 @@
+
+name: aos__directus
+windows:
+  - tabs:
+    - title: aos__directus
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/aos/directus/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/aos/directus/
+              - cwd: /Users/korneel/dev/projects/aos/directus/
+      color: blue
+        

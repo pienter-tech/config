@@ -1,0 +1,17 @@
+
+name: jvdv__astro
+windows:
+  - tabs:
+    - title: jvdv__astro
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/jvdv/astro/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/jvdv/astro/
+              - cwd: /Users/korneel/dev/projects/jvdv/astro/
+      color: blue
+        

@@ -1,0 +1,17 @@
+
+name: pienter__gatsby
+windows:
+  - tabs:
+    - title: pienter__gatsby
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/pienter/pienter/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/pienter/pienter/
+              - cwd: /Users/korneel/dev/projects/pienter/pienter/
+      color: blue
+        

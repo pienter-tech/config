@@ -1,0 +1,17 @@
+
+name: tnt__glitchtip
+windows:
+  - tabs:
+    - title: tnt__glitchtip
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/glitchtip-tnt/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/glitchtip-tnt/
+              - cwd: /Users/korneel/dev/projects/tnt/glitchtip-tnt/
+      color: blue
+        

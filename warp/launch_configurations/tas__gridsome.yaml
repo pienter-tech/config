@@ -1,0 +1,17 @@
+
+name: tas__gridsome
+windows:
+  - tabs:
+    - title: tas__gridsome
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tas/tas_gridsome/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tas/tas_gridsome/
+              - cwd: /Users/korneel/dev/projects/tas/tas_gridsome/
+      color: blue
+        

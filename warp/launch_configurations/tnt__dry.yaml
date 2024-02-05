@@ -1,0 +1,17 @@
+
+name: tnt__dry
+windows:
+  - tabs:
+    - title: tnt__dry
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/dry/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/dry/
+              - cwd: /Users/korneel/dev/projects/tnt/dry/
+      color: blue
+        

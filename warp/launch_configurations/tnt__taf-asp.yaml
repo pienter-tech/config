@@ -1,0 +1,17 @@
+
+name: tnt__taf-asp
+windows:
+  - tabs:
+    - title: tnt__taf-asp
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/taf-asp/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/taf-asp/
+              - cwd: /Users/korneel/dev/projects/tnt/taf-asp/
+      color: blue
+        

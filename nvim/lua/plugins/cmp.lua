@@ -12,6 +12,7 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lua",
+            "zbirenbaum/copilot-cmp",
         },
         config = function()
             local cmp = require("cmp")
@@ -25,6 +26,9 @@ return {
             cmp.setup({
                 completion = {
                     completeopt = "menu,menuone,preview,noselect",
+                },
+                experimental = {
+                    ghost_text = true,
                 },
                 snippet = { -- configure how nvim-cmp interacts with snippet engine
                     expand = function(args)
@@ -40,7 +44,6 @@ return {
 
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
                     ["<C-f>"] = cmp.mapping(function(fallback)
                         if luasnip.jumpable(1) then
                             luasnip.jump(1)
@@ -79,6 +82,7 @@ return {
                 }),
                 -- sources for autocompletion
                 sources = cmp.config.sources({
+                    { name = "copilot"},
                     { name = "nvim_lsp" },
                     { name = "luasnip" }, -- snippets
                     { name = "buffer" },  -- text within current buffer
@@ -88,8 +92,12 @@ return {
                 -- configure lspkind for vs-code like pictograms in completion menu
                 formatting = {
                     format = lspkind.cmp_format({
+                        mode = "symbol",
                         maxwidth = 50,
                         ellipsis_char = "...",
+                        symbol_map = {
+                            Copilot = ""
+                        }
                     }),
                 },
             })

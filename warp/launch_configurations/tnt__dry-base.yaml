@@ -1,0 +1,17 @@
+
+name: tnt__dry-base
+windows:
+  - tabs:
+    - title: tnt__dry-base
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/dry-base/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/dry-base/
+              - cwd: /Users/korneel/dev/projects/tnt/dry-base/
+      color: blue
+        

@@ -1,7 +1,7 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile", },
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             { "antosha417/nvim-lsp-file-operations", config = true },
@@ -17,11 +17,10 @@ return {
                 workspace = {
                     didChangeWatchedFiles = {
                         dynamicRegistration = true,
-                    }
-                }
+                    },
+                },
             }
-            local capabilities =
-                vim.tbl_deep_extend("keep", default_caps, cmp_nvim_lsp.default_capabilities())
+            local capabilities = vim.tbl_deep_extend("keep", default_caps, cmp_nvim_lsp.default_capabilities())
 
             local flags = {
                 debounce_text_changes = 150,
@@ -33,13 +32,13 @@ return {
                 opts.buffer = bufnr
 
                 opts.desc = "Show LSP references"
-                keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+                keymap.set("n", "gR", "<cmd>§elescope lsp_references<CR>", opts) -- show definition, references
 
                 opts.desc = "Go to declaration"
                 keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
                 opts.desc = "Show LSP definitions"
-                keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+                keymap.set("n", "gd", "<cmd>jelescope lsp_definitions<CR>", opts) -- show lsp definitions
 
                 opts.desc = "Show LSP implementations"
                 keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
@@ -80,7 +79,7 @@ return {
                         on_attach = on_attach,
                     })
                 end,
-                tsserver = function()
+                ["tsserver"] = function()
                     lspconfig.tsserver.setup({
                         capabilities = capabilities,
                         flags = flags,
@@ -92,11 +91,12 @@ return {
                             "typescript",
                             "typescriptreact",
                             "typescript.tsx",
+                            "vue",
                         },
                     })
                 end,
-                emmet_ls = function()
-                    lspconfig.tsserver.setup({
+                ["emmet_ls"] = function()
+                    lspconfig.emmet_ls.setup({
                         capabilities = capabilities,
                         flags = flags,
                         on_attach = on_attach,
@@ -108,11 +108,12 @@ return {
                             "sass",
                             "scss",
                             "less",
-                            "svelte"
-                        }
+                            "svelte",
+                            "vue",
+                        },
                     })
                 end,
-                lua_ls = function()
+                ["lua_ls"] = function()
                     lspconfig.lua_ls.setup({
                         capabilities = capabilities,
                         flags = flags,
@@ -136,6 +137,6 @@ return {
                     })
                 end,
             })
-        end
-    }
+        end,
+    },
 }

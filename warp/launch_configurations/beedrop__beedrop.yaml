@@ -1,0 +1,17 @@
+
+name: beedrop__beedrop
+windows:
+  - tabs:
+    - title: beedrop__beedrop
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/beedrop/beedrop/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/beedrop/beedrop/
+              - cwd: /Users/korneel/dev/projects/beedrop/beedrop/
+      color: blue
+        

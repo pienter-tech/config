@@ -1,0 +1,17 @@
+
+name: aos__astro
+windows:
+  - tabs:
+    - title: aos__astro
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/aos/astro/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/aos/astro/
+              - cwd: /Users/korneel/dev/projects/aos/astro/
+      color: blue
+        

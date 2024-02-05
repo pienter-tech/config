@@ -36,6 +36,7 @@ return {
                     "rust_analyzer",
                     "volar",
                     "emmet_ls",
+                    "intelephense",
                 },
                 automatic_installation = true,
             })

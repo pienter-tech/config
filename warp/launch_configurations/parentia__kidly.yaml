@@ -1,0 +1,17 @@
+
+name: parentia__kidly
+windows:
+  - tabs:
+    - title: parentia__kidly
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/parentia/kidly/frontend-nuxt-3/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/parentia/kidly/frontend-nuxt-3/
+              - cwd: /Users/korneel/dev/projects/parentia/kidly/frontend-nuxt-3/
+      color: blue
+        

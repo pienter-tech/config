@@ -1,0 +1,17 @@
+
+name: tas__directus
+windows:
+  - tabs:
+    - title: tas__directus
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tas/tas__directus/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tas/tas__directus/
+              - cwd: /Users/korneel/dev/projects/tas/tas__directus/
+      color: blue
+        
