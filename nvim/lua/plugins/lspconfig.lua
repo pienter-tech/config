@@ -26,7 +26,7 @@ return {
                 debounce_text_changes = 150,
             }
 
-            local function on_attach(client, bufnr)
+            local function on_attach(_, bufnr)
                 local opts = { noremap = true, silent = true }
 
                 opts.buffer = bufnr
@@ -67,8 +67,11 @@ return {
                 opts.desc = "Show documentation for what is under cursor"
                 keymap.set("n", "<F1>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
+                opts.desc = "Show LSP Info"
+                keymap.set("n", "<leader>li", ":LspInfo<CR>", opts)
+
                 opts.desc = "Restart LSP"
-                keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+                keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
             end
 
             mason_lspconfig.setup_handlers({
