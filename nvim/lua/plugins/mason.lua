@@ -1,53 +1,91 @@
 return {
     {
         "williamboman/mason.nvim",
-        dependencies = {
-            "williamboman/mason-lspconfig.nvim",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
+        opts = {
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗",
+                },
+            },
         },
-        config = function()
-            local mason = require("mason")
-            local mason_lspconfig = require("mason-lspconfig")
-            local mason_tool_installer = require("mason-tool-installer")
-
-            mason.setup({
-                ui = {
-                    icons = {
-                        package_installed = "✓",
-                        package_pending = "➜",
-                        package_uninstalled = "✗",
-                    },
-                },
-            })
-
-            mason_lspconfig.setup({
-                ensure_installed = {
-                    "astro",
-                    "cssls",
-                    "dockerls",
-                    "docker_compose_language_service",
-                    "gopls",
-                    "html",
-                    "tsserver",
-                    "eslint",
-                    "biome",
-                    "lua_ls",
-                    "psalm",
-                    "rust_analyzer",
-                    "volar",
-                    "emmet_ls",
-                    "intelephense",
-                },
-                automatic_installation = true,
-            })
-
-            mason_tool_installer.setup({
-                ensure_installed = {
-                    "prettier", -- prettier formatter
-                    "stylua",   -- lua formatter
-                    "eslint_d", -- js linter
-                },
-            })
-        end
-    }
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+        },
+        opts = {
+            ensure_installed = {
+                "astro",
+                "cssls",
+                "dockerls",
+                "docker_compose_language_service",
+                "gopls",
+                "html",
+                "tsserver",
+                "biome",
+                "lua_ls",
+                "psalm",
+                "intelephense",
+                "rust_analyzer",
+                "volar",
+                "emmet_ls",
+                "lemminx",
+            },
+            automatic_installation = true,
+        },
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+        },
+        opts = {
+            ensure_installed = {
+                "prettier", -- prettier formatter
+                "stylua", -- lua formatter
+                "eslint_d", -- js linter
+                "phpmd", -- php mess detector
+                "phpcs", -- php code sniffer
+                "php-cs-fixer", -- php code style fixer
+                "phpcbf", -- php code beautifier
+            },
+        },
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap",
+        },
+        opts = {
+            automatic_setup = true,
+            ensure_installed = {
+                "php",
+            },
+            handlers = {
+                function(config)
+                    require("mason-nvim-dap").default_setup(config)
+                end,
+                php = function(config)
+                    config.configurations = {
+                        {
+                            type = "php",
+                            request = "launch",
+                            name = "Dry Xdebug",
+                            port = 9003,
+                            stopOnEntry = false,
+                            pathMappings = {
+                                ["/var/www/html"] = "${workspaceFolder}",
+                                ["/var/www/dry/src/dry"] = "${workspaceFolder}/dry",
+                            },
+                        },
+                    }
+                    require("mason-nvim-dap").default_setup(config)
+                end,
+            },
+        },
+    },
 }

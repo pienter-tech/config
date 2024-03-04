@@ -1,0 +1,17 @@
+
+name: tnt__styleguide-essential
+windows:
+  - tabs:
+    - title: tnt__styleguide-essential
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/dry-styleguide-essential/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/dry-styleguide-essential/
+              - cwd: /Users/korneel/dev/projects/tnt/dry-styleguide-essential/
+      color: blue
+        

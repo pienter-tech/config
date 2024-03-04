@@ -6,5 +6,9 @@
   {
     "src": "pienter-tech/pienter-binner/main/pienter-binner",
     "name": "pienter-binner"
+  },
+  {
+    "src": "pienter-tech/pienter-launcher/main/pienter-launcher",
+    "name": "pienter-launcher"
   }
 ]

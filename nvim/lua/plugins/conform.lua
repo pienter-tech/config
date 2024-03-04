@@ -27,7 +27,7 @@ return {
                 markdown = { "prettier" },
                 graphql = { "prettier" },
                 vue = { "prettier" },
-                php = { "pint" },
+                php = { { "phpinsights", "php_cs_fixer" } },
             },
         },
     },

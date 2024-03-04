@@ -10,10 +10,6 @@ return {
             require("nvim-treesitter.query_predicates")
         end,
         cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            "windwp/nvim-ts-autotag",
-        },
         config = function()
             local treesitter = require("nvim-treesitter.configs")
 
@@ -50,6 +46,7 @@ return {
                     "yaml",
                     "markdown",
                     "markdown_inline",
+                    "xml",
                 },
                 auto_install = true,
                 incremental_selection = {

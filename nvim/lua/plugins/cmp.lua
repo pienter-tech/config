@@ -12,7 +12,6 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lua",
-            "zbirenbaum/copilot-cmp",
         },
         config = function()
             local cmp = require("cmp")
@@ -82,7 +81,6 @@ return {
                 }),
                 -- sources for autocompletion
                 sources = cmp.config.sources({
-                    { name = "copilot"},
                     { name = "nvim_lsp" },
                     { name = "luasnip" }, -- snippets
                     { name = "buffer" },  -- text within current buffer
@@ -95,9 +93,6 @@ return {
                         mode = "symbol",
                         maxwidth = 50,
                         ellipsis_char = "...",
-                        symbol_map = {
-                            Copilot = ""
-                        }
                     }),
                 },
             })

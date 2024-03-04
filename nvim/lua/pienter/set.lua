@@ -27,15 +27,16 @@ opt.timeout = true
 opt.timeoutlen = 300
 opt.colorcolumn = "80"
 opt.clipboard = "unnamedplus"
-opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200
 opt.virtualedit = "block"
+vim.g.netrw_bufsettings = "noma nomod nonu nobl nowrap ro rnu"
 
 vim.filetype.add({
     extension = {
-        astro = "astro"
-    }
+        astro = "astro",
+        mjml = "html",
+    },
 })
-

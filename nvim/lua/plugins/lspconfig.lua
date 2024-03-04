@@ -26,7 +26,8 @@ return {
                 debounce_text_changes = 150,
             }
 
-            local function on_attach(_, bufnr)
+            local function on_attach(client, bufnr)
+                vim.notify("LSP started for " .. client.name, vim.log.levels.INFO, { title = "LSP" })
                 local opts = { noremap = true, silent = true }
 
                 opts.buffer = bufnr
@@ -144,6 +145,48 @@ return {
                             "less",
                             "svelte",
                             "vue",
+                        },
+                    })
+                end,
+                ["intelephense"] = function()
+                    lspconfig.intelephense.setup({
+                        capabilities = capabilities,
+                        flags = flags,
+                        on_attach = function(client, bufnr)
+                            local active_clients = vim.lsp.get_active_clients()
+                            for _, active_client in pairs(active_clients) do
+                                if active_client.name == "psalm" then
+                                    client.stop()
+                                    return
+                                end
+                            end
+                            on_attach(client, bufnr)
+                        end,
+                        filetypes = {
+                            "php",
+                            "tpl",
+                            "blade",
+                        },
+                    })
+                end,
+                ["psalm"] = function()
+                    lspconfig.psalm.setup({
+                        capabilities = capabilities,
+                        flags = flags,
+                        on_attach = function(client, bufnr)
+                            local active_clients = vim.lsp.get_active_clients()
+                            for _, active_client in pairs(active_clients) do
+                                if active_client.name == "intelephense" then
+                                    active_client.stop()
+                                    return
+                                end
+                            end
+                            on_attach(client, bufnr)
+                        end,
+                        filetypes = {
+                            "php",
+                            "tpl",
+                            "blade",
                         },
                     })
                 end,

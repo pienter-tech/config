@@ -22,6 +22,7 @@ return {
                 typescriptreact = { "eslint_d" },
                 vue = { "eslint_d" },
                 svelte = { "eslint_d" },
+                php = { "phpinsights", },
             }
 
             local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

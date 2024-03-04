@@ -1,0 +1,17 @@
+
+name: tnt__volta
+windows:
+  - tabs:
+    - title: tnt__volta
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/volta/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/volta/
+              - cwd: /Users/korneel/dev/projects/tnt/volta/
+      color: blue
+        

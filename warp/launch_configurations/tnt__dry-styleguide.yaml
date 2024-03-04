@@ -1,0 +1,17 @@
+
+name: tnt__dry-styleguide
+windows:
+  - tabs:
+    - title: tnt__dry-styleguide
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/dry-styleguide/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/dry-styleguide/
+              - cwd: /Users/korneel/dev/projects/tnt/dry-styleguide/
+      color: blue
+        

@@ -25,6 +25,8 @@ key.set("i", "<C-h>", "<ESC>ha", { desc = "Move cursor to left in insert mode" }
 key.set("i", "<C-j>", "<ESC>ja", { desc = "Move cursor down in insert mode" })
 key.set("i", "<C-k>", "<ESC>ka", { desc = "Move cursor up in insert mode" })
 key.set("i", "<C-a>", "<ESC><S-a>", { desc = "Move cursor to end of line in insert mode" })
+key.set("i", "<C-i>", "<ESC><S-i>", { desc = "Move cursor to start of line in insert mode" })
 
-key.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 key.set("v", "p", '"_dP', { desc = "Replace currently selected text without yanking" })
+
+key.set("n", "<leader>bo", ':%bdelete|edit #|normal `"<CR>', { desc = "Close all buffers except current" })
