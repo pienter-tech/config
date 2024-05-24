@@ -101,6 +101,7 @@ return {
                         filetypes = {
                             "vue",
                             "typescript",
+                            "javascript",
                         },
                         root_dir = lspconfig.util.root_pattern("src/App.vue"),
                     })

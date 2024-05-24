@@ -30,7 +30,7 @@ return {
                 "psalm",
                 "intelephense",
                 "rust_analyzer",
-                "volar",
+                "volar@1.8.27",
                 "emmet_ls",
                 "lemminx",
             },
@@ -82,6 +82,16 @@ return {
                                 ["/var/www/dry/src/dry"] = "${workspaceFolder}/dry",
                             },
                         },
+                        {
+                            type = "php",
+                            request = "launch",
+                            name = "ASP Debug",
+                            port = 9003,
+                            stopOnEntry = false,
+                            pathMappings = {
+                                ["/var/www/html"] = "${workspaceFolder}/backend",
+                            }
+                        }
                     }
                     require("mason-nvim-dap").default_setup(config)
                 end,

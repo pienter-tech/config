@@ -6,4 +6,11 @@ export LC_ALL=en_US.UTF-8
 alias vim="nvim"
 alias v="nvim"
 
+alias dcu="docker compose up -d --build"
+function dce() {
+  docker compose exec $1 bash
+}
+
+alias zsh-source="source ~/.zshrc"
+
 export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin

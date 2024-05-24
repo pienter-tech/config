@@ -1,0 +1,17 @@
+
+name: tnt__gulp-heml
+windows:
+  - tabs:
+    - title: tnt__gulp-heml
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/gulp-heml/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/gulp-heml/
+              - cwd: /Users/korneel/dev/projects/tnt/gulp-heml/
+      color: blue
+        

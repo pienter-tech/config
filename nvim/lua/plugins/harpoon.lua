@@ -8,7 +8,7 @@ return {
         {
             "<leader>hm",
             function()
-                require("harpoon"):list():append()
+                require("harpoon"):list():add()
             end,
             desc = "Mark file with harpoon",
             mode = "n",

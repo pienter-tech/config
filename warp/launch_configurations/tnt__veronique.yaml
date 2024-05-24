@@ -1,0 +1,17 @@
+
+name: tnt__veronique
+windows:
+  - tabs:
+    - title: tnt__veronique
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/veronique/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/veronique/
+              - cwd: /Users/korneel/dev/projects/tnt/veronique/
+      color: blue
+        

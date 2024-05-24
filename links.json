@@ -22,5 +22,13 @@
   {
     "src": "bin",
     "dest": "/Users/korneel/.bin"
+  },
+  {
+    "src": "wezterm",
+    "dest": "/Users/korneel/.config/wezterm"
+  },
+  {
+    "src": "karabiner",
+    "dest": "/Users/korneel/.config/karabiner"
   }
 ]

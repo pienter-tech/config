@@ -1,0 +1,17 @@
+
+name: tnt__dry-docker
+windows:
+  - tabs:
+    - title: tnt__dry-docker
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/dry-docker/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/dry-docker/
+              - cwd: /Users/korneel/dev/projects/tnt/dry-docker/
+      color: blue
+        

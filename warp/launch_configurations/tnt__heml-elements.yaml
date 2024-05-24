@@ -1,0 +1,17 @@
+
+name: tnt__heml-elements
+windows:
+  - tabs:
+    - title: tnt__heml-elements
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/heml-elements/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/heml-elements/
+              - cwd: /Users/korneel/dev/projects/tnt/heml-elements/
+      color: blue
+        

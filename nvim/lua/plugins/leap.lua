@@ -14,11 +14,9 @@ return {
             local leap = require("leap")
             leap.add_default_mappings(true)
             vim.keymap.del({ "x", "o" }, "x")
-            vim.keymap.del({ "x", "o" }, "s")
             vim.keymap.del({ "x", "o" }, "X")
-            vim.keymap.del({ "x", "o" }, "S")
         end,
     },
-    -- makes some plugins dot-repeatable like leap
+    -- makes some plbelsugins dot-repeatable like leap
     { "tpope/vim-repeat", event = "VeryLazy" },
 }

@@ -1,0 +1,17 @@
+
+name: tnt__center
+windows:
+  - tabs:
+    - title: tnt__center
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/center/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/center/
+              - cwd: /Users/korneel/dev/projects/tnt/center/
+      color: blue
+        

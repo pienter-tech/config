@@ -1,0 +1,17 @@
+
+name: tnt__taf
+windows:
+  - tabs:
+    - title: tnt__taf
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/taf/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/taf/
+              - cwd: /Users/korneel/dev/projects/tnt/taf/
+      color: blue
+        
