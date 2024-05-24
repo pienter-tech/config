@@ -6,7 +6,11 @@ writeToProfile("Default profile", [
     .description("Open apps")
     .leaderMode()
     .notification()
-    .manipulators([map("w").to$("wezterm start"), map("c").toApp("Google Chrome"), map("s").toApp("Safari")]),
+    .manipulators([
+      map("w").to$("open -g raycast://extensions/warpdotdev/warp/launch-config"),
+      map("c").toApp("Google Chrome"),
+      map("s").toApp("Safari"),
+    ]),
   modifierLayer("option", "w", "window-layer")
     .description("Window management")
     .leaderMode({ sticky: true })
@@ -32,4 +36,3 @@ writeToProfile("Default profile", [
       ),
     ]),
 ]);
-

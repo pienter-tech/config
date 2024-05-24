@@ -73,7 +73,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a \"Wezterm\".app"
+                    "shell_command": "open -g raycast://extensions/warpdotdev/warp/launch-config"
                   },
                   {
                     "set_variable": {
