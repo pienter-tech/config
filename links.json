@@ -8,8 +8,12 @@
     "dest": "/Users/korneel/.ideavimrc"
   },
   {
-    "src": "dotfiles/zshrc",
+    "src": "zsh/zshrc",
     "dest": "/Users/korneel/.zshrc"
+  },
+  {
+    "src": "zsh",
+    "dest": "/Users/korneel/.config/zsh"
   },
   {
     "src": "nvim",

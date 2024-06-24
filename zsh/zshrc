@@ -1,0 +1,77 @@
+eval "$(nodenv init -)"
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+
+if [[ -f "/opt/homebrew/bin/brew" ]] then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+source $HOMEBREW_PREFIX/opt/zinit/zinit.zsh
+
+### History
+
+HISTSIZE=5000
+HISTFILE=~/.config/zsh/zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+### ALIASES
+
+alias zsh-source="source ~/.zshrc"
+alias vim="nvim"
+alias v="nvim"
+alias dcu="docker compose up -d --build"
+alias c="clear"
+alias ls="ls --color"
+
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+### FUNCTIONS
+
+function dce() {
+  docker compose exec $1 bash
+}
+
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+### PATH
+
+export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin
+
+### Plugins
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
+
+zinit load pndurette/zsh-lux
+
+if macos_is_dark; then
+    source ~/.config/zsh/themes/catppuccin_frappe-zsh-syntax-highlighting.zsh
+else
+    source ~/.config/zsh/themes/catppuccin_latte-zsh-syntax-highlighting.zsh
+fi
+
+zinit light zsh-users/zsh-completions
+zinit light Aloxaf/fzf-tab
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+
+# Load completions
+autoload -Uz compinit && compinit
+zinit cdreplay -q

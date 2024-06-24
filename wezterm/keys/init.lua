@@ -47,6 +47,7 @@ local function keys(config)
 
 	config.keys = {
 		{ key = "w", mods = "LEADER", action = actions.ActivateKeyTable({ name = "windows" }) },
+		{ key = "t", mods = "LEADER", action = actions.ActivateKeyTable({ name = "tabs" }) },
 		{ key = "z", mods = "LEADER", action = actions.TogglePaneZoomState },
 		{
 			key = "P",
@@ -54,7 +55,7 @@ local function keys(config)
 			action = actions.ActivateCommandPalette,
 		},
 		{
-			key = "L",
+			key = "p",
 			mods = "SUPER",
 			action = actions.ShowLauncher,
 		},
@@ -88,12 +89,19 @@ local function keys(config)
 
 	config.key_tables = {
 		windows = {
+			{ key = "w", action = actions.RotatePanes("CounterClockwise") },
+			{ key = "W", action = actions.RotatePanes("Clockwise") },
 			{ key = "h", action = actions.SplitPane({ direction = "Left" }) },
 			{ key = "j", action = actions.SplitPane({ direction = "Down" }) },
 			{ key = "k", action = actions.SplitPane({ direction = "Up" }) },
 			{ key = "l", action = actions.SplitPane({ direction = "Right" }) },
 			{ key = "s", action = actions.SplitPane({ direction = "Right", size = { Percent = 25 } }) },
 			{ key = "c", action = wezterm.action.CloseCurrentPane({ confirm = false }) },
+		},
+		tabs = {
+			{ key = "t", action = actions.ActivateLastTab },
+			{ key = "c", action = actions.CloseCurrentTab({ confirm = true }) },
+			{ key = "n", action = actions.SpawnTab("CurrentPaneDomain") },
 		},
 	}
 end

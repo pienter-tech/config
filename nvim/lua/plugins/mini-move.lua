@@ -14,6 +14,14 @@ return {
                 right = "<M-l>",
                 down = "<M-j>",
                 up = "<M-k>",
+
+                line_left = "",
+                line_right = "",
+                line_down = "",
+                line_up = "",
+            },
+            options = {
+                reindent_linewise = true,
             },
         },
     },

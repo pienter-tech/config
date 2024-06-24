@@ -35,7 +35,8 @@ local function appearance(config)
 
 	config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 
-	config.use_fancy_tab_bar = true
+    config.enable_tab_bar = true
+	config.use_fancy_tab_bar = false
 
 	config.window_background_opacity = 9.8
 
