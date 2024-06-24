@@ -15,7 +15,7 @@ return {
         end,
         keys = {
             {
-                "<leader>fv",
+                "<leader>fn",
                 function()
                     if vim.api.nvim_buf_get_option(0, "filetype") == "netrw" and vim.fn.exists(":Rexplore") then
                         vim.cmd("Rexplore")

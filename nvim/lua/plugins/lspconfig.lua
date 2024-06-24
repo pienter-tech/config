@@ -75,6 +75,16 @@ return {
                 keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
             end
 
+            local function tsdk()
+                local tsl = vim.fn.getcwd() .. "/node_modules/typescript/lib"
+
+                if vim.fn.isdirectory(tsl) == 0 then
+                    tsl = vim.fn.getcwd() .. "/frontend/node_modules/typescript/lib"
+                end
+
+                return tsl
+            end
+
             mason_lspconfig.setup_handlers({
                 function(server_name)
                     lspconfig[server_name].setup({
@@ -83,43 +93,39 @@ return {
                         on_attach = on_attach,
                     })
                 end,
+                ["html"] = function()
+                    lspconfig.html.setup({
+                        capabilities = capabilities,
+                        flags = flags,
+                        on_attach = on_attach,
+                        filetypes = { "html", "vue"}
+                    })
+                end,
                 ["volar"] = function()
                     lspconfig.volar.setup({
                         capabilities = capabilities,
                         flags = flags,
-                        on_attach = function(client, bufnr)
-                            local active_clients = vim.lsp.get_active_clients()
-                            for _, active_client in pairs(active_clients) do
-                                if active_client.name == "tsserver" then
-                                    active_client.stop()
-                                    return
-                                end
-                            end
-
-                            on_attach(client, bufnr)
-                        end,
-                        filetypes = {
-                            "vue",
-                            "typescript",
-                            "javascript",
+                        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+                        -- root_dir = lspconfig.util.root_pattern("src/App.vue"),
+                        init_options = {
+                            vue = {
+                                hybridMode = false,
+                            },
+                            typescript = {
+                                tsdk = tsdk(),
+                            },
                         },
-                        root_dir = lspconfig.util.root_pattern("src/App.vue"),
                     })
                 end,
                 ["tsserver"] = function()
                     lspconfig.tsserver.setup({
                         capabilities = capabilities,
                         flags = flags,
-                        on_attach = function(client, bufnr)
-                            local active_clients = vim.lsp.get_active_clients()
-                            for _, active_client in pairs(active_clients) do
-                                if active_client.name == "volar" then
-                                    client.stop()
-                                    return
-                                end
-                            end
-                            on_attach(client, bufnr)
-                        end,
+                        init_options = {
+                            typescript = {
+                                tsdk = tsdk(),
+                            },
+                        },
                         filetypes = {
                             "javascript",
                             "javascriptreact",
@@ -127,7 +133,6 @@ return {
                             "typescript",
                             "typescriptreact",
                             "typescript.tsx",
-                            "vue",
                         },
                     })
                 end,

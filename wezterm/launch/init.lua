@@ -1,16 +1,44 @@
 local wezterm = require("wezterm")
 
-wezterm.on("user-var-changed", function(window, pane, name, value)
-    wezterm.log_info("user-var-changed: " .. name .. " = " .. value)
-	if name ~= "switch-workspace" then
-		return
+local function get_projects()
+	local projects = require("launch.projects")
+	local active_workspaces = wezterm.mux.get_workspace_names()
+
+	for i = 1, #projects do
+		for j = 1, #active_workspaces do
+			if projects[i].label == active_workspaces[j] then
+				projects[i].label = wezterm.format({
+					{ Attribute = { Underline = "Single" } },
+					{ Foreground = { AnsiColor = "Yellow" } },
+					{ Text = "*" .. projects[i].label .. "*" },
+				})
+			end
+		end
 	end
-    wezterm.log_info("switch-workspace: " .. value)
-	window:toast_notification("switch-workspace", "before", nil, 4000)
-end)
+
+	table.sort(projects, function(a, b)
+		local a_active = string.match(a.label, "%*")
+		local b_active = string.match(b.label, "%*")
+
+        if a.active and not b_active then
+            return true
+        end
+
+		return a.label < b.label
+	end)
+
+	return projects
+end
 
 local function init(config)
-	local projects = require("launch.projects")
+	wezterm.on("user-var-changed", function(window, pane, name, value)
+		wezterm.log_info("user-var-changed: " .. name .. " = " .. value)
+		if name ~= "switch-workspace" then
+			return
+		end
+		wezterm.log_info("switch-workspace: " .. value)
+		window:toast_notification("switch-workspace", "before", nil, 4000)
+	end)
 
 	wezterm.on("show-workspaces", function(window, pane)
 		window:perform_action(
@@ -19,19 +47,20 @@ local function init(config)
 					if not id and not label then
 						wezterm.log_info("No project selected")
 					else
-                        wezterm.log_info(label .. " selected")
+						local clean_label = string.gsub(label, "^.-%*", ""):gsub("%*.-$", "")
+						wezterm.log_info(clean_label .. " selected")
+
+						if label ~= clean_label then
+							wezterm.log_info("active workspace")
+							wezterm.mux.set_active_workspace(clean_label)
+							return
+						end
+
 						inner_window:perform_action(
 							wezterm.action.SwitchToWorkspace({
-								name = label,
+								name = clean_label,
 								spawn = {
-									label = label,
 									cwd = id,
-									args = {
-                                        os.getenv("SHELL"),
-                                        "-c",
-                                        "/opt/homebrew/bin/nvim ."
-                                        -- 'printf "\033]1337;SetUserVar=%s=%s\007" switch-workspace `echo -n asp | base64`'
-									}
 								},
 							}),
 							inner_pane
@@ -39,8 +68,7 @@ local function init(config)
 					end
 				end),
 				title = "Select a project: ",
-				choices = projects,
-				fuzzy = true,
+				choices = get_projects(),
 				fuzzy_description = "Search project: ",
 			}),
 			pane

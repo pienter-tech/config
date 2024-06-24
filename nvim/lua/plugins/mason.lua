@@ -30,7 +30,7 @@ return {
                 "psalm",
                 "intelephense",
                 "rust_analyzer",
-                "volar@1.8.27",
+                "volar",
                 "emmet_ls",
                 "lemminx",
             },

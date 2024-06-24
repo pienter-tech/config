@@ -2,20 +2,19 @@ return {
     {
         "echasnovski/mini.move",
         version = "*",
+        keys = {
+            { mode = "v", "<M-h>", desc = "Move visual selection left" },
+            { mode = "v", "<M-l>", desc = "Move visual selection right" },
+            { mode = "v", "<M-j>", desc = "Move visual selection down" },
+            { mode = "v", "<M-k>", desc = "Move visual selection up" },
+        },
         opts = {
             mappings = {
-                -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-                left = '<M-h>',
-                right = '<M-l>',
-                down = '<M-j>',
-                up = '<M-k>',
-
-                -- Move current line in Normal mode
-                line_left = '<M-h>',
-                line_right = '<M-l>',
-                line_down = '<M-j>',
-                line_up = '<M-k>',
+                left = "<M-h>",
+                right = "<M-l>",
+                down = "<M-j>",
+                up = "<M-k>",
             },
-        }
-    }
+        },
+    },
 }

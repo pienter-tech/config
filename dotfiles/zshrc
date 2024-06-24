@@ -11,6 +11,17 @@ function dce() {
   docker compose exec $1 bash
 }
 
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 alias zsh-source="source ~/.zshrc"
+
+eval "$(zoxide init zsh)"
 
 export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin
