@@ -40,6 +40,11 @@ local function appearance(config)
 
 	config.window_background_opacity = 9.8
 
+    config.inactive_pane_hsb = {
+        saturation = 0.5,
+        brightness = 0.3,
+    }
+
 	format_window_title()
 end
 
