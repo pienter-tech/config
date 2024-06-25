@@ -42,7 +42,7 @@ local function appearance(config)
 
     config.inactive_pane_hsb = {
         saturation = 0.5,
-        brightness = 0.3,
+        brightness = 0.7,
     }
 
 	format_window_title()
