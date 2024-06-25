@@ -11,7 +11,7 @@ source $HOMEBREW_PREFIX/opt/zinit/zinit.zsh
 
 ### History
 
-HISTSIZE=5000
+HISTSIZE=10000
 HISTFILE=~/.config/zsh/zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
@@ -67,10 +67,11 @@ else
     source ~/.config/zsh/themes/catppuccin_latte-zsh-syntax-highlighting.zsh
 fi
 
-zinit light zsh-users/zsh-completions
 zinit light Aloxaf/fzf-tab
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-syntax-highlighting
+zinit light jeffreytse/zsh-vi-mode
 
 # Load completions
 autoload -Uz compinit && compinit

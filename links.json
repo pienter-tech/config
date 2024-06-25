@@ -8,6 +8,10 @@
     "dest": "/Users/korneel/.ideavimrc"
   },
   {
+    "src": "zsh/zshenv",
+    "dest": "/Users/korneel/.zshenv"
+  },
+  {
     "src": "zsh/zshrc",
     "dest": "/Users/korneel/.zshrc"
   },
