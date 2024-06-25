@@ -72,6 +72,7 @@ local function init()
 				title = "Select a project: ",
 				choices = get_projects(),
 				fuzzy_description = "Search project: ",
+                fuzzy = true,
 			}),
 			pane
 		)
