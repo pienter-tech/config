@@ -20,9 +20,13 @@ local function format_window_title()
 	end)
 end
 
-local function scheme_for_appearance(cur_appearance)
-	wezterm.log_info("scheme_for_appearance")
-	wezterm.log_info(cur_appearance)
+local function scheme_for_appearance()
+    local cur_appearance = 'DarkNotFound'
+
+    if (wezterm.gui) then
+        cur_appearance = wezterm.gui.get_appearance()
+    end
+
 	if cur_appearance:find("Dark") then
 		return "Catppuccin Frappe"
 	else
@@ -33,7 +37,7 @@ end
 local function appearance(config)
 	config.font_size = 14
 
-	config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
+	config.color_scheme = scheme_for_appearance()
 
     config.enable_tab_bar = true
 	config.use_fancy_tab_bar = false

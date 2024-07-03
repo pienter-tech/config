@@ -28,6 +28,7 @@ return {
                 graphql = { "prettier" },
                 vue = { "prettier" },
                 php = { { "pint", "phpinsights", "php_cs_fixer" } },
+                toml = { "taplo" },
             },
         },
     },

@@ -48,6 +48,7 @@ local function keys(config)
 	config.keys = {
 		{ key = "w", mods = "LEADER", action = actions.ActivateKeyTable({ name = "windows" }) },
 		{ key = "t", mods = "LEADER", action = actions.ActivateKeyTable({ name = "tabs" }) },
+		{ key = "r", mods = "SUPER|SHIFT", action = actions.ReloadConfiguration },
 		{ key = "z", mods = "LEADER", action = actions.TogglePaneZoomState },
 		{
 			key = "P",
@@ -63,6 +64,11 @@ local function keys(config)
 			key = "l",
 			mods = "SUPER",
 			action = actions.EmitEvent("show-workspaces"),
+		},
+		{
+			key = "L",
+			mods = "SUPER",
+			action = actions.EmitEvent("show-workspaces-new-window"),
 		},
 		{
 			key = "Tab",

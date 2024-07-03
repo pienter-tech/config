@@ -38,6 +38,10 @@ bindkey '^n' history-search-forward
 
 ### FUNCTIONS
 
+function add-wakatime() {
+    echo "$1" > .wakatime-project && echo -e "\n.wakatime-project" >> .gitignore
+}
+
 function dce() {
   docker compose exec $1 bash
 }
@@ -71,7 +75,6 @@ zinit light Aloxaf/fzf-tab
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit light jeffreytse/zsh-vi-mode
 
 # Load completions
 autoload -Uz compinit && compinit

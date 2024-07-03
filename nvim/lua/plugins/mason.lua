@@ -33,6 +33,7 @@ return {
                 "volar",
                 "emmet_ls",
                 "lemminx",
+                "taplo",
             },
             automatic_installation = true,
         },

@@ -1,0 +1,17 @@
+
+name: tnt__mustmove
+windows:
+  - tabs:
+    - title: tnt__mustmove
+      layout:
+        split_direction: horizontal
+        panes: 
+          - cwd: /Users/korneel/dev/projects/tnt/mustmove/
+            commands:
+              - exec: v .
+          - split_direction: vertical
+            panes:
+              - cwd: /Users/korneel/dev/projects/tnt/mustmove/
+              - cwd: /Users/korneel/dev/projects/tnt/mustmove/
+      color: blue
+        

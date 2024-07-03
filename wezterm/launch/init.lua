@@ -20,7 +20,7 @@ local function get_projects()
 		local a_active = string.match(a.label, "%*")
 		local b_active = string.match(b.label, "%*")
 
-		if a.active and not b_active then
+		if a_active and not b_active then
 			return true
 		end
 
@@ -66,6 +66,19 @@ local function init()
 	end)
 
 	wezterm.on("show-workspaces", function(window, pane)
+		window:perform_action(
+			wezterm.action.InputSelector({
+				action = wezterm.action_callback(select_workspace),
+				title = "Select a project: ",
+				choices = get_projects(),
+				fuzzy_description = "Search project: ",
+                fuzzy = true,
+			}),
+			pane
+		)
+	end)
+
+	wezterm.on("show-workspaces-new-windows", function(window, pane)
 		window:perform_action(
 			wezterm.action.InputSelector({
 				action = wezterm.action_callback(select_workspace),

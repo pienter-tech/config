@@ -16,7 +16,6 @@ return {
             treesitter.setup({
                 highlight = { enable = true },
                 indent = { enable = true },
-                autotag = { enable = true },
                 ensure_installed = {
                     "bash",
                     "c",
@@ -44,6 +43,7 @@ return {
                     "tsx",
                     "vue",
                     "yaml",
+                    "toml",
                     "markdown",
                     "markdown_inline",
                     "xml",
