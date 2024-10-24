@@ -25,13 +25,14 @@ opt.scrolloff = 15
 opt.sidescrolloff = 10
 opt.timeout = true
 opt.timeoutlen = 300
-opt.colorcolumn = "80"
+opt.colorcolumn = "0"
 opt.clipboard = "unnamedplus"
 opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200
 opt.virtualedit = "block"
+vim.o.conceallevel = 2
 vim.g.netrw_bufsettings = "noma nomod nonu nobl nowrap ro rnu"
 
 vim.filetype.add({
@@ -40,3 +41,4 @@ vim.filetype.add({
         mjml = "html",
     },
 })
+

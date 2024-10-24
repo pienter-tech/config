@@ -25,6 +25,7 @@ return {
                 json = { "prettier" },
                 yaml = { "prettier" },
                 markdown = { "prettier" },
+                astro = { "prettier" },
                 graphql = { "prettier" },
                 vue = { "prettier" },
                 php = { { "pint", "phpinsights", "php_cs_fixer" } },

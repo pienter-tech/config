@@ -1,12 +1,13 @@
 return {
     {
         "olimorris/persisted.nvim",
+        lazy = false,
         opts = {
-            autosave = true,
+            autostart = true,
             autoload = true,
-            allowed_dirs = {
-                "~/dev/projects"
-            }
+            on_autoload_no_session = function()
+                vim.notify("No existing session to load.")
+            end,
         },
-    }
+    },
 }

@@ -7,6 +7,10 @@ return {
             { "antosha417/nvim-lsp-file-operations", config = true },
             "williamboman/mason-lspconfig.nvim",
         },
+        keys = {
+            { "<leader>li", "<cmd>LspInfo<CR>", desc = "Show LSP Info", mode = "n"},
+            { "<leader>lr", "<cmd>LspRestart<CR>", desc = "Restart LSP", mode = "n"},
+        },
         config = function()
             local keymap = vim.keymap
             local lspconfig = require("lspconfig")
@@ -67,12 +71,6 @@ return {
 
                 opts.desc = "Show documentation for what is under cursor"
                 keymap.set("n", "<F1>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-                opts.desc = "Show LSP Info"
-                keymap.set("n", "<leader>li", ":LspInfo<CR>", opts)
-
-                opts.desc = "Restart LSP"
-                keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
             end
 
             local function tsdk()
@@ -98,32 +96,33 @@ return {
                         capabilities = capabilities,
                         flags = flags,
                         on_attach = on_attach,
-                        filetypes = { "html", "vue"}
+                        filetypes = { "html", "vue" },
                     })
                 end,
                 ["volar"] = function()
                     lspconfig.volar.setup({
                         capabilities = capabilities,
                         flags = flags,
-                        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-                        -- root_dir = lspconfig.util.root_pattern("src/App.vue"),
-                        init_options = {
-                            vue = {
-                                hybridMode = false,
-                            },
-                            typescript = {
-                                tsdk = tsdk(),
-                            },
-                        },
+                        filetypes = { "vue" },
+                        on_attach = on_attach,
                     })
                 end,
-                ["tsserver"] = function()
-                    lspconfig.tsserver.setup({
+                ["ts_ls"] = function()
+                    local mason_registry = require("mason-registry")
+                    local vue_language_server_path = mason_registry
+                        .get_package("vue-language-server")
+                        :get_install_path() .. "/node_modules/@vue/language-server"
+
+                    lspconfig.ts_ls.setup({
                         capabilities = capabilities,
                         flags = flags,
                         init_options = {
-                            typescript = {
-                                tsdk = tsdk(),
+                            plugins = {
+                                {
+                                    name = "@vue/typescript-plugin",
+                                    location = vue_language_server_path,
+                                    languages = { "vue" },
+                                },
                             },
                         },
                         filetypes = {
@@ -133,7 +132,9 @@ return {
                             "typescript",
                             "typescriptreact",
                             "typescript.tsx",
+                            "vue",
                         },
+                        on_attach = on_attach,
                     })
                 end,
                 ["emmet_ls"] = function()
@@ -151,48 +152,6 @@ return {
                             "less",
                             "svelte",
                             "vue",
-                        },
-                    })
-                end,
-                ["intelephense"] = function()
-                    lspconfig.intelephense.setup({
-                        capabilities = capabilities,
-                        flags = flags,
-                        on_attach = function(client, bufnr)
-                            local active_clients = vim.lsp.get_active_clients()
-                            for _, active_client in pairs(active_clients) do
-                                if active_client.name == "psalm" then
-                                    client.stop()
-                                    return
-                                end
-                            end
-                            on_attach(client, bufnr)
-                        end,
-                        filetypes = {
-                            "php",
-                            "tpl",
-                            "blade",
-                        },
-                    })
-                end,
-                ["psalm"] = function()
-                    lspconfig.psalm.setup({
-                        capabilities = capabilities,
-                        flags = flags,
-                        on_attach = function(client, bufnr)
-                            local active_clients = vim.lsp.get_active_clients()
-                            for _, active_client in pairs(active_clients) do
-                                if active_client.name == "intelephense" then
-                                    active_client.stop()
-                                    return
-                                end
-                            end
-                            on_attach(client, bufnr)
-                        end,
-                        filetypes = {
-                            "php",
-                            "tpl",
-                            "blade",
                         },
                     })
                 end,

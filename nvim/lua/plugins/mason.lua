@@ -12,46 +12,43 @@ return {
         },
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = {
-            "williamboman/mason.nvim",
-        },
-        opts = {
-            ensure_installed = {
-                "astro",
-                "cssls",
-                "dockerls",
-                "docker_compose_language_service",
-                "gopls",
-                "html",
-                "tsserver",
-                "biome",
-                "lua_ls",
-                "psalm",
-                "intelephense",
-                "rust_analyzer",
-                "volar",
-                "emmet_ls",
-                "lemminx",
-                "taplo",
-            },
-            automatic_installation = true,
-        },
-    },
-    {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = {
+            "williamboman/mason-lspconfig.nvim",
             "williamboman/mason.nvim",
         },
         opts = {
+            auto_update = true,
+            integrations = {
+                ["mason-lspconfig"] = true,
+            },
             ensure_installed = {
-                "prettier", -- prettier formatter
-                "stylua", -- lua formatter
-                "eslint_d", -- js linter
-                "phpmd", -- php mess detector
-                "phpcs", -- php code sniffer
+                "astro",
+                "biome",
+                "cssls",
+                "docker_compose_language_service",
+                "dockerls",
+                "emmet_ls",
+                "eslint",
+                "gopls",
+                "html",
+                "intelephense",
+                "jsonls",
+                "lemminx",
+                "lua_ls",
+                "nil_ls",
                 "php-cs-fixer", -- php code style fixer
                 "phpcbf", -- php code beautifier
+                "phpcs", -- php code sniffer
+                "phpmd", -- php mess detector
+                "prettier", -- prettier formatter
+                "remark_ls",
+                "rust_analyzer",
+                "stylua", -- lua formatter
+                "taplo",
+                "ts_ls",
+                "volar",
+                "yamlls",
             },
         },
     },
@@ -91,8 +88,8 @@ return {
                             stopOnEntry = false,
                             pathMappings = {
                                 ["/var/www/html"] = "${workspaceFolder}/backend",
-                            }
-                        }
+                            },
+                        },
                     }
                     require("mason-nvim-dap").default_setup(config)
                 end,

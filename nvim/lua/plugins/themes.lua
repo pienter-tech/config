@@ -9,7 +9,21 @@ return {
                 flavour = "auto",
                 background = {
                     light = "latte",
-                    dark = "frappe",
+                    dark = "mocha",
+                },
+                term_colors = true,
+                dim_inactive = {
+                    enabled = true,
+                    shade = "dark",
+                    percentage = "0.05",
+                },
+                highlight_overrides = {
+                    all = function(colors)
+                        return {
+                            LineNr = { fg = colors.lavender },
+                            CursorLineNr = { fg = colors.mauve },
+                        }
+                    end,
                 },
             })
             vim.cmd.colorscheme("catppuccin")
@@ -25,6 +39,14 @@ return {
             set_light_mode = function()
                 vim.api.nvim_set_option_value("background", "light", {})
             end,
+        },
+    },
+    {
+        "levouh/tint.nvim",
+        lazy = false,
+        opts = {
+            tint = -20,
+            saturation = 0.4,
         },
     },
 }

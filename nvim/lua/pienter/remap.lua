@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 local key = vim.keymap
 
@@ -20,8 +21,14 @@ key.set("n", "<leader>wk", "<C-w>k", { desc = "Go to window on top" })
 key.set("n", "<leader>w=", "<C-w>=", { desc = "Make windows equaly high en wide" })
 key.set("n", "<leader>w-", "<C-w>< <C-w>< <C-w>< <C-w>< <C-w>< <C-w>< <C-w>< <C-w><", { desc = "Make window smaller" })
 key.set("n", "<leader>w+", "<C-w>> <C-w>> <C-w>> <C-w>> <C-w>> <C-w>> <C-w>> <C-w>>", { desc = "Make window bigger" })
--- Terminal
-key.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Esc in terminal" })
+-- Tabs
+key.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Create new tab"})
+key.set("n", "<leader>tt", ":tabnext #<CR>", { desc = "Go to previous tab"})
+key.set("n", "<leader>th", ":tabnext -<CR>", { desc = "Go to tab on the left"})
+key.set("n", "<leader>tl", ":tabnext +<CR>", { desc = "Go to tab on the right"})
+key.set("n", "<leader>tc", ":tabclose<CR>", {desc = "Close current tab"})
+key.set("n", "<leader>to", ":tabonly<CR>", {desc = "Close all tabs except the current one"})
+
 -- Clear search highlights
 key.set("n", "<leader>/", ":nohlsearch<CR>", { desc = "Stop highlighting for the search" })
 -- Run macro q
@@ -33,5 +40,6 @@ key.set("i", "<C-i>", "<ESC><S-i>", { desc = "Move cursor to start of line in in
 key.set("v", "p", '"_dP', { desc = "Replace currently selected text without yanking" })
 
 key.set("n", "<leader>bo", ':%bdelete|edit #|normal `"<CR>', { desc = "Close all buffers except current" })
+key.set("n", "<leader>bc", ':bd<CR>', { desc = "Close current buffer" })
 
 key.set("n", "<leader>hc", ":helpclose<CR>", { desc = "Close help window" })
