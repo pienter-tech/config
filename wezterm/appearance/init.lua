@@ -28,7 +28,7 @@ local function scheme_for_appearance()
     end
 
 	if cur_appearance:find("Dark") then
-		return "Catppuccin Frappe"
+		return "Catppuccin Mocha"
 	else
 		return "Catppuccin Latte"
 	end
@@ -46,7 +46,7 @@ local function appearance(config)
 
     config.inactive_pane_hsb = {
         saturation = 0.5,
-        brightness = 0.7,
+        brightness = 0.8,
     }
 
 	format_window_title()
