@@ -733,16 +733,6 @@
                     }
                 ]
             },
-            "devices": [
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 45929,
-                        "vendor_id": 1133
-                    },
-                    "treat_as_built_in_keyboard": true
-                }
-            ],
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
@@ -753,7 +743,7 @@
             ],
             "virtual_hid_keyboard": {
                 "country_code": 0,
-                "keyboard_type_v2": "ansi"
+                "keyboard_type_v2": "iso"
             }
         }
     ]

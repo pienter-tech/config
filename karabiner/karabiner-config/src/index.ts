@@ -7,9 +7,7 @@ writeToProfile("Default profile", [
     .leaderMode()
     .notification()
     .manipulators([
-      map("w").to$(
-        "open -g raycast://extensions/warpdotdev/warp/launch-config",
-      ),
+      map("w").toApp("Wezterm"),
       map("c").toApp("Google Chrome"),
       map("s").toApp("Safari"),
       map("o").toApp("Microsoft Outlook"),
