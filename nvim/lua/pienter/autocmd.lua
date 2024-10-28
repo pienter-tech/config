@@ -23,13 +23,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end,
 })
 
--- Persisted does not autoload unless nvim is opened with a file. This
--- will force auto-loading if nvim has no arguments or is passed a
--- single argument that is a directory, otherwise persisted will kick in
--- like normal.
 vim.api.nvim_create_autocmd("VimEnter", {
     nested = true,
-
     callback = function()
         if vim.g.started_with_stdin then
             return
@@ -52,3 +47,4 @@ vim.api.nvim_create_autocmd("VimEnter", {
         require("persisted").autoload({ force = forceload })
     end,
 })
+
