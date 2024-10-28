@@ -20,6 +20,10 @@
     "dest": "/Users/korneel/.config/zsh"
   },
   {
+    "src": "dotfiles/startship.toml",
+    "dest": "Users/korneel/.config/starship.toml"
+  },
+  {
     "src": "nvim",
     "dest": "/Users/korneel/.config/nvim"
   },
