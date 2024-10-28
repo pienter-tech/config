@@ -8,6 +8,14 @@
     pkgs.alejandra
     pkgs.bat
     pkgs.fd
+    pkgs.fswatch
+    pkgs.fzf
+  ];
+
+  fonts.packages = [
+    (
+      pkgs.nerdfonts.override {fonts = ["FiraCode" "RobotoMono" "JetBrainsMono"];}
+    )
   ];
 
   # Auto upgrade nix package and the daemon service.
