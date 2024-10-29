@@ -2,24 +2,25 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
-add_newline = false
+add_newline = true
 
 palette = "catppuccin_mocha"
 
 # A minimal left prompt
-format = """$directory$character"""
-
-# move the rest of the prompt to the right
-right_format = """$status$all"""
+format = """
+$directory\
+$git_branch\
+$git_status\
+\n$character"""
 
 [character]
-success_symbol = "[❯](red)[❯](yellow)[❯](green)"
-error_symbol = "[❯](red)[❯](yellow)[❯](green)"
-vimcmd_symbol = "[❮](green)[❮](yellow)[❮](red)"
+success_symbol = "[❯](lavendel)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
 
 [git_branch]
 format = '[$branch]($style) '
-style = 'bold green'
+style = 'peach'
 
 [git_status]
 format = '$all_status$ahead_behind '
