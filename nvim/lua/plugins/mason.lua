@@ -36,6 +36,7 @@ return {
                 "jsonls",
                 "lemminx",
                 "lua_ls",
+                "markdownlint",
                 "nil_ls",
                 "php-cs-fixer", -- php code style fixer
                 "phpcbf", -- php code beautifier
