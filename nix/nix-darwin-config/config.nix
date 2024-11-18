@@ -8,15 +8,16 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
-    pkgs.vim
-    pkgs.raycast
-    pkgs.karabiner-elements # handles keyboard shortcuts
     pkgs.alejandra # nix formatter
     pkgs.bat
+    pkgs.bruno
     pkgs.fd
     pkgs.fswatch # watch files and run commands in response
     pkgs.fzf
-    pkgs.starship
+    pkgs.karabiner-elements # handles keyboard shortcuts
+    pkgs.raycast
+    pkgs.vim
+    pkgs.pure-prompt
   ];
 
   fonts.packages = [
