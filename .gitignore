@@ -4,3 +4,4 @@ bin
 tmux/plugins/**
 zsh/zsh_history
 wezterm/launch/projects.lua
+.context
