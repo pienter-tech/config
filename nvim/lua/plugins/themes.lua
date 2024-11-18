@@ -22,6 +22,7 @@ return {
                         return {
                             LineNr = { fg = colors.lavender },
                             CursorLineNr = { fg = colors.mauve },
+                            NeoCodeiumSuggestion = { fg = colors.teal },
                         }
                     end,
                 },
@@ -39,14 +40,6 @@ return {
             set_light_mode = function()
                 vim.api.nvim_set_option_value("background", "light", {})
             end,
-        },
-    },
-    {
-        "levouh/tint.nvim",
-        lazy = false,
-        opts = {
-            tint = -20,
-            saturation = 0.4,
         },
     },
 }

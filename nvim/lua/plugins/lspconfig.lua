@@ -8,8 +8,8 @@ return {
             "williamboman/mason-lspconfig.nvim",
         },
         keys = {
-            { "<leader>li", "<cmd>LspInfo<CR>", desc = "Show LSP Info", mode = "n"},
-            { "<leader>lr", "<cmd>LspRestart<CR>", desc = "Restart LSP", mode = "n"},
+            { "<leader>li", "<cmd>LspInfo<CR>", desc = "Show LSP Info", mode = "n" },
+            { "<leader>lr", "<cmd>LspRestart<CR>", desc = "Restart LSP", mode = "n" },
         },
         config = function()
             local keymap = vim.keymap
@@ -19,6 +19,9 @@ return {
 
             local default_caps = {
                 workspace = {
+                    didChangeConfiguration = {
+                        dynamicRegistration = true,
+                    },
                     didChangeWatchedFiles = {
                         dynamicRegistration = true,
                     },

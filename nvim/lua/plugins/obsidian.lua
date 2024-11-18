@@ -85,6 +85,7 @@ return {
             { mode = "n", "<localleader>gi", ":ObsidianQuickSwitch root<CR>", desc = "Go to root index" },
             { mode = "n", "<localleader>gt", ":ObsidianQuickSwitch todo-root<CR>", desc = "Go to todo index" },
             { mode = "n", "<localleader>gf", ":ObsidianQuickSwitch future<CR>", desc = "Go to future" },
+            { mode = "n", "<localleader>gw", ":ObsidianQuickSwitch house<CR>", desc = "Go to work@home" },
             { mode = "n", "<localleader>gh", ":ObsidianFollowLink hsplit<CR>", desc = "Open link in horizontal split" },
             { mode = "n", "<localleader>gc", ":ObsidianFollowLink csplit<CR>", desc = "Open link in vertical split" },
             { mode = "n", "<localleader>jj", ":ObsidianToday<CR>", desc = "Open todays note" },

@@ -2,7 +2,20 @@ return {
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true,
+        opts = {
+            fast_wrap = {},
+            check_ts = true,
+        },
+        init = function()
+            local Rule = require("nvim-autopairs.rule")
+            local npairs = require("nvim-autopairs")
+
+            npairs.add_rule(
+                Rule("*", "*", "markdown"):with_move(function(opts)
+                    return string.find(opts.text, "***", 1, true) == nil
+                end)
+            )
+        end,
     },
     {
         "windwp/nvim-ts-autotag",

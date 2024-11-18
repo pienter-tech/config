@@ -2,9 +2,6 @@ return {
     "mrjones2014/legendary.nvim",
     lazy = false,
     priority = 10000,
-    keys = {
-        { "<leader>kv", ":Legendary<CR>", desc = "Show legendary" },
-    },
     opts = {
         extensions = {
             lazy_nvim = true,
