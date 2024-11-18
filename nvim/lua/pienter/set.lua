@@ -32,6 +32,12 @@ opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200
 opt.virtualedit = "block"
+opt.foldmethod = "indent"
+opt.foldcolumn = "0"
+opt.foldtext = ""
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldnestmax = 20
 vim.o.conceallevel = 2
 vim.g.netrw_bufsettings = "noma nomod nonu nobl nowrap ro rnu"
 
