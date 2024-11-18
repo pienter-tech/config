@@ -1,3 +1,4 @@
+[ -z "$ZPROF" ] || zmodload zsh/zprof
 eval "$(nodenv init -)"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -6,6 +7,10 @@ export LC_ALL=en_US.UTF-8
 if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+### PROMPT
+autoload -U promptinit; promptinit
+prompt pure
 
 source $HOMEBREW_PREFIX/opt/zinit/zinit.zsh
 
@@ -79,10 +84,10 @@ function yy() {
 
 export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin
 
+
 ### Plugins
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
 
 zinit load pndurette/zsh-lux
 
@@ -100,3 +105,4 @@ zinit light zsh-users/zsh-autosuggestions
 # Load completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q
+[ -z "$ZPROF" ] || zprof
