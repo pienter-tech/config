@@ -22,8 +22,3 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         vim.opt_local.textwidth = 0
     end,
 })
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "NeoCodeiumCompletionDisplayed",
-  callback = function() require("cmp").abort() end
-})
