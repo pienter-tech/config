@@ -28,7 +28,7 @@ return {
                 astro = { "prettier" },
                 graphql = { "prettier" },
                 vue = { "prettier" },
-                php = { "pint", "phpinsights", "php_cs_fixer", stop_after_first = true, },
+                php = { "pint", "prettier", "phpinsights", "php_cs_fixer", stop_after_first = true },
                 toml = { "taplo" },
                 nix = { "alejandra" },
             },
