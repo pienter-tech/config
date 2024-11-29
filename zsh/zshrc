@@ -1,7 +1,9 @@
 [ -z "$ZPROF" ] || zmodload zsh/zprof
+
 eval "$(nodenv init -)"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export FAST_WORK_DIR=XDG
 CONFIG_DIR="$HOME/dev/projects/pienter/config"
 
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
@@ -79,7 +81,6 @@ function yy() {
 	rm -f -- "$tmp"
 }
 
-
 # Function to run make commands from config directory
 function makc() {
     if [[ ! -d "$CONFIG_DIR" ]]; then
@@ -111,29 +112,38 @@ function _makc_completion() {
     _describe 'command' targets
 }
 
-
+# When running brew install keep the Brewfile up to date
+function brew() {
+    if [[ "$1" == "install" ]]; then
+        command brew "$@"
+        local exit_code=$?
+        if [ $exit_code -eq 0 ]; then
+            echo "Updating Brewfile..."
+            (cd "$CONFIG_DIR/brew" && command brew bundle dump --force)
+        fi
+        return $exit_code
+    else
+        command brew "$@"
+    fi
+}
 
 ### PATH
 
 export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin
 
-
 ### Plugins
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 
-zinit load pndurette/zsh-lux
-
-if macos_is_dark; then
-    source ~/.config/zsh/themes/catppuccin_frappe-zsh-syntax-highlighting.zsh
-else
-    source ~/.config/zsh/themes/catppuccin_latte-zsh-syntax-highlighting.zsh
-fi
 
 zinit light Aloxaf/fzf-tab
-zinit light zdharma-continuum/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
 
 # Load completions
 autoload -Uz compinit && compinit

@@ -33,12 +33,15 @@ endef
 
 help:
 	@echo "$(BOLD)Available commands:$(RESET)"
-	@echo "$(CYAN)make brew$(RESET)          - Install and update Homebrew"
-	@echo "$(CYAN)make brew-install$(RESET)   - Install all Homebrew packages"
-	@echo "$(CYAN)make brew-doctor$(RESET)    - Run brew doctor"
-	@echo "$(CYAN)make brew-cleanup$(RESET)   - Clean up Homebrew cache"
-	@echo "$(CYAN)make karabiner-build$(RESET) - Build Karabiner configuration"
-	@echo "$(CYAN)make profile-zshrc$(RESET)        - Profile zsh configuration"
+	@echo "$(CYAN)make brew$(RESET)             - Install and update Homebrew"
+	@echo "$(CYAN)make brew-install$(RESET)     - Install all Homebrew packages"
+	@echo "$(CYAN)make brew-doctor$(RESET)      - Run brew doctor"
+	@echo "$(CYAN)make brew-cleanup$(RESET)     - Clean up Homebrew cache"
+	@echo "$(CYAN)make karabiner-build$(RESET)  - Build Karabiner configuration"
+	@echo "$(CYAN)make profile-zshrc$(RESET)    - Profile zsh configuration"
+	@echo "$(CYAN)make pienter-binner$(RESET)   - Run pienter-binner"
+	@echo "$(CYAN)make pienter-launcher$(RESET) - Run pienter-launcher"
+	@echo "$(CYAN)make pienter-linker$(RESET)   - Run pienter-linker"
 .PHONY: help
 
 karabiner-build:
@@ -46,18 +49,6 @@ karabiner-build:
 	@cd ./karabiner/karabiner-config/ && yarn build
 	$(call log_success,"Karabiner configuration built successfully")
 .PHONY: karabiner-build
-
-nix-install:
-	$(call log_info,"Installing Nix...")
-	@curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-	$(call log_success,"Nix installed successfully")
-.PHONY: nix-install
-
-nix-darwin-rebuild:
-	$(call log_info,"Rebuilding Nix Darwin configuration...")
-	@cd ./nix/nix-darwin-config/ && darwin-rebuild switch --flake .
-	$(call log_success,"Nix Darwin configuration rebuilt successfully")
-.PHONY: nix-darwin-rebuild
 
 profile-zshrc:
 	$(call log_info,"Profiling zsh configuration...")
@@ -89,7 +80,18 @@ brew-doctor:
 
 brew-cleanup:
 	$(call log_info,"Cleaning up Homebrew...")
-	@brew cleanup || ($(call log_error,"Failed to clean up Homebrew") && exit 1)
+	@cd ./brew && brew bundle cleanup --force || ($(call log_error,"Failed to clean up Homebrew") && exit 1)
 	$(call log_success,"Homebrew cleanup complete")
 .PHONY: brew-cleanup
 
+pienter-launcher:
+	pienter-launcher
+.PHONY: pienter-launcher
+
+pienter-binner:
+	pienter-binner
+.PHONY: pienter-binner
+
+pienter-linker:
+	pienter-linker
+.PHONY: pienter-linker

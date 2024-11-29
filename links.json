@@ -1,13 +1,5 @@
 [
   {
-    "src": "warp",
-    "dest": "/Users/korneel/.warp"
-  },
-  {
-    "src": "dotfiles/ideavimrc",
-    "dest": "/Users/korneel/.ideavimrc"
-  },
-  {
     "src": "zsh/zshenv",
     "dest": "/Users/korneel/.zshenv"
   },
@@ -19,10 +11,7 @@
     "src": "zsh",
     "dest": "/Users/korneel/.config/zsh"
   },
-  {
-    "src": "dotfiles/starship.toml",
-    "dest": "/Users/korneel/.config/starship.toml"
-  },
+  { "src": "fsh", "dest": "/Users/korneel/.config/fsh" },
   {
     "src": "nvim",
     "dest": "/Users/korneel/.config/nvim"
