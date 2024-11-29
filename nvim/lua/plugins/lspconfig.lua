@@ -94,6 +94,20 @@ return {
                         on_attach = on_attach,
                     })
                 end,
+                ["intelephense"] = function()
+                    lspconfig.intelephense.setup({
+                        capabilities = capabilities,
+                        flags = flags,
+                        on_attach = on_attach,
+                        filettypes = {"php"},
+                        init_options = {
+                            licenceKey = '/Users/korneel/dev/projects/pienter/config/.intelephense-license',
+                        },
+                        settings = {
+
+                        }
+                    })
+                end,
                 ["html"] = function()
                     lspconfig.html.setup({
                         capabilities = capabilities,
