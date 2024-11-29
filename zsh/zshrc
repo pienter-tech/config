@@ -2,9 +2,9 @@
 eval "$(nodenv init -)"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+CONFIG_DIR="$HOME/dev/projects/pienter/config"
 
-
-if [[ -f "/opt/homebrew/bin/brew" ]] then
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -30,7 +30,6 @@ setopt hist_find_no_dups
 
 ### ALIASES
 
-alias zsh-source="source ~/.zshrc"
 alias vim="nvim"
 alias v="nvim"
 alias dcu="docker compose up -d --build"
@@ -80,6 +79,40 @@ function yy() {
 	rm -f -- "$tmp"
 }
 
+
+# Function to run make commands from config directory
+function makc() {
+    if [[ ! -d "$CONFIG_DIR" ]]; then
+        echo "$(tput setaf 1)Error:$(tput sgr0) Config directory not found: $CONFIG_DIR"
+        return 1
+    fi
+
+    if [[ $# -eq 0 ]]; then
+        # If no arguments provided, show available make targets
+        (cd "$CONFIG_DIR" && make help)
+        return
+    fi
+
+    # Execute make command with all provided arguments
+    (cd "$CONFIG_DIR" && make "$@")
+}
+
+# Add command completion for make targets
+function _makc_completion() {
+    if [[ ! -f "$CONFIG_DIR/Makefile" ]]; then
+        return 1
+    fi
+
+    # Get available make targets
+    local targets=($(cd "$CONFIG_DIR" && make -qp 2>/dev/null | \
+        awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);print A[1]}' | \
+        sort -u))
+    
+    _describe 'command' targets
+}
+
+
+
 ### PATH
 
 export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin
@@ -104,5 +137,7 @@ zinit light zsh-users/zsh-autosuggestions
 
 # Load completions
 autoload -Uz compinit && compinit
+# Register completion
+compdef _makc_completion makc
 zinit cdreplay -q
 [ -z "$ZPROF" ] || zprof
