@@ -18,5 +18,24 @@ starship:
    export STARSHIP_CONFIG="/Users/korneel/.config/starship.toml"
 .PHONY: starship
 
+# Profile zsh config
+profile:
+	time ZPROF=1 zsh -i -c exit
+.PHONY: profile
+
+# Check if brew is installed and install it if it is not
+brew:
+	./brew/brew-install.sh
+	brew update
+	brew upgrade
+.PHONY: brew
+
+# Install all brew packages
+brew-install: brew
+	cd ./brew/ && brew bundle
+.PHONY: brew-install
+
+
+
 
 
