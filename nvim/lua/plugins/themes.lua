@@ -22,7 +22,7 @@ return {
                         return {
                             LineNr = { fg = colors.lavender },
                             CursorLineNr = { fg = colors.mauve },
-                            NeoCodeiumSuggestion = { fg = colors.teal },
+                            CodeiumSuggestion = { fg = colors.teal },
                         }
                     end,
                 },
