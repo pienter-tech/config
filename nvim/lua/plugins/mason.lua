@@ -45,9 +45,12 @@ return {
                 "prettier", -- prettier formatter
                 "remark_ls",
                 "rust_analyzer",
+                "some-sass-language-server",
                 "stylua", -- lua formatter
                 "taplo",
                 "ts_ls",
+                "twiggy-language-server",
+                "twig-cs-fixer",
                 "volar",
                 "yamlls",
             },
