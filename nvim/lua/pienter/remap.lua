@@ -48,3 +48,10 @@ key.set("n", "zl0", ":setlocal foldlevel=0<CR>", { desc = "Fold all level 0 fold
 key.set("n", "zl1", ":setlocal foldlevel=1<CR>", { desc = "Fold all level 1 folds" })
 key.set("n", "zl2", ":setlocal foldlevel=2<CR>", { desc = "Fold all level 2 folds" })
 key.set("n", "zl3", ":setlocal foldlevel=3<CR>", { desc = "Fold all level 3 folds" })
+
+key.set(
+    "n",
+    "<leader>r",
+    [[:silent !osascript -e 'tell application "Google Chrome" to reload active tab of window 1'<CR>]],
+    { noremap = true, silent = true, desc = "Refresh active chrome tab" }
+)
