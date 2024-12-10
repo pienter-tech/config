@@ -94,18 +94,29 @@ return {
                         on_attach = on_attach,
                     })
                 end,
+                ["remark_ls"] = function()
+                    lspconfig.remark_ls.setup({
+                        capabilities = capabilities,
+                        flags = flags,
+                        on_attach = on_attach,
+                        filetypes = { "markdown", "md" },
+                        settings = {
+                            remark = {
+                                requireConfig = true,
+                            },
+                        },
+                    })
+                end,
                 ["intelephense"] = function()
                     lspconfig.intelephense.setup({
                         capabilities = capabilities,
                         flags = flags,
                         on_attach = on_attach,
-                        filettypes = {"php"},
+                        filetypes = { "php" },
                         init_options = {
-                            licenceKey = '/Users/korneel/dev/projects/pienter/config/.intelephense-license',
+                            licenceKey = "/Users/korneel/dev/projects/pienter/config/.intelephense-license",
                         },
-                        settings = {
-
-                        }
+                        settings = {},
                     })
                 end,
                 ["html"] = function()
@@ -160,14 +171,15 @@ return {
                         flags = flags,
                         on_attach = on_attach,
                         filetypes = {
-                            "html",
-                            "typescriptreact",
-                            "javascriptreact",
                             "css",
+                            "html",
+                            "javascriptreact",
+                            "less",
                             "sass",
                             "scss",
-                            "less",
                             "svelte",
+                            "twig",
+                            "typescriptreact",
                             "vue",
                         },
                     })
