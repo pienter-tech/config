@@ -1,6 +1,6 @@
 return {
     {
-        "Exafunction/codeium.nvim",
+        "pienter-tech/codeium.nvim",
         event = "BufEnter",
         keys = {
             {
@@ -8,32 +8,19 @@ return {
                 "<C-j>",
                 function()
                     require("cmp").abort()
+
                     require("codeium.virtual_text").cycle_or_complete()
                 end,
                 desc = "Codeium cycle or complete",
             },
-            -- {
-            --     mode = "i",
-            --     "<C-h>",
-            --     function()
-            --         require("codeium.virtual_text").clear()
-            --     end,
-            --     desc = "Codeium clear",
-            -- },
-            -- {
-            --     mode = "i",
-            --     "<C-l>",
-            --     function()
-            --         require("codeium.virtual_text").accept()
-            --     end,
-            --     desc = "Codeium accept",
-            -- },
         },
         opts = {
             enable_cmp_source = false,
             virtual_text = {
                 enabled = true,
-                manual = true,
+                manual = false,
+                manual_render = true,
+
                 map_keys = true,
                 key_bindings = {
                     -- Accept the current completion.

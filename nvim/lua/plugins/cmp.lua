@@ -25,7 +25,7 @@ return {
 
             cmp.setup({
                 completion = {
-                    completeopt = "menu,menuone,preview,noselect",
+                    completeopt = "menu,menuone,preview,noinsert,noselect",
                 },
                 experimental = {
                     ghost_text = true,
@@ -36,8 +36,23 @@ return {
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
-                    ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
+                    ["<C-p>"] = cmp.mapping(function()
+                        if cmp.visible() then
+                            cmp.select_prev_item(select_opts)
+                        else
+                            cmp.complete()
+                        end
+                        require("codeium.virtual_text").clear()
+                    end),
+                    ["<C-n>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item(select_opts)
+                        else
+                            cmp.complete()
+                        end
+
+                        require("codeium.virtual_text").clear()
+                    end),
 
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -94,19 +109,22 @@ return {
                             enable_in_context = function()
                                 return true
                             end,
-                            preselect_correct_word = true,
                         },
                     },
                 }),
                 -- configure lspkind for vs-code like pictograms in completion menu
                 formatting = {
                     format = lspkind.cmp_format({
-                        mode = "symbol",
+                        mode = "symbol_text",
                         maxwidth = 50,
                         ellipsis_char = "...",
                     }),
                 },
             })
+
+            cmp.event:on("complete_done", function()
+                require("codeium.config").options.virtual_text.manual = false
+            end)
         end,
     },
 }

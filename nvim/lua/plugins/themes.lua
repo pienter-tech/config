@@ -11,6 +11,9 @@ return {
                     light = "latte",
                     dark = "mocha",
                 },
+                integrations = {
+                    cmp = true
+                },
                 term_colors = true,
                 dim_inactive = {
                     enabled = true,
