@@ -85,7 +85,7 @@ brew-cleanup:
 .PHONY: brew-cleanup
 
 pienter-launcher:
-	pienter-launcher
+	cd $(ROOT) &&  pienter-launcher
 .PHONY: pienter-launcher
 
 pienter-binner:
