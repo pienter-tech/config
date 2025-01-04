@@ -8,6 +8,6 @@ require("appearance")(config)
 
 require("keys")(config)
 
-require("launch")(config)
+require("launch")()
 
 return config

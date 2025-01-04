@@ -10,14 +10,15 @@ local direction_keys = {
 }
 
 local function split_nav(resize_or_move, key)
+	local mod_key = resize_or_move == "resize" and "CTRL|SHIFT" or ("CTRL")
 	return {
 		key = key,
-		mods = resize_or_move == "resize" and "META" or "CTRL",
+		mods = mod_key,
 		action = wezterm.action_callback(function(win, pane)
 			if Helpers.is_vim(pane) then
 				-- pass the keys through to vim/nvim
 				win:perform_action({
-					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
+					SendKey = { key = key, mods = mod_key },
 				}, pane)
 			else
 				if resize_or_move == "resize" then
