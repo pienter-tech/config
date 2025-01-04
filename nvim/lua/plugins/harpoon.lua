@@ -118,6 +118,38 @@ return {
             mode = "n",
         },
         {
+            "<leader>h5",
+            function()
+                require("harpoon"):list():select(5)
+            end,
+            desc = "Go to harpoon file 5",
+            mode = "n",
+        },
+        {
+            "<leader>hd5",
+            function()
+                require("harpoon"):list():remove(5)
+            end,
+            desc = "Remove harpoon file 5",
+            mode = "n",
+        },
+        {
+            "<leader>h6",
+            function()
+                require("harpoon"):list():select(6)
+            end,
+            desc = "Go to harpoon file 6",
+            mode = "n",
+        },
+        {
+            "<leader>hd6",
+            function()
+                require("harpoon"):list():remove(6)
+            end,
+            desc = "Remove harpoon file 6",
+            mode = "n",
+        },
+        {
             "<leader>hdd",
             function()
                 require("harpoon"):list():clear()
