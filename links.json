@@ -8,6 +8,10 @@
     "dest": "/Users/korneel/.zshrc"
   },
   {
+    "src": "aerospace",
+    "dest": "/Users/korneel/.config/aerospace"
+  },
+  {
     "src": "zsh",
     "dest": "/Users/korneel/.config/zsh"
   },
