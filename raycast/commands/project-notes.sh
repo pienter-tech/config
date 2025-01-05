@@ -6,7 +6,7 @@
 # @raycast.mode silent
 
 # Optional parameters:
-# @raycast.icon 🌗
+# @raycast.icon 
 # @raycast.packageName Projects: NOTES
 
 # Documentation:
