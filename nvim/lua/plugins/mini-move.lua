@@ -3,17 +3,17 @@ return {
         "echasnovski/mini.move",
         version = "*",
         keys = {
-            { mode = "v", "<M-h>", desc = "Move visual selection left" },
-            { mode = "v", "<M-l>", desc = "Move visual selection right" },
-            { mode = "v", "<M-j>", desc = "Move visual selection down" },
-            { mode = "v", "<M-k>", desc = "Move visual selection up" },
+            { mode = "v", "<C-h>", desc = "Move visual selection left" },
+            { mode = "v", "<C-l>", desc = "Move visual selection right" },
+            { mode = "v", "<C-j>", desc = "Move visual selection down" },
+            { mode = "v", "<C-k>", desc = "Move visual selection up" },
         },
         opts = {
             mappings = {
-                left = "<M-h>",
-                right = "<M-l>",
-                down = "<M-j>",
-                up = "<M-k>",
+                left = "<C-h>",
+                right = "<C-l>",
+                down = "<C-j>",
+                up = "<C-k>",
 
                 line_left = "",
                 line_right = "",
