@@ -82,7 +82,7 @@ check-further-callbacks = false
 run = ['move-node-to-workspace c']
 
 [[on-window-detected]]
-if.app-id = 'net.whatsapp.Whatsapp'
+if.app-id = 'net.whatsapp.WhatsApp'
 check-further-callbacks = false
 run = ['move-node-to-workspace c']
 
