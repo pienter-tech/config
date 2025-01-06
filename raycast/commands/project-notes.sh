@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title projects/notes
+# @raycast.title scripts/projects/notes
 # @raycast.mode silent
 
 # Optional parameters:
