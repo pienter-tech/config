@@ -29,10 +29,6 @@
     "dest": "/Users/korneel/.config/wezterm"
   },
   {
-    "src": "karabiner",
-    "dest": "/Users/korneel/.config/karabiner"
-  },
-  {
     "src": "yazi",
     "dest": "/Users/korneel/.config/yazi"
   }
