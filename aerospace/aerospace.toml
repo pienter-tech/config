@@ -91,6 +91,11 @@ if.app-id = 'com.microsoft.Outlook'
 check-further-callbacks = false
 run = ['move-node-to-workspace c']
 
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+check-further-callbacks = false
+run = ['move-node-to-workspace c']
+
 [workspace-to-monitor-force-assignment]
 i = ['GW2760', 'built-in']
 c = ['GW2760', 'built-in']
