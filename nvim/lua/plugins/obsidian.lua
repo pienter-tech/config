@@ -64,7 +64,10 @@ return {
                     highlight = "RenderMarkdownChecked",
                 },
                 custom = {
-                    todo = { raw = "[>]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+                    rescheduled = { raw = "[>]", rendered = " ", highlight = "RenderMarkdownTodo" },
+                    scheduled = { raw = "[<]", rendered = " ", highlight = "RenderMarkdownTodo" },
+                    important = { raw = "[!]", rendered = " ", highlight = "RenderMarkdownInfo" },
+                    cancelled = { raw = "[-]", rendered = " ", highlight = "RenderMarkdownWarn" },
                 },
             },
         },
@@ -126,14 +129,14 @@ return {
                 mode = "n",
                 "<localleader>np",
                 ':!cd "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/projects/tnt" && git pull<CR>',
-                desc = "Pull TNT notes"
+                desc = "Pull TNT notes",
             },
             {
                 mode = "n",
                 "<localleader>nP",
                 ':!cd "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/projects/tnt" && git pull && git add . && git commit -m "Update" && git push<CR>',
-                desc = "Commit and Push TNT notes"
-            }
+                desc = "Commit and Push TNT notes",
+            },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -167,6 +170,14 @@ return {
             },
             ui = {
                 enable = false,
+                checkboxes = {
+                    [" "] = { char = "☐", hl_group = "ObsidianTodo" },
+                    ["x"] = { char = "✔", hl_group = "ObsidianDone" },
+                    ['>'] = {},
+                    ['<'] = {},
+                    ['!'] = {},
+                    ['-'] = {},
+                },
             },
             follow_url_func = function(url)
                 vim.fn.jobstart({ "open", url })
