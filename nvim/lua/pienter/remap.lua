@@ -39,9 +39,6 @@ key.set("i", "<C-i>", "<ESC><S-i>", { desc = "Move cursor to start of line in in
 
 key.set("v", "p", '"_dP', { desc = "Replace currently selected text without yanking" })
 
-key.set("n", "<leader>bo", ':%bdelete|edit #|normal `"<CR>', { desc = "Close all buffers except current" })
-key.set("n", "<leader>bc", ":bd<CR>", { desc = "Close current buffer" })
-
 key.set("n", "<leader>hc", ":helpclose<CR>", { desc = "Close help window" })
 
 key.set("n", "zl0", ":setlocal foldlevel=0<CR>", { desc = "Fold all level 0 folds" })
