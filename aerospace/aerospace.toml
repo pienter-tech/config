@@ -107,6 +107,16 @@ check-further-callbacks = false
 run = ['move-node-to-workspace m']
 
 [[on-window-detected]]
+if.app-id = 'com.google.Chrome.app.mbjafbmjpcimpkkihihoideiofnoalmh'
+check-further-callbacks = false
+run = ['move-node-to-workspace m']
+
+[[on-window-detected]]
+if.app-id = 'be.vrt.vrtnu'
+check-further-callbacks = false
+run = ['move-node-to-workspace m']
+
+[[on-window-detected]]
 if.app-id = 'com.spotify.client'
 check-further-callbacks = false
 run = ['move-node-to-workspace m']
