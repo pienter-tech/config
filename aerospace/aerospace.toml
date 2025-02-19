@@ -23,7 +23,7 @@ accordion-padding = 40
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-automatically-unhide-macos-hidden-apps = false
+automatically-unhide-macos-hidden-apps = true
 
 [key-mapping]
 preset = 'qwerty'
@@ -118,6 +118,16 @@ run = ['move-node-to-workspace m']
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
+check-further-callbacks = false
+run = ['move-node-to-workspace m']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari.WebApp.C3F74C75-CE8B-4DBF-BE46-2E784D120DC5'
+check-further-callbacks = false
+run = ['move-node-to-workspace n']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.TV'
 check-further-callbacks = false
 run = ['move-node-to-workspace m']
 
