@@ -6,3 +6,5 @@ zsh/zsh_history
 wezterm/launch/projects.lua
 .context
 .intelephense-license
+config.yml
+state.yml
