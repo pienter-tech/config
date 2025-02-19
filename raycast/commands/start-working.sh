@@ -31,6 +31,8 @@ open -a "Firefox"
 
 open -a "Slack"
 
+open -a "Shortcut"
+
 open -g raycast://extensions/raycast/raycast-ai/ai-chat
 
 open -g raycast://script-commands/project-notes

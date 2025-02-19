@@ -4,7 +4,8 @@ eval "$(nodenv init -)"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export FAST_WORK_DIR=XDG
-CONFIG_DIR="$HOME/dev/projects/pienter/config"
+export CONFIG_DIR="$HOME/dev/projects/pienter/config"
+export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -129,7 +130,7 @@ function brew() {
 
 ### PATH
 
-export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin
+export PATH=$PATH:~/.bin:~/.local/share/nvim/mason/bin:~/go/bin
 
 ### Plugins
 eval "$(fzf --zsh)"
