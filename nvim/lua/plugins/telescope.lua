@@ -51,6 +51,14 @@ return {
             { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Telescope find help tags", mode = "n" },
             { "<leader>fr", "<cmd>Telescope resume<CR>", desc = "Telescope resume previous find", mode = "n" },
             { "<leader>fp", "<cmd>Telescope pickers<CR>", desc = "Telescope search pickers", mode = "n" },
+            {
+                "<leader>fm",
+                function()
+                    require("telescope").extensions.macroni.saved_macros()
+                end,
+                desc = "Telescope search pickers",
+                mode = "n",
+            },
         },
     },
     {

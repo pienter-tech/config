@@ -137,6 +137,22 @@ return {
                 ':!cd "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/projects/tnt" && git pull && git add . && git commit -m "Update" && git push<CR>',
                 desc = "Commit and Push TNT notes",
             },
+            {
+                mode = "n",
+                "<localleader>tf",
+                function()
+                    require("macroni").run_saved("obs_todo_finish")
+                end,
+                desc = "Mark to as done and move to bottom of file",
+            },
+            {
+                mode = "n",
+                "<localleader>td",
+                function()
+                    require("macroni").run_saved("obs_todo_done")
+                end,
+                desc = "Mark to as done",
+            },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -168,15 +184,16 @@ return {
                 -- A map for custom variables, the key should be the variable and the value a function
                 substitutions = {},
             },
+            preferred_link_style = "markdown",
             ui = {
                 enable = false,
                 checkboxes = {
                     [" "] = { char = "☐", hl_group = "ObsidianTodo" },
                     ["x"] = { char = "✔", hl_group = "ObsidianDone" },
-                    ['>'] = {},
-                    ['<'] = {},
-                    ['!'] = {},
-                    ['-'] = {},
+                    [">"] = {},
+                    ["<"] = {},
+                    ["!"] = {},
+                    ["-"] = {},
                 },
             },
             follow_url_func = function(url)

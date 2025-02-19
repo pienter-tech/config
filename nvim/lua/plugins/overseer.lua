@@ -5,7 +5,7 @@ return {
             {
                 mode = "n",
                 "<leader>o",
-                desc = "Overseer commands..."
+                desc = "Overseer commands...",
             },
             {
                 mode = "n",
@@ -19,11 +19,30 @@ return {
                 mode = "n",
                 "<leader>ot",
                 function()
-                    require("overseer").toggle()
+                    require("overseer").toggle({ enter = false })
                 end,
                 desc = "Toggle overseer",
             },
+            {
+                mode = "n",
+                "<leader>oc",
+                function()
+                    require("overseer").close()
+                end,
+                desc = "Close overseer",
+            },
         },
-        opts = {},
+        opts = {
+            task_list = {
+                bindings = {
+                    ["<C-l>"] = false,
+                    ["<C-h>"] = false,
+                    ["<C-k>"] = false,
+                    ["<C-j>"] = false,
+                    ["<C-p>"] = "ScrollOutputUp",
+                    ["<C-n>"] = "ScrollOutputDown",
+                },
+            },
+        },
     },
 }
