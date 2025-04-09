@@ -26,8 +26,8 @@ open -a "WezTerm"
 # Open Chrome
 open -a "Google Chrome"
 
-# Open Firefox
-open -a "Firefox"
+# Open Safari
+open -a "Safari"
 
 open -a "Slack"
 
