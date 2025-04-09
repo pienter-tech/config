@@ -12,6 +12,11 @@ vim.api.nvim_create_autocmd(
 
 vim.api.nvim_create_autocmd(
     { "BufNewFile", "BufRead" },
+    { pattern = "*.tpl", command = "set syntax=html", group = fileGroup }
+)
+
+vim.api.nvim_create_autocmd(
+    { "BufNewFile", "BufRead" },
     { pattern = "*.heml", command = "set syntax=html", group = fileGroup }
 )
 

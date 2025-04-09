@@ -110,6 +110,27 @@ return {
                         },
                     })
                 end,
+                ["somesass_ls"] = function()
+                    lspconfig.somesass_ls.setup({
+                        filetypes = { "scss" },
+                        settings = {
+                            somesass = {
+                                scss = {
+                                    diagnostics = {
+                                        lint = {
+                                            unknownAtRules = "ignore",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    })
+                end,
+                ["cssls"] = function()
+                    lspconfig.cssls.setup({
+                        filetypes = { "css" },
+                    })
+                end,
                 ["intelephense"] = function()
                     lspconfig.intelephense.setup({
                         capabilities = capabilities,

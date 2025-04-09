@@ -45,6 +45,7 @@ vim.filetype.add({
     extension = {
         astro = "astro",
         mjml = "html",
+        tpl = "html",
     },
 })
 
