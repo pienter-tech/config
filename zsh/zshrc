@@ -1,6 +1,7 @@
 [ -z "$ZPROF" ] || zmodload zsh/zprof
 
 eval "$(nodenv init -)"
+
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export FAST_WORK_DIR=XDG
@@ -19,7 +20,7 @@ source $HOMEBREW_PREFIX/opt/zinit/zinit.zsh
 
 ### History
 
-HISTSIZE=10000
+HISTSIZE=2000
 HISTFILE=~/.config/zsh/zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
@@ -91,12 +92,12 @@ function makc() {
 
     if [[ $# -eq 0 ]]; then
         # If no arguments provided, show available make targets
-        (cd "$CONFIG_DIR" && make help)
+        (make -C "$CONFIG_DIR" help)
         return
     fi
 
     # Execute make command with all provided arguments
-    (cd "$CONFIG_DIR" && make "$@")
+    (make -C "$CONFIG_DIR" "$@")
 }
 
 # Add command completion for make targets
@@ -152,3 +153,6 @@ autoload -Uz compinit && compinit
 compdef _makc_completion makc
 zinit cdreplay -q
 [ -z "$ZPROF" ] || zprof
+
+# Added
+export PATH="/Users/korneel/.codeium/windsurf/bin:$PATH"
