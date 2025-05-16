@@ -48,9 +48,14 @@ check-further-callbacks = false
 run = 'move-node-to-workspace d'
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
+if.app-id = 'com.google.Chrome.dev'
 check-further-callbacks = false
 run = 'move-node-to-workspace b'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+check-further-callbacks = false
+run = 'move-node-to-workspace i'
 
 [[on-window-detected]]
 if.app-id = 'com.raycast.macos'
@@ -118,7 +123,7 @@ check-further-callbacks = false
 run = ['move-node-to-workspace m']
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Safari.WebApp.C3F74C75-CE8B-4DBF-BE46-2E784D120DC5'
+if.app-id = 'com.google.Chrome.app.jifiddggkmoodgpobpgdenkfjpkckmbe'
 check-further-callbacks = false
 run = ['move-node-to-workspace n']
 
@@ -151,6 +156,11 @@ run = ['move-node-to-workspace m']
 if.app-id = 'com.apple.finder'
 check-further-callbacks = false
 run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+check-further-callbacks = false
+run = ['move-node-to-workspace s']
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome.app.efghopedjgcbbhakeelccijdohajbkfi'
@@ -188,63 +198,59 @@ cmd-h = []     # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-alt-shift-cmd-ctrl-slash = 'layout tiles horizontal vertical'
-alt-shift-cmd-ctrl-comma = 'layout accordion horizontal vertical'
+alt-cmd-ctrl-slash = 'layout tiles horizontal vertical'
+alt-cmd-ctrl-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-shift-cmd-ctrl-h = 'focus left'
-alt-shift-cmd-ctrl-j = 'focus down'
-alt-shift-cmd-ctrl-k = 'focus up'
-alt-shift-cmd-ctrl-l = 'focus right'
+alt-cmd-ctrl-h = 'focus left'
+alt-cmd-ctrl-j = 'focus down'
+alt-cmd-ctrl-k = 'focus up'
+alt-cmd-ctrl-l = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+alt-cmd-ctrl-shift-h = 'move left'
+alt-cmd-ctrl-shift-j = 'move down'
+alt-cmd-ctrl-shift-k = 'move up'
+alt-cmd-ctrl-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-cmd-ctrl-minus = 'resize smart -50'
-alt-shift-cmd-ctrl-equal = 'resize smart +50'
+alt-cmd-ctrl-minus = 'resize smart -50'
+alt-cmd-ctrl-equal = 'resize smart +50'
 
-alt-shift-cmd-ctrl-0 = 'fullscreen'
+alt-cmd-ctrl-0 = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-shift-cmd-ctrl-1 = 'workspace 1'
-alt-shift-cmd-ctrl-2 = 'workspace 2'
-alt-shift-cmd-ctrl-3 = 'workspace 3'
-alt-shift-cmd-ctrl-4 = 'workspace 4'
-alt-shift-cmd-ctrl-5 = 'workspace 5'
-alt-shift-cmd-ctrl-d = 'workspace d'
-alt-shift-cmd-ctrl-c = 'workspace c'
-alt-shift-cmd-ctrl-b = 'workspace b'
-alt-shift-cmd-ctrl-i = 'workspace i'
-alt-shift-cmd-ctrl-n = 'workspace n'
-alt-shift-cmd-ctrl-m = 'workspace m'
-alt-shift-cmd-ctrl-s = 'workspace s'
+alt-cmd-ctrl-1 = 'workspace 1'
+alt-cmd-ctrl-2 = 'workspace 2'
+alt-cmd-ctrl-3 = 'workspace 3'
+alt-cmd-ctrl-d = 'workspace d'
+alt-cmd-ctrl-c = 'workspace c'
+alt-cmd-ctrl-b = 'workspace b'
+alt-cmd-ctrl-i = 'workspace i'
+alt-cmd-ctrl-n = 'workspace n'
+alt-cmd-ctrl-m = 'workspace m'
+alt-cmd-ctrl-s = 'workspace s'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-d = 'move-node-to-workspace d'
-alt-shift-b = 'move-node-to-workspace b'
-alt-shift-c = 'move-node-to-workspace c'
-alt-shift-i = 'move-node-to-workspace i'
-alt-shift-n = 'move-node-to-workspace n'
-alt-shift-m = 'move-node-to-workspace m'
-alt-shift-s = 'move-node-to-workspace s'
+alt-cmd-ctrl-shift-1 = 'move-node-to-workspace 1'
+alt-cmd-ctrl-shift-2 = 'move-node-to-workspace 2'
+alt-cmd-ctrl-shift-3 = 'move-node-to-workspace 3'
+alt-cmd-ctrl-shift-d = 'move-node-to-workspace d'
+alt-cmd-ctrl-shift-b = 'move-node-to-workspace b'
+alt-cmd-ctrl-shift-c = 'move-node-to-workspace c'
+alt-cmd-ctrl-shift-i = 'move-node-to-workspace i'
+alt-cmd-ctrl-shift-n = 'move-node-to-workspace n'
+alt-cmd-ctrl-shift-m = 'move-node-to-workspace m'
+alt-cmd-ctrl-shift-s = 'move-node-to-workspace s'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-shift-cmd-ctrl-tab = 'workspace-back-and-forth'
+alt-cmd-ctrl-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-cmd-ctrl-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-cmd-ctrl-semicolon = 'mode service'
-alt-shift-cmd-ctrl-quote = 'mode arrange'
+alt-cmd-ctrl-semicolon = 'mode service'
+alt-cmd-ctrl-quote = 'mode arrange'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
