@@ -1,5 +1,11 @@
 return {
-    "norcalli/nvim-colorizer.lua",
-    event = "BufEnter",
-    opts = { "*" },
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = {
+        filetypes = { "*" },
+        user_default_options = {
+            mode = "background",
+            css = true,
+        },
+    },
 }

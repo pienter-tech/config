@@ -54,7 +54,7 @@ return {
             },
             checkbox = {
                 enabled = true,
-                position = "inline",
+                right_pad = 2,
                 unchecked = {
                     icon = "󰄱 ",
                     highlight = "RenderMarkdownUnchecked",
@@ -197,7 +197,19 @@ return {
                 },
             },
             follow_url_func = function(url)
-                vim.fn.jobstart({ "open", url })
+                if url:match("^message://") then
+                    vim.fn.jobstart({ "open", "-b", "com.apple.mail", url }, { detach = true })
+                    return
+                end
+
+                if url:match("^https://app%.shortcut%.com/") then
+                    -- Adjust the app name if yours is different,
+                    -- e.g. "Chrome Apps/Shortcut" or the exact bundle identifier.
+                    vim.fn.jobstart({ "open", "-a", "Shortcut", url }, { detach = true })
+                    return
+                end
+
+                vim.fn.jobstart({ "open", url }, { detach = true })
             end,
         },
     },

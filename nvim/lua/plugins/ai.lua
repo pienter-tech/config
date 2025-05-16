@@ -1,6 +1,7 @@
 return {
     {
         "pienter-tech/codeium.nvim",
+        enabled = true,
         event = "BufEnter",
         keys = {
             {

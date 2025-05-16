@@ -49,6 +49,46 @@ key.set("n", "zl3", ":setlocal foldlevel=3<CR>", { desc = "Fold all level 3 fold
 key.set(
     "n",
     "<leader>r",
-    [[:silent !osascript -e 'tell application "Google Chrome" to reload active tab of window 1'<CR>]],
+    [[:silent !osascript -e 'tell application "Google Chrome Dev" to reload active tab of window 1'<CR>]],
     { noremap = true, silent = true, desc = "Refresh active chrome tab" }
 )
+
+key.set("n", "<leader>Ma", function()
+    -- AppleScript lines
+    local script_lines = {
+        'tell application "Mail"',
+        "  try",
+        "    set theMessage to item 1 of (get selection)",
+        "    set theID to message id of theMessage",
+        "  end try",
+        "end tell",
+        'return "message://<" & theID & ">"',
+    }
+
+    -- build the osascript command with multiple -e flags
+    local parts = { "osascript" }
+    for _, line in ipairs(script_lines) do
+        table.insert(parts, "-e")
+        table.insert(parts, vim.fn.shellescape(line))
+    end
+    local cmd = table.concat(parts, " ")
+    local handle = io.popen(cmd)
+
+    if not handle then
+        vim.notify("Failed to run Mail script", vim.log.levels.ERROR)
+        return
+    end
+
+    local url = handle:read("*a")
+    handle:close()
+
+    url = url:gsub("%s+$", "")
+
+    if url == "" then
+        vim.notify("No message selected in Mail.app", vim.log.levels.WARN)
+        return
+    end
+
+    local link = string.format("[%s](%s)", "mail", url)
+    vim.api.nvim_put({ link }, "c", true, true)
+end, { noremap = true, silent = true })

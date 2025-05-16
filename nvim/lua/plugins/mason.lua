@@ -1,6 +1,6 @@
 return {
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         opts = {
             ui = {
                 icons = {
@@ -14,52 +14,44 @@ return {
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = {
-            "williamboman/mason-lspconfig.nvim",
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
         },
         opts = {
             auto_update = true,
-            integrations = {
-                ["mason-lspconfig"] = true,
-            },
             ensure_installed = {
-                "astro",
+                "astro-language-server",
                 "biome",
-                "cssls",
-                "docker_compose_language_service",
-                "dockerls",
-                "emmet_ls",
-                "eslint",
+                "css-lsp",
+                "css-variables-language-server",
+                "docker-compose-language-service",
+                "dockerfile-language-server",
+                "emmet-language-server",
+                "eslint-lsp",
                 "gopls",
-                "html",
+                "html-lsp",
                 "intelephense",
-                "jsonls",
+                "json-lsp",
+                "php-debug-adapter",
                 "lemminx",
-                "lua_ls",
+                "lua-language-server",
                 "markdownlint",
-                "nil_ls",
-                "php-cs-fixer", -- php code style fixer
-                "phpcbf", -- php code beautifier
-                "phpcs", -- php code sniffer
-                "phpmd", -- php mess detector
                 "prettier", -- prettier formatter
-                "remark_ls",
-                "rust_analyzer",
+                "remark-language-server",
                 "some-sass-language-server",
                 "stylua", -- lua formatter
                 "taplo",
-                "ts_ls",
+                "typescript-language-server",
                 "twiggy-language-server",
                 "twig-cs-fixer",
-                "volar",
-                "yamlls",
+                "vue-language-server",
+                "yaml-language-server",
             },
         },
     },
     {
         "jay-babu/mason-nvim-dap.nvim",
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
             "mfussenegger/nvim-dap",
         },
         opts = {

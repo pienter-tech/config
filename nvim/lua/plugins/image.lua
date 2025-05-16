@@ -8,7 +8,8 @@ return {
                 markdown = {
                     enabled = true,
                     clear_in_insert_mode = false,
-                    only_render_image_at_cursor = true,
+                    download_remote_images = true,
+                    only_render_image_at_cursor = false,
                     resolve_image_path = function(document_path, image_path, fallback)
                         if string.find(document_path, "Documents/two") then
                             return "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/"

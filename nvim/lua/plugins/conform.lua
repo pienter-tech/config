@@ -11,6 +11,13 @@ return {
                 end,
                 desc = "Format file",
             },
+            {
+                "<leader>3",
+                function()
+                    require("conform").format({ lsp_fallback = true })
+                end,
+                desc = "Format file",
+            },
         },
         opts = {
             formatters_by_ft = {
