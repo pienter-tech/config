@@ -27,9 +27,9 @@ open -a "WezTerm"
 open -a "Google Chrome"
 
 # Open Safari
-open -a "Safari"
+open -a "Google Chrome Dev"
 
-open -a "Slack"
+open -a "Discord"
 
 open -a "Shortcut"
 

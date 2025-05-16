@@ -12,6 +12,13 @@ if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+### Source .env so that quoted values, spaces, etc. work as expected
+if [[ -f "$CONFIG_DIR/.env" ]]; then
+  set -o allexport
+  source "$CONFIG_DIR/.env"
+  set +o allexport
+fi
+
 ### PROMPT
 autoload -U promptinit; promptinit
 prompt pure
@@ -128,6 +135,7 @@ function brew() {
         command brew "$@"
     fi
 }
+
 
 ### PATH
 
