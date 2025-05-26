@@ -13,8 +13,8 @@
 ---
 --- ```lua
 --- --Enable (broadcasting) snippet capability for completion
---- local capabilities = vim.lsp.protocol.make_client_capabilities()
---- capabilities.textDocument.completion.completionItem.snippetSupport = true
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 ---
 --- vim.lsp.config('cssls', {
 ---   capabilities = capabilities,
@@ -22,7 +22,8 @@
 --- ```
 return {
   cmd = { 'vscode-css-language-server', '--stdio' },
-  filetypes = { 'css', 'scss', 'less' },
+  filetypes = { 'css' },
+  capabilities = capabilities,
   init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
   root_markers = { 'package.json', '.git' },
   settings = {

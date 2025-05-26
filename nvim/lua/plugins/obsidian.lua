@@ -182,7 +182,26 @@ return {
                 date_format = "%Y-%m-%d",
                 time_format = "%H:%M",
                 -- A map for custom variables, the key should be the variable and the value a function
-                substitutions = {},
+                substitutions = {
+                    test = function ()
+                        return note.title
+                    end,
+                    filename = function()
+                        return vim.fn.expand("%:t")
+                    end,
+                    yesterday = function()
+                        return os.date("%Y-%m-%d", os.time() - 86400)
+                    end,
+                    tomorrow = function()
+                        return os.date("%Y-%m-%d", os.time() + 86400)
+                    end,
+                    today_plus_two = function()
+                        return os.date("%Y-%m-%d", os.time() + 86400 * 2)
+                    end,
+                    today_plus_three = function()
+                        return os.date("%Y-%m-%d", os.time() + 86400 * 3)
+                    end,
+                },
             },
             preferred_link_style = "markdown",
             ui = {
@@ -201,14 +220,12 @@ return {
                     vim.fn.jobstart({ "open", "-b", "com.apple.mail", url }, { detach = true })
                     return
                 end
-
                 if url:match("^https://app%.shortcut%.com/") then
                     -- Adjust the app name if yours is different,
                     -- e.g. "Chrome Apps/Shortcut" or the exact bundle identifier.
                     vim.fn.jobstart({ "open", "-a", "Shortcut", url }, { detach = true })
                     return
                 end
-
                 vim.fn.jobstart({ "open", url }, { detach = true })
             end,
         },

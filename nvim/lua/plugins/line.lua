@@ -2,7 +2,7 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        dependencies = { "nvim-tree/nvim-web-devicons", "yavorski/lualine-macro-recording.nvim" },
+        dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons", "yavorski/lualine-macro-recording.nvim" },
         opts = {
             options = {
                 theme = "auto",
@@ -12,7 +12,18 @@ return {
                 lualine_a = { "mode" },
                 lualine_b = { "branch", "diff", "diagnostics" },
                 lualine_c = { { "filename", file_status = true, path = 4 } },
-                lualine_x = { { "macro_recording", "%S" }, "overseer" },
+                lualine_x = {
+                    {
+                        function()
+                            return require("nvim-navic").get_location()
+                        end,
+                        cond = function()
+                            return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+                        end,
+                    },
+                    { "macro_recording", "%S" },
+                    "overseer",
+                },
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
             },

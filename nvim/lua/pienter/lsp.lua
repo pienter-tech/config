@@ -82,41 +82,41 @@ vim.api.nvim_create_autocmd("LspAttach", {
             keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
             keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
         end
-
-        if client:supports_method("textDocument/diagnostic") then
-            opts.desc = "Show buffer diagnostics"
-            keymap.set("n", "<leader>cd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
-            opts.desc = "Show line diagnostics"
-            keymap.set("n", "<leader>cD", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-            opts.desc = "Go to previous diagnostic"
-            keymap.set("n", "<S-F2>", function()
-                vim.diagnostic.jump({ count = -1, float = true })
-            end, opts) -- jump to previous diagnostic in buffer
-
-            opts.desc = "Go to next diagnostic"
-            keymap.set("n", "<F2>", function()
-                vim.diagnostic.jump({ count = 1, float = true })
-            end, opts) -- jump to next diagnostic in buffer
-
-            opts.desc = "Go to previous diagnostic"
-            keymap.set("n", "<leader>@", function()
-                vim.diagnostic.jump({ count = -1, float = true })
-            end, opts) -- jump to previous diagnostic in buffer
-
-            opts.desc = "Go to next diagnostic"
-            keymap.set("n", "<leader>2", function()
-                vim.diagnostic.jump({ count = 1, float = true })
-            end, opts) -- jump to next diagnostic in buffer
+        if client.server_capabilities.documentSymbolProvider then
+          local navic = require("nvim-navic")
+          navic.attach(client, args.buf)
         end
 
-        if client:supports_method("textDocument/diagnostic") then
-            opts.desc = "Show documentation for what is under cursor"
-            keymap.set("n", "<F1>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+        opts.desc = "Show buffer diagnostics"
+        keymap.set("n", "<leader>cd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
 
-            opts.desc = "Show documentation for what is under cursor"
-            keymap.set("n", "<leader>1", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-        end
+        opts.desc = "Show line diagnostics"
+        keymap.set("n", "<leader>cD", vim.diagnostic.open_float, opts) -- show diagnostics for line
+
+        opts.desc = "Go to previous diagnostic"
+        keymap.set("n", "<S-F2>", function()
+            vim.diagnostic.jump({ count = -1, float = true })
+        end, opts) -- jump to previous diagnostic in buffer
+
+        opts.desc = "Go to next diagnostic"
+        keymap.set("n", "<F2>", function()
+            vim.diagnostic.jump({ count = 1, float = true })
+        end, opts) -- jump to next diagnostic in buffer
+
+        opts.desc = "Go to previous diagnostic"
+        keymap.set("n", "<leader>@", function()
+            vim.diagnostic.jump({ count = -1, float = true })
+        end, opts) -- jump to previous diagnostic in buffer
+
+        opts.desc = "Go to next diagnostic"
+        keymap.set("n", "<leader>2", function()
+            vim.diagnostic.jump({ count = 1, float = true })
+        end, opts) -- jump to next diagnostic in buffer
+
+        opts.desc = "Show documentation for what is under cursor"
+        keymap.set("n", "<F1>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+        opts.desc = "Show documentation for what is under cursor"
+        keymap.set("n", "<leader>1", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
     end,
 })
