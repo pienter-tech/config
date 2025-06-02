@@ -2,6 +2,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
+        enabled = false,
         dependencies = {
             "f3fora/cmp-spell",
             "hrsh7th/cmp-buffer", -- source for text in buffer
