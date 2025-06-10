@@ -39,7 +39,7 @@ local function appearance(config)
 
 	config.color_scheme = scheme_for_appearance()
 
-    config.font = wezterm.font('RobotoMono Nerd Font')
+    config.font = wezterm.font('FiraMono Nerd Font Mono')
 
     config.enable_tab_bar = true
 	config.use_fancy_tab_bar = false
