@@ -20,6 +20,13 @@ vim.api.nvim_create_autocmd(
     { pattern = "*.heml", command = "set syntax=html", group = fileGroup }
 )
 
+vim.api.nvim_create_autocmd("User", {
+    pattern = "BlinkCmpMenuOpen",
+    callback = function()
+        require("codeium.virtual_text").clear()
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*.md",
     callback = function()
