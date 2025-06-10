@@ -31,5 +31,9 @@
   {
     "src": "yazi",
     "dest": "/Users/korneel/.config/yazi"
+  },
+  {
+    "src": "obsidian/.obsidian.vimrc",
+    "dest": "/Users/korneel/Obsidian/two/.obsidian.vimrc"
   }
 ]

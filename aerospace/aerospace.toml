@@ -43,6 +43,11 @@ check-further-callbacks = false
 run = ['move-node-to-workspace n']
 
 [[on-window-detected]]
+if.app-id = 'md.obsidian'
+check-further-callbacks = false
+run = ['move-node-to-workspace n']
+
+[[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 check-further-callbacks = false
 run = 'move-node-to-workspace d'
@@ -158,7 +163,7 @@ check-further-callbacks = false
 run = ['layout floating']
 
 [[on-window-detected]]
-if.app-id = 'com.hnc.Discord'
+if.app-id = 'com.spikehd.dorion'
 check-further-callbacks = false
 run = ['move-node-to-workspace s']
 

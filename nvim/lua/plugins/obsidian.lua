@@ -78,8 +78,8 @@ return {
         version = "*",
         lazy = true,
         event = {
-            "BufReadPre /Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/**/**.md",
-            "BufNewFile /Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/**/**.md",
+            "BufReadPre /Users/korneel/Obsidian/two/**/**.md",
+            "BufNewFile /Users/korneel/Obsidian/two/**/**.md",
         },
         keys = {
             { mode = "n", "<localleader>nn", ":ObsidianNew<CR>", desc = "Create a new note." },
@@ -128,13 +128,13 @@ return {
             {
                 mode = "n",
                 "<localleader>np",
-                ':!cd "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/projects/tnt" && git pull<CR>',
+                ':!cd "/Users/korneel/Obsidian/two/projects/tnt" && git pull<CR>',
                 desc = "Pull TNT notes",
             },
             {
                 mode = "n",
                 "<localleader>nP",
-                ':!cd "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/projects/tnt" && git pull && git add . && git commit -m "Update" && git push<CR>',
+                ':!cd "/Users/korneel/Obsidian/two/projects/tnt" && git pull && git add . && git commit -m "Update" && git push<CR>',
                 desc = "Commit and Push TNT notes",
             },
             {
@@ -164,7 +164,11 @@ return {
             workspaces = {
                 {
                     name = "personal",
-                    path = "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two",
+                    path = "/Users/korneel/Obsidian/two",
+                },
+                {
+                    name = "tnt",
+                    path = "/Users/korneel/Obsidian/tnt",
                 },
             },
             notes_subdir = "notes",
