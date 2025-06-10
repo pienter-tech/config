@@ -13,4 +13,4 @@
 # @raycast.author pienter-tech
 # @raycast.authorURL https://github.com/pienter-tech
 
-wezterm start --workspace NOTES --cwd "/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two"
+wezterm start --workspace NOTES --cwd "/Users/korneel/Obsidian/two"

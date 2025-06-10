@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title script/tool/getflix-dns-on
+# @raycast.title scripts/tool/getflix-dns-on
 # @raycast.mode silent
 
 # Optional parameters:

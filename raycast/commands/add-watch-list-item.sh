@@ -1,21 +1,15 @@
 #!/bin/bash
 
-# Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title script/notes/add-to-watchlist
+# @raycast.title scripts/obsidian/lists/add-to-watchlist
 # @raycast.mode silent
-
-# Optional parameters:
 # @raycast.icon = 
-# @raycast.packageName Add to Watch List
-
-# Documentation:
-# @raycast.description Add clipboard content to watching list
+# @raycast.packageName Obsidian: Add to Watch List
 # @raycast.author pienter-tech
-# @raycast.authorURL https://raycast.com/pienter-tech
+# @raycast.authorURL https://github.com/pienter-tech
 
 
-WATCH_LIST_PATH="/Users/korneel/Library/Mobile Documents/iCloud~md~obsidian/Documents/two/notes/lists/watching.md"
+WATCH_LIST_PATH="/Users/korneel/Obsidian/two/notes/lists/watching.md"
 CLIPBOARD=$(pbpaste)
 NOTE=$1
 

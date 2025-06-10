@@ -14,29 +14,20 @@
 # @raycast.author pienter-tech
 # @raycast.authorURL https://github.com/pienter-tech
 
-# Open Outlook
 open -a "Microsoft Outlook"
 
-# Open Apple Mail
 open -a "Mail"
 
-# Open WezTerm
 open -a "WezTerm"
 
-# Open Chrome
 open -a "Google Chrome"
 
-# Open Safari
 open -a "Google Chrome Dev"
 
-open -a "Discord"
+open -a "Dorion"
 
 open -a "Shortcut"
 
-open -a "BlueSky"
-
-open -g raycast://extensions/raycast/raycast-ai/ai-chat
-
-open -g raycast://script-commands/project-notes
+open -a "Obsidian"
 
 echo "All applications have been launched!"
