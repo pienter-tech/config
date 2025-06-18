@@ -180,7 +180,7 @@ i = ['GW2760', 'PHL 346E2C', 'built-in']
 c = ['GW2760', 'P2415Q', 'LG HDR 4K']
 b = ['built-in', 'built-in']
 d = ['GW2765', 'P2415Q', 'LG HDR 4K', 'PHL 346E2C']
-n = ['GW2760', 'PHL 346E2C', 'built-in']
+n = ['GW2760', 'built-in']
 
 [mode.main.binding]
 

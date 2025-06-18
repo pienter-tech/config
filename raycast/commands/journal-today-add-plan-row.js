@@ -4,6 +4,7 @@
 // @raycast.title sripts/obsidian/journal/daily-add-plan-line
 // @raycast.mode compact
 // @raycast.argument1 { "type": "text", "placeholder": "Plan entry description" }
+// @raycast.argument2 { "type": "text", "placeholder": "Time (HH:MM)", "optional": true }
 // @raycast.icon 📝
 // @raycast.packageName Obsidian Journal: Add to dail plan
 // @raycast.author pienter-tech
@@ -14,12 +15,13 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import path from 'path';
 
 // Configuration - adjust these paths to match your setup
-const VAULT_PATH =
-  '/Users/korneel/Obsidian/two/journal/daily/';
+const VAULT_PATH = '/Users/korneel/Obsidian/two/journal/daily/';
 
 function main() {
   try {
     const planEntry = process.argv[2];
+    const timeArg = process.argv[3];
+
     if (!planEntry) {
       console.warn('Please provide a plan entry description');
       process.exit(1);
@@ -28,7 +30,20 @@ function main() {
     // Get current date and time
     const now = new Date();
     const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD format
-    const timeStr = now.toTimeString().slice(0, 5); // HH:MM format
+
+    let timeStr;
+    if (timeArg) {
+      // Validate HH:MM format
+      const match = timeArg.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+      if (!match) {
+        console.warn('Invalid time format. Use HH:MM (24-hour).');
+        process.exit(1);
+      }
+      timeStr = `${match[1]}:${match[2]}`;
+    } else {
+      const now = new Date();
+      timeStr = now.toTimeString().slice(0, 5); // HH:MM
+    }
 
     // Construct file path
     const fileName = `${dateStr}.md`;

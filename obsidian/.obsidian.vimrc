@@ -21,6 +21,25 @@ nmap <Space>ff :searchFile<CR>
 
 " Toggle left side bar
 exmap toggleLeftSideBar obcommand app:toggle-left-sidebar
-exmap revealFile obcommand file-explorer:reveal-active-file
 nmap <Space>fv :toggleLeftSideBar<CR>
+exmap revealFile obcommand file-explorer:reveal-active-file
 nmap <Space>gf :revealFile<CR>
+exmap closeOthers obcommand workspace:close-others
+nmap <Space>wo :closeOthers<CR>
+exmap closeWindow obcommand workspace:close-window
+nmap <Space>wc :closeWindow<CR>
+exmap split obcommand workspace:split-vertical
+nmap <Space>ws :split<CR>
+exmap journalToday obcommand journals::open-today's-note
+nmap <Space>jj :journalToday<CR>
+exmap journalPrev obcommand journals:open-prev
+nmap <Space>jp :journalPrev<CR>
+exmap journalNext obcommand journals:open-next
+nmap <Space>jn :journalNext<CR>
+exmap journalMonth obcommand journals::open-monthly-note
+nmap <Space>jm :journalMonth<CR>
+exmap toggleTodo obcommand editor:toggle-checklist-status
+nmap <Space>tt :toggleTodo<CR>
+exmap followLink obcommand editor:follow-link
+nmap <Enter> :followLink<CR>
+
