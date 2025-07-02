@@ -117,7 +117,7 @@ function _makc_completion() {
     local targets=($(cd "$CONFIG_DIR" && make -qp 2>/dev/null | \
         awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);print A[1]}' | \
         sort -u))
-    
+
     _describe 'command' targets
 }
 

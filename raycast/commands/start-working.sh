@@ -14,9 +14,9 @@
 # @raycast.author pienter-tech
 # @raycast.authorURL https://github.com/pienter-tech
 
-open -a "Microsoft Outlook"
+open -a "Calendar"
 
-open -a "Mail"
+open -a "Mailbird"
 
 open -a "WezTerm"
 

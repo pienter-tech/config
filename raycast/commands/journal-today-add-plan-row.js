@@ -1,7 +1,7 @@
 #!/Users/korneel/.nodenv/versions/22.15.0/bin/node
 
 // @raycast.schemaVersion 1
-// @raycast.title sripts/obsidian/journal/daily-add-plan-line
+// @raycast.title scripts/obsidian/journal/daily-add-plan-line
 // @raycast.mode compact
 // @raycast.argument1 { "type": "text", "placeholder": "Plan entry description" }
 // @raycast.argument2 { "type": "text", "placeholder": "Time (HH:MM)", "optional": true }

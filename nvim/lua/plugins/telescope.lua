@@ -4,6 +4,13 @@ return {
         lazy = false,
         tag = "0.1.6",
         dependencies = {
+            {
+                "isak102/telescope-git-file-history.nvim",
+                dependencies = {
+                    "nvim-lua/plenary.nvim",
+                    "tpope/vim-fugitive",
+                },
+            },
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-fzf-native.nvim",
             "olimorris/persisted.nvim",
@@ -40,6 +47,7 @@ return {
             })
             telescope.load_extension("fzf")
             telescope.load_extension("persisted")
+            telescope.load_extension("git_file_history")
         end,
         keys = {
             {
@@ -55,7 +63,14 @@ return {
                 mode = "n",
             },
             { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Telescope find files", mode = "n" },
-            { "<leader>fg", "<cmd>Telescope git_files<CR>", desc = "Telescope find files in git", mode = "n" },
+            {
+                "<leader>fg",
+                function()
+                    require("telescope").extensions.git_file_history.git_file_history()
+                end,
+                desc = "Telescope current buffer git history",
+                mode = "n",
+            },
             {
                 "<leader>fd",
                 function()

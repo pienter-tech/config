@@ -39,6 +39,12 @@ return {
         keys = {
             {
                 mode = "n",
+                "<leader>bn",
+                "<Cmd>enew | setlocal buftype=nofile bufhidden=hide noswapfile<CR>",
+                desc = "Open new empty buffer",
+            },
+            {
+                mode = "n",
                 "<leader>b",
                 desc = "Buffers",
             },

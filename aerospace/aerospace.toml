@@ -78,6 +78,16 @@ check-further-callbacks = false
 run = ['move-node-to-workspace i']
 
 [[on-window-detected]]
+if.app-id = 'com.getmailbird.Mailbird'
+check-further-callbacks = false
+run = ['move-node-to-workspace c']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+check-further-callbacks = false
+run = ['move-node-to-workspace c']
+
+[[on-window-detected]]
 if.app-id = 'com.apple.mail'
 check-further-callbacks = false
 run = ['move-node-to-workspace c']
