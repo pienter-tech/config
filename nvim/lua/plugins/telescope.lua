@@ -79,6 +79,7 @@ return {
                 desc = "Telescope search files with grep",
                 mode = "n",
             },
+            { "<leader>fm", "<cmd>Telescope marks<CR>", desc = "Telescope find marks", mode = "n" },
             {
                 "<leader>fd",
                 function()
@@ -100,11 +101,11 @@ return {
             { "<leader>fr", "<cmd>Telescope resume<CR>", desc = "Telescope resume previous find", mode = "n" },
             { "<leader>fp", "<cmd>Telescope pickers<CR>", desc = "Telescope search pickers", mode = "n" },
             {
-                "<leader>fm",
+              "<leader>fM",
                 function()
                     require("telescope").extensions.macroni.saved_macros()
                 end,
-                desc = "Telescope search pickers",
+                desc = "Telescope search Macros",
                 mode = "n",
             },
         },

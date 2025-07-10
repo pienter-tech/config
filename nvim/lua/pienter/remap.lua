@@ -53,42 +53,80 @@ key.set(
     { noremap = true, silent = true, desc = "Refresh active chrome tab" }
 )
 
-key.set("n", "<leader>Ma", function()
-    -- AppleScript lines
-    local script_lines = {
-        'tell application "Mail"',
-        "  try",
-        "    set theMessage to item 1 of (get selection)",
-        "    set theID to message id of theMessage",
-        "  end try",
-        "end tell",
-        'return "message://<" & theID & ">"',
-    }
+-- Buffers
+key.set("n", "<leader>b", "", {
+    desc = "Buffers",
+})
+key.set("n", "<leader>bc", "<Cmd>bd<CR>", {
+    desc = "Close buffer",
+})
+key.set("n", "<leader>bn", "<Cmd>enew | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", {
+    desc = "Open new empty buffer",
+})
 
-    -- build the osascript command with multiple -e flags
-    local parts = { "osascript" }
-    for _, line in ipairs(script_lines) do
-        table.insert(parts, "-e")
-        table.insert(parts, vim.fn.shellescape(line))
-    end
-    local cmd = table.concat(parts, " ")
-    local handle = io.popen(cmd)
+key.set("n", "<leader>bo", "", { desc = "Close multiple buffers" })
 
-    if not handle then
-        vim.notify("Failed to run Mail script", vim.log.levels.ERROR)
-        return
+key.set("n", "<leader>boo", function()
+    local closed_count = 0
+    local win_bufs = {}
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        win_bufs[buf] = true
     end
 
-    local url = handle:read("*a")
-    handle:close()
-
-    url = url:gsub("%s+$", "")
-
-    if url == "" then
-        vim.notify("No message selected in Mail.app", vim.log.levels.WARN)
-        return
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if not win_bufs[buf] then
+            vim.api.nvim_buf_delete(buf, { force = false })
+            closed_count = closed_count + 1
+        end
     end
 
-    local link = string.format("[%s](%s)", "mail", url)
-    vim.api.nvim_put({ link }, "c", true, true)
-end, { noremap = true, silent = true })
+    if closed_count > 0 then
+        vim.notify(string.format("%d buffer(s) closed", closed_count), vim.log.levels.INFO)
+    else
+        vim.notify("No buffers to close", vim.log.levels.INFO)
+    end
+end, { desc = "Close all other buffers except those visible in windows" })
+
+key.set("n", "<leader>bof", function()
+    local closed_count = 0
+    local cur = vim.api.nvim_get_current_buf()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if buf ~= cur then
+            vim.api.nvim_buf_delete(buf, { force = false })
+            closed_count = closed_count + 1
+        end
+    end
+
+    if closed_count > 0 then
+        vim.notify(string.format("%d buffer(s) closed", closed_count), vim.log.levels.INFO)
+    else
+        vim.notify("No buffers to close", vim.log.levels.INFO)
+    end
+end, { desc = "Close all other buffers even if the buffer is open" })
+
+key.set("n", "<leader>bom", function()
+    local closed_count = 0
+    local cur = vim.api.nvim_get_current_buf()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if buf == cur or not vim.api.nvim_buf_is_loaded(buf) then
+            goto continue
+        end
+
+        local marks = vim.fn.getmarklist(buf)
+        if #marks > 0 then
+            goto continue
+        end
+
+        vim.api.nvim_buf_delete(buf, { force = false })
+        closed_count = closed_count + 1
+
+        ::continue::
+    end
+
+    if closed_count > 0 then
+        vim.notify(string.format("%d buffer(s) closed", closed_count), vim.log.levels.INFO)
+    else
+        vim.notify("No buffers to close", vim.log.levels.INFO)
+    end
+end, { desc = "Close all other buffers without a mark" })

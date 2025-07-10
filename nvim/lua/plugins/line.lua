@@ -31,23 +31,13 @@ return {
     },
     {
         "romgrk/barbar.nvim",
+        enabled = false,
         event = "VeryLazy",
         dependencies = {
             "lewis6991/gitsigns.nvim",
             "nvim-tree/nvim-web-devicons",
         },
         keys = {
-            {
-                mode = "n",
-                "<leader>bn",
-                "<Cmd>enew | setlocal buftype=nofile bufhidden=hide noswapfile<CR>",
-                desc = "Open new empty buffer",
-            },
-            {
-                mode = "n",
-                "<leader>b",
-                desc = "Buffers",
-            },
             {
                 mode = "n",
                 "<leader>bs",

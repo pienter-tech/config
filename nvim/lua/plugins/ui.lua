@@ -1,6 +1,7 @@
 return {
     {
         "rcarriga/nvim-notify",
+        enabled = true,
         opts = {
             stages = "static",
             timeout = 3000,
@@ -15,6 +16,7 @@ return {
     },
     {
         "folke/noice.nvim",
+        enabled = true,
         event = "VeryLazy",
         opts = {
             lsp = {
