@@ -47,6 +47,9 @@ alias dcu="docker compose up -d --build"
 alias c="clear"
 alias ls="ls --color"
 alias m="make"
+alias claud="NODENV_VERSION=24.3.0 claude"
+alias gemini="NODENV_VERSION=24.3.0 gemini"
+alias codex="NODENV_VERSION=24.3.0 codex"
 
 bindkey -e
 bindkey '^p' history-search-backward
