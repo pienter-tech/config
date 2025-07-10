@@ -1,0 +1,4 @@
+{
+  "includeCoAuthoredBy": false,
+  "apiKeyHelper": "~/.claude/anthropic_key.sh"
+}

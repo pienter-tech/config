@@ -1,5 +1,13 @@
 [
   {
+    "src": "claude/settings.json",
+    "dest": "/Users/korneel/.claude/settings.json"
+  },
+  {
+    "src": "claude/anthropic_key.sh",
+    "dest": "/Users/korneel/.claude/anthropic_key.sh"
+  },
+  {
     "src": "zsh/zshenv",
     "dest": "/Users/korneel/.zshenv"
   },
