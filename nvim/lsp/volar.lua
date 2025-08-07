@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/vuejs/language-tools/tree/master/packages/language-server
@@ -87,19 +89,25 @@ end
 
 -- https://github.com/vuejs/language-tools/blob/master/packages/language-server/lib/types.ts
 local volar_init_options = {
-  typescript = {
-    tsdk = '',
-  },
+    typescript = {
+        tsdk = "",
+    },
 }
 
 return {
-  cmd = { 'vue-language-server', '--stdio' },
-  filetypes = { 'vue' },
-  root_markers = { 'package.json' },
-  init_options = volar_init_options,
-  before_init = function(_, config)
-    if config.init_options and config.init_options.typescript and config.init_options.typescript.tsdk == '' then
-      config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
-    end
-  end,
+    cmd = { "vue-language-server", "--stdio" },
+    filetypes = { "vue" },
+    root_markers = { "package.json" },
+    init_options = volar_init_options,
+    before_init = function(_, config)
+        if config.init_options and config.init_options.typescript and config.init_options.typescript.tsdk == "" then
+            config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
+        end
+    end,
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

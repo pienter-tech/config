@@ -42,4 +42,7 @@ exmap toggleTodo obcommand editor:toggle-checklist-status
 nmap <Space>tt :toggleTodo<CR>
 exmap followLink obcommand editor:follow-link
 nmap <Enter> :followLink<CR>
+exmap openContextMenu obcommand editor:context-menu
+nmap <Space>1 :openContextMenu<CR>
+vmap <Space>1 :openContextMenu<CR>
 

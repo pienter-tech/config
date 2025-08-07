@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/hrsh7th/vscode-langservers-extracted
@@ -22,10 +24,16 @@
 --- })
 --- ```
 return {
-  cmd = { 'vscode-json-language-server', '--stdio' },
-  filetypes = { 'json', 'jsonc' },
-  init_options = {
-    provideFormatter = true,
-  },
-  root_markers = { '.git' },
+    cmd = { "vscode-json-language-server", "--stdio" },
+    filetypes = { "json", "jsonc" },
+    init_options = {
+        provideFormatter = true,
+    },
+    root_markers = { ".git" },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/typescript-language-server/typescript-language-server
@@ -127,4 +129,10 @@ return {
             })
         end, {})
     end,
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

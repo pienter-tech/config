@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/hrsh7th/vscode-langservers-extracted
@@ -23,13 +25,19 @@
 --- })
 --- ```
 return {
-  cmd = { 'vscode-html-language-server', '--stdio' },
-  filetypes = { 'html', 'templ', 'vue' },
-  root_markers = { 'package.json', '.git' },
-  settings = {},
-  init_options = {
-    provideFormatter = true,
-    embeddedLanguages = { css = true, javascript = true },
-    configurationSection = { 'html', 'css', 'javascript' },
-  },
+    cmd = { "vscode-html-language-server", "--stdio" },
+    filetypes = { "html", "templ", "vue" },
+    root_markers = { "package.json", ".git" },
+    settings = {},
+    init_options = {
+        provideFormatter = true,
+        embeddedLanguages = { css = true, javascript = true },
+        configurationSection = { "html", "css", "javascript" },
+    },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

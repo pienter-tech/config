@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/redhat-developer/yaml-language-server
@@ -60,11 +62,17 @@
 --- })
 --- ```
 return {
-  cmd = { 'yaml-language-server', '--stdio' },
-  filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
-  root_markers = { '.git' },
-  settings = {
-    -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
-    redhat = { telemetry = { enabled = false } },
-  },
+    cmd = { "yaml-language-server", "--stdio" },
+    filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+    root_markers = { ".git" },
+    settings = {
+        -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+        redhat = { telemetry = { enabled = false } },
+    },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

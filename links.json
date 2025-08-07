@@ -1,5 +1,13 @@
 [
   {
+    "src": "opencode/opencode.json",
+    "dest": "/Users/korneel/.config/opencode/opencode.json"
+  },
+  {
+    "src": "opencode/mode",
+    "dest": "/Users/korneel/.config/opencode/mode"
+  },
+  {
     "src": "claude/settings.json",
     "dest": "/Users/korneel/.claude/settings.json"
   },

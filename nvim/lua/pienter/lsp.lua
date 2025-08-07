@@ -13,7 +13,7 @@ vim.lsp.enable("html")
 vim.lsp.enable("intelephense")
 vim.lsp.enable("jsonls")
 vim.lsp.enable("lemminx")
-vim.lsp.enable("lua_ls")
+vim.lsp.enable("luals")
 vim.lsp.enable("remark_ls")
 vim.lsp.enable("somesass_ls")
 vim.lsp.enable("taplo")
@@ -35,14 +35,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         opts.desc = "Show LSP references"
         keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-        -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
-        if client:supports_method("textDocument/completion") then
-            -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-            -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-            -- client.server_capabilities.completionProvider.triggerCharacters = chars
-            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-        end
 
         if client:supports_method("textDocument/references") then
             opts.desc = "Show LSP references"
@@ -82,6 +74,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
             keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
         end
+
         if client.server_capabilities.documentSymbolProvider then
           local navic = require("nvim-navic")
           navic.attach(client, args.buf)

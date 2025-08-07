@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/hrsh7th/vscode-langservers-extracted
@@ -13,22 +15,27 @@
 ---
 --- ```lua
 --- --Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 ---
 --- vim.lsp.config('cssls', {
 ---   capabilities = capabilities,
 --- })
 --- ```
 return {
-  cmd = { 'vscode-css-language-server', '--stdio' },
-  filetypes = { 'css' },
-  capabilities = capabilities,
-  init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
-  root_markers = { 'package.json', '.git' },
-  settings = {
-    css = { validate = true },
-    scss = { validate = true },
-    less = { validate = true },
-  },
+    cmd = { "vscode-css-language-server", "--stdio" },
+    filetypes = { "css" },
+    init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
+    root_markers = { "package.json", ".git" },
+    settings = {
+        css = { validate = true },
+        scss = { validate = true },
+        less = { validate = true },
+    },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

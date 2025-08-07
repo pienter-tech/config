@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://taplo.tamasfe.dev/cli/usage/language-server.html
@@ -10,7 +12,13 @@
 --- cargo install --features lsp --locked taplo-cli
 --- ```
 return {
-  cmd = { 'taplo', 'lsp', 'stdio' },
-  filetypes = { 'toml' },
-  root_markers = { '.taplo.toml', 'taplo.toml', '.git' },
+    cmd = { "taplo", "lsp", "stdio" },
+    filetypes = { "toml" },
+    root_markers = { ".taplo.toml", "taplo.toml", ".git" },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

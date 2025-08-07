@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/withastro/language-tools/tree/main/packages/language-server
@@ -32,4 +34,10 @@ return {
             config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
         end
     end,
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

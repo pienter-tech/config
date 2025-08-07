@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/luals/lua-language-server
@@ -85,6 +87,7 @@ return {
         Lua = {
             runtime = {
                 version = "LuaJIT",
+                path = vim.split(package.path, ";"),
             },
             diagnostics = {
                 globals = { "vim" },
@@ -95,6 +98,24 @@ return {
                     [vim.fn.stdpath("config") .. "/lua"] = true,
                 },
             },
+            hint = {
+                enable = true,
+                arrayIndex = "Enable",
+                await = true,
+                paramName = "All",
+                paramType = true,
+                semicolon = "Disable",
+                setType = true,
+            },
+            telemetry = {
+                enable = false,
+            },
         },
     },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

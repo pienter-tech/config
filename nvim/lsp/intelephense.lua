@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://intelephense.com/
@@ -25,12 +27,21 @@
 ---   };
 --- }
 --- ```
+---
+local blink = require("blink.cmp")
+
+local get_intelephense_license = function()
+    local f = assert(io.open(os.getenv("HOME") .. "/dev/projects/pienter/config/.intelephense-license", "rb"))
+    local content = f:read("*a")
+    f:close()
+    return string.gsub(content, "%s+", "")
+end
 
 return {
     cmd = { "intelephense", "--stdio" },
     filetypes = { "php" },
     init_options = {
-        licenceKey = "/Users/korneel/dev/projects/pienter/config/.intelephense-license",
+        licenceKey = get_intelephense_license(),
     },
     settings = {},
     root_dir = function(bufnr, on_dir)
@@ -41,4 +52,10 @@ return {
         -- prefer cwd if root is a descendant
         on_dir(root and vim.fs.relpath(cwd, root) and cwd)
     end,
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

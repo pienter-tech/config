@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 ---@brief
 ---
 --- https://github.com/rcjsuen/dockerfile-language-server-nodejs
@@ -23,7 +25,13 @@
 --- })
 --- ```
 return {
-  cmd = { 'docker-langserver', '--stdio' },
-  filetypes = { 'dockerfile' },
-  root_markers = { 'Dockerfile' },
+    cmd = { "docker-langserver", "--stdio" },
+    filetypes = { "dockerfile" },
+    root_markers = { "Dockerfile" },
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        blink.get_lsp_capabilities()
+    ),
 }

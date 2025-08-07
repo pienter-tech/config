@@ -1,20 +1,29 @@
 return {
     {
         "pienter-tech/codeium.nvim",
-        enabled = true,
+        enabled = false,
         event = "BufEnter",
         keys = {
             {
                 mode = "i",
                 "<C-j>",
                 function()
-                    require("cmp").abort()
+                    local blink = require("blink.cmp")
+                    blink.cancel()
 
                     require("codeium.virtual_text").cycle_or_complete()
                 end,
                 desc = "Codeium cycle or complete",
             },
         },
+        init = function()
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "BlinkCmpMenuOpen",
+                callback = function()
+                    require("codeium.virtual_text").clear()
+                end,
+            })
+        end,
         opts = {
             enable_cmp_source = false,
             virtual_text = {
@@ -52,5 +61,41 @@ return {
                 },
             },
         },
+    },
+    {
+        "milanglacier/minuet-ai.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        enabled = true,
+        main = "minuet",
+        keys = {
+            {
+                mode = "i",
+                "<C-j>",
+                function()
+                    local blink = require("blink.cmp")
+                    blink.cancel()
+
+                    require("minuet.virtualtext").action.next()
+                end,
+                desc = "Codeium cycle or complete",
+            },
+        },
+        opts = {
+            provider = "gemini",
+            virtualtext = {
+                auto_trigger_ft = {},
+                keymap = {
+                    accept = "<C-l>",
+                    accept_line = nil,
+                    accept_n_lines = nil,
+                    prev = "<C-k>",
+                    next = nil,
+                    dismiss = "<C-h>",
+                },
+            },
+        },
+        show_on_completion_menu = false,
     },
 }
