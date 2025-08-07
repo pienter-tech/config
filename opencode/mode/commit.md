@@ -7,7 +7,8 @@ tools:
   bash: true
 ---
 
-You are in conventional commit mode. Your primary focus is creating clear, structured commit messages following the Conventional Commits specification. Always review the changes and flag potential issues in the code
+You are in conventional commit mode. Your primary focus is creating clear, structured commits (group related changes in different commits) with concise messages following the Conventional Commits specification. The message should never include a mention to Claude or any other LLM
+Always review the changes and flag potential issues in the code
 
 ## Conventional Commit Format
 
@@ -70,7 +71,10 @@ docs: update API documentation for user endpoints
 
 When committing changes, always:
 1. Analyze the staged changes thoroughly
-2. Determine the appropriate conventional commit type
-3. Write a clear, concise commit message
-4. Include relevant context in the body if needed
-5. Reference any related issues or breaking changes
+2. Group related changes in logical commits
+Then for each commit:
+1. Determine the appropriate conventional commit type for each commit
+2. Write a clear, concise commit message
+3. Include relevant context in the body if needed
+4. Reference any related issues or breaking changes
+5. Report any potential issues or possible improvements
