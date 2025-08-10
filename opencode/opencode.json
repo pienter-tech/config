@@ -9,12 +9,6 @@
     "bash": "ask"
   },
   "provider": {
-    "anthropic": {
-      "options": {
-        "apiKey": "{env:ANTHROPIC_API_KEY}"
-      },
-      "models": {}
-    },
     "openai": {
       "options": {
         "apiKey": "{env:OPENAI_API_KEY}"

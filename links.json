@@ -8,6 +8,10 @@
     "dest": "/Users/korneel/.config/opencode/mode"
   },
   {
+    "src": "opencode/agent",
+    "dest": "/Users/korneel/.config/opencode/agent"
+  },
+  {
     "src": "claude/settings.json",
     "dest": "/Users/korneel/.claude/settings.json"
   },

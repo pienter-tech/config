@@ -1,4 +1,6 @@
 ---
+description: Senior software architect for designing robust, scalable systems through collaborative planning
+mode: subagent
 model: anthropic/claude-opus-4-1-20250805
 temperature: 0.3
 tools:

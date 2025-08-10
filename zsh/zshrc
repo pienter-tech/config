@@ -41,6 +41,7 @@ setopt hist_find_no_dups
 
 ### ALIASES
 
+alias oc="opencode"
 alias vim="nvim"
 alias v="nvim"
 alias dcu="docker compose up -d --build"

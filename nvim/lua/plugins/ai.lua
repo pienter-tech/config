@@ -84,6 +84,12 @@ return {
         },
         opts = {
             provider = "gemini",
+            provider_options = {
+                openai = {
+                    model = 'gpt-5-mini'
+
+                }
+            },
             virtualtext = {
                 auto_trigger_ft = {},
                 keymap = {
