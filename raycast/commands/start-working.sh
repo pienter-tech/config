@@ -16,7 +16,7 @@
 
 open -a "Calendar"
 
-open -a "Mailbird"
+open -a "Mail"
 
 open -a "WezTerm"
 

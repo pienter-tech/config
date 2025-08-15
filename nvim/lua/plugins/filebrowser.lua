@@ -5,7 +5,7 @@ return {
             "nvim-lua/plenary.nvim",
         },
         event = "VeryLazy",
-        enabled = false,
+        enabled = true,
         keys = {
             {
                 "<leader>fv",
@@ -28,8 +28,7 @@ return {
     },
     {
         "stevearc/oil.nvim",
-        ---@module 'oil'
-        ---@type oil.SetupOpts
+        enabled = false,
         keys = {
             {
                 "<leader>fv",
@@ -46,6 +45,8 @@ return {
                 desc = "Open the file manager in the project root directory",
             },
         },
+        ---@module 'oil'
+        ---@type oil.SetupOpts
         opts = {
             float = {
                 padding = 4,
@@ -65,6 +66,12 @@ return {
                 ["_"] = { "actions.open_cwd", mode = "n" },
                 ["`"] = { "actions.cd", mode = "n" },
                 ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+                ["gw"] = {
+                    function()
+                        require("oil").save()
+                    end,
+                    mode = "n",
+                },
                 ["gs"] = { "actions.change_sort", mode = "n" },
                 ["gx"] = "actions.open_external",
                 ["g."] = { "actions.toggle_hidden", mode = "n" },

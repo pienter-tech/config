@@ -8,7 +8,7 @@
 # @raycast.author pienter-tech
 # @raycast.authorURL https://github.com/pienter-tech
 
-NOTES_DIRECTORY="/Users/korneel/Obsidian/two/notes/lists/watching/"
+NOTES_DIRECTORY="/Users/korneel/Obsidian/Two/notes/lists/watching/"
 
 # --- Script ---
 # Get the full content from the clipboard
