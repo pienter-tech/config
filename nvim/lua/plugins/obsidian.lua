@@ -75,7 +75,7 @@ return {
     },
     {
         "epwalsh/obsidian.nvim",
-        enabled = false,
+        enabled = true,
         version = "*",
         lazy = true,
         event = {
