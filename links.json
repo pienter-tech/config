@@ -4,8 +4,8 @@
     "dest": "/Users/korneel/.config/opencode/opencode.json"
   },
   {
-    "src": "opencode/mode",
-    "dest": "/Users/korneel/.config/opencode/mode"
+    "src": "opencode/command",
+    "dest": "/Users/korneel/.config/opencode/command"
   },
   {
     "src": "opencode/agent",
