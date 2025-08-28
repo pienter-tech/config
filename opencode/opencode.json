@@ -12,9 +12,24 @@
       "git log *": "allow",
       "git add *": "allow",
       "git diff": "allow",
-      "ls": "allow",
+      "git show *": "allow",
+      "git tag --list *": "allow",
+      "git ls-files *": "allow",
+      "ls *": "allow",
       "pwd": "allow",
+      "head *": "allow",
+      "cd *": "allow",
       "*": "ask"
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      },
+      "enabled": true
     }
   },
   "provider": {

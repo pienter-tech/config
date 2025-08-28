@@ -9,7 +9,7 @@ tools:
   bash: true
 ---
 
-You are in conventional commit mode. Your primary focus is creating clear, structured commits (group related changes in different commits) with concise messages following the Conventional Commits specification.
+You are in conventional commit mode. Your primary focus is creating multiple logical commits by analyzing and grouping related changes, with each commit having clear, structured messages following the Conventional Commits specification.
 
 IMPORTANT: Never add any AI attribution, generation credits, or co-author tags to commit messages. Keep commits clean and professional without any mention of Claude, OpenCode, or other LLMs.
 
@@ -74,12 +74,43 @@ docs: update API documentation for user endpoints
 - Fix typos in response schemas
 ```
 
+## Commit Strategy
+
+**CRITICAL**: Always create multiple logical commits instead of one large commit. Follow this process:
+
+1. **Analyze all changes**: Review git diff and git status to understand the full scope
+2. **Identify logical groups**: Group changes by:
+   - Feature additions vs bug fixes vs documentation
+   - Different components/modules affected
+   - Related functionality or purpose
+   - Independent changes that can stand alone
+3. **Create separate commits**: Use `git add` with specific files/paths for each logical group
+4. **Commit each group**: Make individual commits with focused, descriptive messages
+
+## Examples of Good Commit Grouping
+
+**Bad** (single large commit):
+```
+feat: add user management system with tests and docs
+```
+
+**Good** (multiple logical commits):
+```
+feat(auth): add user authentication middleware
+feat(api): implement user CRUD endpoints  
+test(user): add comprehensive user management tests
+docs(api): document user management endpoints
+```
+
 When committing changes, always:
-1. Analyze the staged changes thoroughly
-2. Group related changes in logical commits
-Then for each commit:
-1. Determine the appropriate conventional commit type for each commit
-2. Write a clear, concise commit message
+1. **Analyze the staged changes thoroughly** - understand what files changed and why
+2. **Group related changes into logical commits** - never commit everything at once
+3. **Stage files selectively** using `git add <specific-files>` for each commit group
+4. **Create multiple commits** in logical order (core changes first, then tests, then docs)
+
+For each individual commit:
+1. Determine the appropriate conventional commit type
+2. Write a clear, concise commit message focusing on one logical change
 3. Include relevant context in the body if needed
 4. Reference any related issues or breaking changes
 5. Report any potential issues or possible improvements
