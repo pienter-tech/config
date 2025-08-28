@@ -1,5 +1,16 @@
 # AGENTS.md
 
+## Available OpenCode Agents
+
+### architect
+Senior software architect for designing robust, scalable systems through collaborative planning. Use for system design, architecture decisions, and project structure planning.
+
+### commit  
+Creates structured commits following Conventional Commits specification with clear, professional messages. Use for creating clean, meaningful commit messages.
+
+### review
+Reviews code changes for quality, security, performance, and best practices. Use after writing significant code changes to get thorough feedback and suggestions for improvement.
+
 ## Build/Test Commands
 - No traditional build system - uses Makefile for configuration management
 - `make help` - Show all available commands
