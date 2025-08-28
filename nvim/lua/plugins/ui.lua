@@ -1,18 +1,74 @@
 return {
     {
-        "rcarriga/nvim-notify",
-        enabled = true,
-        opts = {
-            stages = "static",
-            timeout = 3000,
-            on_open = function(win)
-                vim.api.nvim_win_set_config(win, { focusable = false })
-            end,
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        keys = {
+            {
+                mode = "n",
+                "<leader>b",
+                desc = "Buffers",
+            },
+            {
+                mode = "n",
+                "<leader>bc",
+                function()
+                    require("snacks").bufdelete()
+                end,
+                desc = "Close current Buffer",
+            },
+            {
+                mode = "n",
+                "<leader>bo",
+                function()
+                    require("snacks").bufdelete.other()
+                end,
+                desc = "Close other Buffers",
+            },
+            {
+                "<leader>gg",
+                function()
+                    require("snacks").lazygit()
+                end,
+                desc = "Open LazyGit in popup",
+                mode = "n",
+                silent = true,
+            },
+            {
+                "<leader>gl",
+                function()
+                    require("snacks").git.blame_line()
+                end,
+                desc = "Toggle Git Blame popup for this line",
+            },
         },
-    },
-    {
-        "stevearc/dressing.nvim",
-        opts = {},
+        ---@type snacks.Config
+        opts = {
+            animate = {},
+            bigfile = { enabled = true },
+            bugdelete = {},
+            dashboard = { enabled = false },
+            debug = {},
+            dim = { enabled = false },
+            explorer = { enabled = false },
+            git = {},
+            gitbrowse = {},
+            image = { enabled = false },
+            indent = { enabled = true, animate = { enabled = false } },
+            input = { enabled = true },
+            layout = { enabled = false },
+            lazygit = { enable = true },
+            picker = { enabled = true },
+            notifier = { enabled = true },
+            quickfile = { enabled = true },
+            rename = { enabled = false },
+            scope = { enabled = true },
+            scratch = { enabled = false },
+            scroll = { enabled = true },
+            statuscolumn = { enabled = true },
+            terminal = { enabled = true },
+            words = { enabled = true },
+        },
     },
     {
         "folke/noice.nvim",
@@ -36,7 +92,6 @@ return {
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
         },
     },
 }
