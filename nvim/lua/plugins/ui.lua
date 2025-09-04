@@ -41,6 +41,27 @@ return {
                 end,
                 desc = "Toggle Git Blame popup for this line",
             },
+            {
+                "<leader>n",
+                function()
+                    require("snacks").notifier.show_history()
+                end,
+                desc = "Notification History",
+            },
+            {
+                "<leader>z",
+                function()
+                    require("snacks").zen()
+                end,
+                desc = "Toggle Zen Mode",
+            },
+            {
+                "<leader>Z",
+                function()
+                    require("snacks").zen.zoom()
+                end,
+                desc = "Toggle Zoom",
+            },
         },
         ---@type snacks.Config
         opts = {
@@ -49,7 +70,7 @@ return {
             bugdelete = {},
             dashboard = { enabled = false },
             debug = {},
-            dim = { enabled = false },
+            dim = {},
             explorer = { enabled = false },
             git = {},
             gitbrowse = {},
@@ -64,10 +85,21 @@ return {
             rename = { enabled = false },
             scope = { enabled = true },
             scratch = { enabled = false },
-            scroll = { enabled = true },
+            scroll = { enabled = false },
             statuscolumn = { enabled = true },
             terminal = { enabled = true },
             words = { enabled = true },
+            zen = {
+                toggles = { dim = false}
+            },
+            ---@type table<string, snacks.win.Config>
+            styles = {
+                zen = {
+                    width = 150,
+                    backdrop = { transparent = true, blend = 10 },
+                    keys = { q = "close" },
+                },
+            },
         },
     },
     {

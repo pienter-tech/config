@@ -48,6 +48,10 @@ key.set("n", "zl3", ":setlocal foldlevel=3<CR>", { desc = "Fold all level 3 fold
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+key.set("n", "<leader>bn", "<Cmd>enew | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", {
+    desc = "Open new empty buffer",
+})
+
 key.set(
     "n",
     "<leader>r",
