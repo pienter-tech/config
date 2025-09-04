@@ -1,6 +1,5 @@
 ---
 description: Commit changes with conventional commits
-agent: commit
 ---
 
 Create logical commits with clear, conventional commit messages. Follow the repository's existing commit style and conventions.
