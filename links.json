@@ -1,5 +1,9 @@
 [
   {
+    "src": "ghostty",
+    "dest": "/Users/korneel/.config/ghostty"
+  },
+  {
     "src": "opencode/opencode.json",
     "dest": "/Users/korneel/.config/opencode/opencode.json"
   },
