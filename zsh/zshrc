@@ -52,6 +52,7 @@ alias m="make"
 alias claud="NODENV_VERSION=24.3.0 claude"
 alias gemini="NODENV_VERSION=24.3.0 gemini"
 alias codex="NODENV_VERSION=24.3.0 codex"
+alias tde="make docker-exec"
 
 bindkey -e
 bindkey '^p' history-search-backward
@@ -179,3 +180,10 @@ zinit cdreplay -q
 
 # Added
 export PATH="/Users/korneel/.codeium/windsurf/bin:$PATH"
+
+# bun completions
+[ -s "/Users/korneel/.bun/_bun" ] && source "/Users/korneel/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
