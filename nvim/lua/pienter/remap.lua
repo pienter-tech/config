@@ -34,9 +34,6 @@ key.set("n", "<leader>/", ":nohlsearch<CR>", { desc = "Stop highlighting for the
 -- Run macro q
 key.set("n", "<leader>q", "@q", { desc = "@q (start/stop/run macro q)" })
 
-key.set("i", "<C-a>", "<ESC><S-a>", { desc = "Move cursor to end of line in insert mode" })
-key.set("i", "<C-i>", "<ESC><S-i>", { desc = "Move cursor to start of line in insert mode" })
-
 key.set("v", "p", '"_dP', { desc = "Replace currently selected text without yanking" })
 
 key.set("n", "<leader>hc", ":helpclose<CR>", { desc = "Close help window" })
