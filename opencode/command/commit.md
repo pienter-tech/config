@@ -20,4 +20,4 @@ Requirements:
 4. Follow the existing commit message style in this repository
 5. Do not mention AI tools or generators in commit messages
 6. Flag any potential issues or improvements before committing
-7. Ensure all changes are properly staged before committing
+7. When creating commits always use add the git status in the same command, like `git commit -m '...' && git status ...`

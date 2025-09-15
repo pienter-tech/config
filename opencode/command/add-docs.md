@@ -18,11 +18,11 @@ Add comprehensive documentation for the file $ARGUMENTS using the appropriate do
 - **Shell/Bash**: Use structured comments with description and usage examples
 
 For each function/method/class:
-1. Add a clear description of what it does
-2. Document all parameters with their types and descriptions
+1. Add a concise description of what it does
+2. Document parameters with their types and brief descriptions
 3. Document return values and their types
 4. Document any exceptions/errors that might be thrown
-5. Add usage examples where helpful
-6. Include any important notes or warnings
+5. Add usage examples only for complex functions where they provide clear benefit
+6. Include important notes or warnings when necessary
 
-Focus on making the documentation clear, concise, and useful for other developers.
+Focus on making the documentation clear, concise, and useful for other developers without over-documenting simple functions.
