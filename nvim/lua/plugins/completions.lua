@@ -7,6 +7,20 @@ return {
         },
         version = "*",
         init = function() end,
+        config = function(_, opts)
+            -- Add project snippet path if available
+            if vim.g.project_snippet_path then
+                if
+                    opts.sources
+                    and opts.sources.providers
+                    and opts.sources.providers.snippets
+                    and opts.sources.providers.snippets.opts
+                then
+                    table.insert(opts.sources.providers.snippets.opts.search_paths, vim.g.project_snippet_path)
+                end
+            end
+            require("blink.cmp").setup(opts)
+        end,
         opts = {
             signature = { enabled = true },
             appearance = {
@@ -16,13 +30,19 @@ return {
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
                 providers = {
+                    snippets = {
+                        opts = {
+                            friendly_snippets = true,
+                            search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+                        },
+                    },
                     cmdline = {
                         min_keyword_length = 2,
                     },
                 },
             },
             keymap = {
-                preset = 'none',
+                preset = "none",
                 ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
                 ["<C-e>"] = { "hide" },
                 ["<C-y>"] = { "select_and_accept" },

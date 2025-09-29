@@ -12,6 +12,21 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Add project-specific snippet directories
+local function add_project_snippets()
+    local cwd = vim.fn.getcwd()
+    local snippet_path = cwd .. "/.nvim/snippets"
+
+    -- Check if project has .nvim/snippets directory
+    if vim.loop.fs_stat(snippet_path) then
+        -- Store the project snippet path globally so plugins can access it
+        vim.g.project_snippet_path = snippet_path
+    else
+        vim.g.project_snippet_path = nil
+    end
+end
+
+add_project_snippets()
+
 require("pienter")
 require("lazy").setup("plugins")
-
