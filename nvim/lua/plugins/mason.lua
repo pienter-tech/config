@@ -40,7 +40,7 @@ return {
                 "some-sass-language-server",
                 "stylua", -- lua formatter
                 "taplo",
-                "typescript-language-server",
+                "vtsls",
                 "twiggy-language-server",
                 "twig-cs-fixer",
                 "vue-language-server",

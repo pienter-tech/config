@@ -1,5 +1,14 @@
 return {
     {
+        "SmiteshP/nvim-navic",
+        opts = {
+            lsp = {
+                auto_attach = true,
+                preference = { "vue_ls", "html" },
+            },
+        },
+    },
+    {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
         dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons", "yavorski/lualine-macro-recording.nvim" },

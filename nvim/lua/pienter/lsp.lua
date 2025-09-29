@@ -17,9 +17,9 @@ vim.lsp.enable("luals")
 vim.lsp.enable("remark_ls")
 vim.lsp.enable("somesass_ls")
 vim.lsp.enable("taplo")
-vim.lsp.enable("ts_ls")
+vim.lsp.enable("vtsls")
 vim.lsp.enable("twiggy_language_server")
-vim.lsp.enable("volar")
+vim.lsp.enable("vue_ls")
 vim.lsp.enable("yamlls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -75,10 +75,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
             keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
         end
 
-        if client.server_capabilities.documentSymbolProvider then
-          local navic = require("nvim-navic")
-          navic.attach(client, args.buf)
-        end
+        -- if client.server_capabilities.documentSymbolProvider then
+        --   local navic = require("nvim-navic")
+        --   navic.attach(client, args.buf)
+        -- end
 
         opts.desc = "Show buffer diagnostics"
         keymap.set("n", "<leader>cd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file

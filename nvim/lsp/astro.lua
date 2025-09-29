@@ -22,6 +22,7 @@ local function get_typescript_server_path(root_dir)
     return ""
 end
 
+---@type vim.lsp.Config
 return {
     cmd = { "astro-ls", "--stdio" },
     filetypes = { "astro" },
