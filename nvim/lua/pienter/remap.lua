@@ -43,8 +43,6 @@ key.set("n", "zl1", ":setlocal foldlevel=1<CR>", { desc = "Fold all level 1 fold
 key.set("n", "zl2", ":setlocal foldlevel=2<CR>", { desc = "Fold all level 2 folds" })
 key.set("n", "zl3", ":setlocal foldlevel=3<CR>", { desc = "Fold all level 3 folds" })
 
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 key.set("n", "<leader>bn", "<Cmd>enew | setlocal buftype=nofile bufhidden=hide noswapfile<CR>", {
     desc = "Open new empty buffer",
 })

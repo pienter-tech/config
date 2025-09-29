@@ -72,6 +72,11 @@ opt.foldlevel = 99  -- Start with all folds open
 opt.foldlevelstart = 99  -- Start with all folds open when opening new files
 opt.foldnestmax = 20  -- Maximum fold nesting level
 
+-- Diff settings
+opt.diffopt:append("algorithm:patience")  -- Use patience algorithm for better diff quality
+opt.diffopt:append("indent-heuristic")    -- Use indent heuristic to align diffs more intelligently
+opt.diffopt:append("iwhite")              -- Ignore whitespace differences in diffs
+
 -- Concealing text (for markdown, etc.)
 vim.o.conceallevel = 2  -- Hide concealed text unless replacement character is defined
 
