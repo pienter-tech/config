@@ -3,7 +3,7 @@
   "theme": "catppuccin",
   "autoshare": false,
   "autoupdate": true,
-  "model": "anthropic/claude-sonnet-4-20250514",
+  "model": "claude-sonnet-4-5-20250929",
   "permission": {
     "edit": "ask",
     "bash": {
@@ -41,6 +41,23 @@
       "type": "remote",
       "url": "https://mcp.nuxt.com/sse",
       "enabled": true
+    },
+    "shortcut": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "@shortcut/mcp@latest"],
+      "environment": {
+        "SHORTCUT_API_TOKEN": "{env:SHORTCUT_API_TOKEN}"
+      }
+    },
+    "bitbucket": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "bitbucket-mcp"],
+      "environment": {
+        "BITBUCKET_URL": "{env:BITBUCKET_URL}",
+        "BITBUCKET_TOKEN": "{env:BITBUCKET_TOKEN}"
+      }
     }
   },
   "provider": {
