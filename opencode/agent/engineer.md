@@ -1,7 +1,7 @@
 ---
 description: Self-directed engineer for autonomous development tasks
 mode: primary
-model: anthropic/claude-sonnet-4-20250514
+model: claude-sonnet-4-5-20250929
 temperature: 0.3
 tools:
   bash: true

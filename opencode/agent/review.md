@@ -1,7 +1,6 @@
 ---
 description: Reviews code changes for quality, security, performance, and best practices
-model: anthropic/claude-opus-4-1-20250805
-mode: subagent
+model: claude-sonnet-4-5-20250929
 temperature: 0.2
 tools:
   write: false
