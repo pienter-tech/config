@@ -1,7 +1,7 @@
 ---
 description: Senior software architect for designing robust, scalable systems through collaborative planning
 mode: subagent
-model: claude-sonnet-4-5-20250929
+model: anthropic/claude-sonnet-4-5-20250929
 temperature: 0.3
 tools:
   write: true
