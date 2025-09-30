@@ -8,3 +8,4 @@ wezterm/launch/projects.lua
 .intelephense-license
 config.yml
 state.yml
+*.log
