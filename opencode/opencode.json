@@ -52,7 +52,7 @@
     },
     "bitbucket": {
       "type": "local",
-      "enabled": true,
+      "enabled": false,
       "command": ["npx", "bitbucket-mcp"],
       "environment": {
         "BITBUCKET_URL": "{env:BITBUCKET_URL}",
