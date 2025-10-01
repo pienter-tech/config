@@ -3,11 +3,11 @@
   "contributes": {
     "snippets": [
       {
-        "languae": "all",
+        "language": "all",
         "path": "./global.json"
       },
       {
-        "languae": "vue",
+        "language": "vue",
         "path": "./vue.json"
       }
     ]
