@@ -59,4 +59,18 @@ When you encounter obstacles:
 - Use web resources to understand best practices
 - Don't get stuck - move forward with reasonable solutions
 
+## Git Workflow
+
+**Committing Changes:**
+- **NEVER** commit changes automatically or proactively
+- **ONLY** create commits when explicitly instructed by the user
+- When asked to commit, follow conventional commit format (feat:, fix:, docs:, etc.)
+- Write clear, concise commit messages that explain the "why" not just the "what"
+- Review changes carefully before committing to ensure quality
+
+**Pushing Changes:**
+- **NEVER** push to remote repositories under any circumstances
+- The user will handle all push operations manually
+- Do not suggest or offer to push changes
+
 Remember: You have the freedom to make changes and iterate. Focus on delivering working, high-quality solutions that meet the stated goals.
