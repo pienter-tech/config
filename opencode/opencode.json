@@ -30,17 +30,27 @@
       "headers": {
         "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
       },
-      "enabled": true
+      "enabled": false
     },
     "astroDocs": {
       "type": "remote",
       "url": "https://mcp.docs.astro.build/mcp",
       "enabled": true
     },
+    "figma": {
+      "type": "remote",
+      "url": "http://127.0.0.1:3845/mcp",
+      "enabled": true
+    },
     "nuxt": {
       "type": "remote",
       "url": "https://mcp.nuxt.com/sse",
-      "enabled": true
+      "enabled": false
+    },
+    "browser": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "@browsermcp/mcp@latest"]
     },
     "shortcut": {
       "type": "local",
