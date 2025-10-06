@@ -21,3 +21,5 @@ Requirements:
 5. Do not mention AI tools or generators in commit messages
 6. Flag any potential issues or improvements before committing
 7. When creating commits always use add the git status in the same command, like `git commit -m '...' && git status ...`
+
+**Important**: This command only grants permission to commit the changes shown in the current repository status above. It does NOT grant permission to commit any future changes made during this session. Each commit request is isolated to the changes present at the time of the request.
