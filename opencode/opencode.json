@@ -32,24 +32,14 @@
       },
       "enabled": false
     },
-    "astroDocs": {
-      "type": "remote",
-      "url": "https://mcp.docs.astro.build/mcp",
-      "enabled": true
-    },
     "figma": {
       "type": "remote",
       "url": "http://127.0.0.1:3845/mcp",
-      "enabled": true
-    },
-    "nuxt": {
-      "type": "remote",
-      "url": "https://mcp.nuxt.com/sse",
       "enabled": false
     },
     "browser": {
       "type": "local",
-      "enabled": true,
+      "enabled": false,
       "command": ["npx", "@browsermcp/mcp@latest"]
     },
     "shortcut": {
