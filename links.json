@@ -12,6 +12,10 @@
     "dest": "/Users/korneel/.config/opencode/opencode.json"
   },
   {
+    "src": "dotfiles/claude.json",
+    "dest": "/Users/korneel/.claude.json"
+  },
+  {
     "src": "claude",
     "dest": "/Users/korneel/.claude"
   },
