@@ -9,3 +9,4 @@ wezterm/launch/projects.lua
 config.yml
 state.yml
 *.log
+dotfiles/claude.json
