@@ -4,5 +4,39 @@
     "DISABLE_AUTOUPDATER": "1"
   },
   "includeCoAuthoredBy": false,
-  "autoUpdates": false
+  "autoUpdates": false,
+  "mcpServers": {
+    "shortcut": {
+      "command": "npx",
+      "args": ["-y", "@shortcut/mcp@latest"],
+      "env": {
+        "SHORTCUT_API_TOKEN": "${SHORTCUT_API_TOKEN}"
+      }
+    },
+    "context7": {
+      "disabled": true,
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    },
+    "figma": {
+      "disabled": true,
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "browser": {
+      "disabled": true,
+      "command": "npx",
+      "args": ["@browsermcp/mcp@latest"]
+    },
+    "bitbucket": {
+      "disabled": true,
+      "command": "npx",
+      "args": ["bitbucket-mcp"],
+      "env": {
+        "BITBUCKET_URL": "${BITBUCKET_URL}",
+        "BITBUCKET_TOKEN": "${BITBUCKET_TOKEN}"
+      }
+    }
+  }
 }
