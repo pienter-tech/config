@@ -44,6 +44,7 @@ setopt hist_find_no_dups
 alias oc="opencode"
 alias vim="nvim"
 alias v="nvim"
+alias cld="claude --permission-mode bypassPermissions"
 alias dcu="docker compose up -d --build"
 alias buu="brew update && brew upgrade"
 alias c="clear"
