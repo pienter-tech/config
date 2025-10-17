@@ -29,4 +29,8 @@ end
 add_project_snippets()
 
 require("pienter")
-require("lazy").setup("plugins")
+require("lazy").setup({
+    spec = {
+        { import = "plugins" },
+    },
+})
