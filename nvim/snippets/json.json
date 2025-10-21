@@ -1,0 +1,29 @@
+{
+  "composer-dry-vsc": {
+    "prefix": "dry-vcs",
+    "description": "Add VCS repository for DRY3 package from Bitbucket (git remote)",
+    "body": [
+      "\"repositories\": [",
+      "  {",
+      "    \"type\": \"vcs\",",
+      "    \"url\": \"git@bitbucket.org:tallieu/dry3.git\"",
+      "  }",
+      "],"
+    ]
+  },
+  "composer-dry-path": {
+    "prefix": "dry-path",
+    "description": "Add local path repository for DRY3 package with symlink (local development)",
+    "body": [
+      "\"repositories\": [",
+      "  {",
+      "    \"type\": \"path\",",
+      "    \"url\": \"../dry3\"",
+      "    \"options\": {",
+      "      \"symlink\": \"true\",",
+      "    }",
+      "  }",
+      "],"
+    ]
+  }
+}
