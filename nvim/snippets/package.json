@@ -7,6 +7,10 @@
         "path": "./global.json"
       },
       {
+        "language": "json",
+        "path": "./json.json"
+      },
+      {
         "language": "vue",
         "path": "./vue.json"
       }
