@@ -1,5 +1,6 @@
 ---
 description: Commit changes with conventional commits
+model: anthropic/claude-haiku-4-5-20251001
 ---
 
 Create logical commits with clear, conventional commit messages. Follow the repository's existing commit style and conventions.
