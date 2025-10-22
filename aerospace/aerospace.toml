@@ -53,6 +53,11 @@ check-further-callbacks = false
 run = 'move-node-to-workspace d'
 
 [[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+check-further-callbacks = false
+run = 'move-node-to-workspace d'
+
+[[on-window-detected]]
 if.app-id = 'com.google.Chrome.dev'
 check-further-callbacks = false
 run = 'move-node-to-workspace b'

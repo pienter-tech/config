@@ -4,6 +4,10 @@
     "dest": "/Users/korneel/.config/ueberzugpp"
   },
   {
+    "src": "tmux",
+    "dest": "/Users/korneel/.config/tmux"
+  },
+  {
     "src": "ghostty",
     "dest": "/Users/korneel/.config/ghostty"
   },

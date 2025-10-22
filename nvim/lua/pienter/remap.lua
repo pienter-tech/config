@@ -8,11 +8,20 @@ key.set("n", "<leader>wo", "<C-w>o", { desc = "Close other windows" })
 key.set("n", "<leader>ws", "<C-w>v<C-w>w", { desc = "Split window verticaly" })
 key.set("n", "<leader>wc", "<C-w>c", { desc = "Close window (?)" })
 key.set("n", "<leader>wt", function()
-    vim.fn.system("wezterm cli split-pane --right --percent 25")
-end, { desc = "Open terminal pane to right" })
+    if vim.env.TMUX then
+        vim.fn.system("tmux split-window -h -p 25")
+    else
+        vim.notify("Not in tmux", vim.log.levels.WARN)
+    end
+end, { desc = "Open terminal pane to right (tmux)" })
 key.set("n", "<leader>wz", function()
-    vim.fn.system("wezterm cli zoom-pane --toggle")
-end, { desc = "Toggle zoom state of wezterm pane" })
+    if vim.env.TMUX then
+        vim.fn.system("tmux resize-pane -Z")
+    else
+        -- Fallback: maximize current window in Neovim
+        vim.cmd("only")
+    end
+end, { desc = "Toggle zoom (tmux pane or vim window)" })
 key.set("n", "<leader>ww", "<C-w>w", { desc = "Go to previous window" })
 key.set("n", "<leader>wh", "<C-w>h", { desc = "Go to window on left" })
 key.set("n", "<leader>wl", "<C-w>l", { desc = "Go to window on right" })

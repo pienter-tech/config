@@ -1,6 +1,7 @@
 return {
     "mrjones2014/smart-splits.nvim",
     lazy = false,
+    priority = 999,
     keys = {
         {
             mode = "n",

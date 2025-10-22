@@ -1,1 +1,152 @@
+# ============================================
+# Ghostty Configuration
+# Replaces WezTerm terminal emulator
+# ============================================
+
+# ============================================
+# Theme
+# ============================================
+
+# Auto-switch theme based on system appearance
 theme = light:catppuccin-latte,dark:catppuccin-mocha
+
+# ============================================
+# Font Configuration
+# ============================================
+
+font-family = "FiraMono Nerd Font Mono"
+font-size = 14
+
+# Font features (OpenType features)
+# Syntax: font-feature = "feature" on|off  OR  +feature|-feature  OR  "feature"=value
+# Common features:
+#   calt = contextual alternates (programming ligatures)
+#   liga = standard ligatures
+#   dlig = discretionary ligatures (disabled by default since 1.2)
+#   ss01-ss20 = stylistic sets
+#   cv01-cv99 = character variants
+#
+# Examples:
+#   font-feature = +calt, -liga, -dlig
+#   font-feature = "liga" on
+#   font-feature = "cv02" = 2
+#
+# Current settings:
+font-feature = -calt  # Disable contextual alternates (programming ligatures)
+font-feature = -liga  # Disable standard ligatures
+
+# ============================================
+# Window Appearance
+# ============================================
+
+# Window opacity (9.8 in WezTerm = 0.98 in Ghostty)
+window-theme = auto
+background-opacity = 1
+
+# Window padding
+window-padding-x = 4
+window-padding-y = 4
+
+# Window decorations
+# For Aerospace tiling WM: use false for borderless windows that tile cleanly
+window-decoration = false
+
+# ============================================
+# Cursor
+# ============================================
+
+cursor-style = block
+cursor-style-blink = false
+
+# ============================================
+# Shell Integration
+# ============================================
+
+# Enable shell integration for better tmux experience
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+
+# ============================================
+# Keybindings
+# ============================================
+
+# Disable default keybindings that conflict with tmux
+# We'll use tmux for multiplexing, so disable Ghostty's built-in features
+
+# Reload config
+keybind = super+shift+r=reload_config
+
+# New window (opens new Ghostty window, not tmux)
+keybind = super+n=new_window
+
+# Close window
+keybind = super+w=close_surface
+
+# Font size adjustment
+keybind = super+plus=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
+keybind = super+0=reset_font_size
+
+# Copy/Paste
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+
+# Clear screen
+keybind = super+k=clear_screen
+
+# Open config
+keybind = super+comma=open_config
+
+# Toggle fullscreen
+keybind = super+ctrl+f=toggle_fullscreen
+
+# Pass Super+L to tmux for project selector
+# Map to Alt+L which tmux can handle reliably
+keybind = super+l=text:\x1bl
+
+# ============================================
+# Mouse
+# ============================================
+
+mouse-hide-while-typing = true
+copy-on-select = false
+
+# ============================================
+# Terminal Features
+# ============================================
+
+# Scrollback
+scrollback-limit = 50000
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+
+# ============================================
+# Performance & Aerospace Integration
+# ============================================
+
+# Use GPU acceleration
+# Non-native fullscreen works better with tiling WMs like Aerospace
+macos-non-native-fullscreen = true
+
+# Optional: Hide traffic light buttons (since we have no titlebar)
+# Uncomment if you want completely clean windows
+# macos-window-buttons = hidden
+
+# ============================================
+# Advanced
+# ============================================
+
+# Command to run (default shell with tmux)
+# Auto-start tmux on launch (attach to 'main' session or create it)
+command = /bin/zsh -c "tmux new-session -A -s main"
+
+# Working directory
+# working-directory = inherit
+
+# Confirm before closing
+confirm-close-surface = false
+
+# Quick terminal toggle (like a dropdown terminal)
+# keybind = super+grave=toggle_quick_terminal
