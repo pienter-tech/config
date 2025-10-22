@@ -18,9 +18,9 @@
       "\"repositories\": [",
       "  {",
       "    \"type\": \"path\",",
-      "    \"url\": \"../dry3\"",
+      "    \"url\": \"../dry3\",",
       "    \"options\": {",
-      "      \"symlink\": \"true\",",
+      "      \"symlink\": true",
       "    }",
       "  }",
       "],"
