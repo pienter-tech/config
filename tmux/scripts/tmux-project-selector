@@ -16,7 +16,7 @@ SEARCH_PATHS=(
 
 # Cache file for faster subsequent runs
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/tmux-projects-cache"
-CACHE_MAX_AGE=3600  # 1 hour in seconds
+CACHE_MAX_AGE=86400
 
 # Get list of active tmux sessions
 get_active_sessions() {
@@ -29,21 +29,21 @@ find_projects() {
         if [[ ! -d "$search_path" ]]; then
             continue
         fi
-        
+
         # Find all .wakatime-project files
         while IFS= read -r -d '' wakatime_file; do
             local project_dir
             project_dir=$(dirname "$wakatime_file")
-            
+
             # Read project name from .wakatime-project file
             local project_name
             project_name=$(head -n 1 "$wakatime_file" | tr -d '\n\r')
-            
+
             # Skip if project name is empty
             if [[ -z "$project_name" ]]; then
                 continue
             fi
-            
+
             # Output project
             printf '%s|%s\n' "$project_name" "$project_dir"
         done < <(find "$search_path" -type f -name ".wakatime-project" -print0 2>/dev/null)
@@ -53,17 +53,17 @@ find_projects() {
 # Get projects from cache or rebuild
 get_projects() {
     local use_cache=false
-    
+
     # Check if cache exists and is recent
     if [[ -f "$CACHE_FILE" ]]; then
         local cache_age
         cache_age=$(($(date +%s) - $(stat -f %m "$CACHE_FILE" 2>/dev/null || stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)))
-        
+
         if [[ $cache_age -lt $CACHE_MAX_AGE ]]; then
             use_cache=true
         fi
     fi
-    
+
     if [[ "$use_cache" == "true" ]]; then
         cat "$CACHE_FILE"
     else
@@ -71,7 +71,7 @@ get_projects() {
         local cache_dir
         cache_dir=$(dirname "$CACHE_FILE")
         mkdir -p "$cache_dir"
-        
+
         find_projects | sort -t'|' -k1,1 | tee "$CACHE_FILE"
     fi
 }
@@ -80,10 +80,10 @@ get_projects() {
 format_projects() {
     local active_sessions
     active_sessions=$(get_active_sessions)
-    
+
     local active_projects=()
     local inactive_projects=()
-    
+
     while IFS='|' read -r label path; do
         # Check if session is active
         if echo "$active_sessions" | grep -q "^${label}$"; then
@@ -93,7 +93,7 @@ format_projects() {
             inactive_projects+=("  ${label}"$'\t'"${path}")
         fi
     done < <(get_projects)
-    
+
     # Print active projects first, then inactive
     if [[ ${#active_projects[@]} -gt 0 ]]; then
         printf '%s\n' "${active_projects[@]}"
@@ -108,7 +108,7 @@ main() {
     # Parse arguments
     local rebuild_cache=false
     local list_only=false
-    
+
     while [[ $# -gt 0 ]]; do
         case $1 in
             -r|--rebuild)
@@ -134,25 +134,25 @@ main() {
                 ;;
         esac
     done
-    
+
     # Rebuild cache if requested
     if [[ "$rebuild_cache" == "true" ]]; then
         rm -f "$CACHE_FILE"
     fi
-    
+
     # If list only, just output formatted projects and exit
     if [[ "$list_only" == "true" ]]; then
         format_projects
         exit 0
     fi
-    
+
     # Check if fzf is available
     if ! command -v fzf &> /dev/null; then
         echo "Error: fzf is required but not installed."
         echo "Install with: brew install fzf"
         exit 1
     fi
-    
+
     # Use fzf to select a project
     local selected
     selected=$(format_projects | fzf \
@@ -168,17 +168,17 @@ main() {
         --bind="ctrl-r:reload(rm -f '$CACHE_FILE' && '$0' --list)" \
         --ansi \
         --reverse)
-    
+
     if [[ -z "$selected" ]]; then
         exit 0
     fi
-    
+
     # Extract label and path
     local label path is_active
     is_active=$(echo "$selected" | grep -q "^\*" && echo "true" || echo "false")
     label=$(echo "$selected" | sed 's/^[* ]*//' | cut -f1)
     path=$(echo "$selected" | cut -f2)
-    
+
     # If session is already active, just switch to it
     if [[ "$is_active" == "true" ]]; then
         if [[ -n "${TMUX:-}" ]]; then
