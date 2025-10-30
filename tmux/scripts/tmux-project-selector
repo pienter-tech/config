@@ -16,7 +16,6 @@ SEARCH_PATHS=(
 
 # Cache file for faster subsequent runs
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/tmux-projects-cache"
-CACHE_MAX_AGE=86400
 
 # Get list of active tmux sessions
 get_active_sessions() {
@@ -52,22 +51,11 @@ find_projects() {
 
 # Get projects from cache or rebuild
 get_projects() {
-    local use_cache=false
-
-    # Check if cache exists and is recent
+    # Check if cache exists
     if [[ -f "$CACHE_FILE" ]]; then
-        local cache_age
-        cache_age=$(($(date +%s) - $(stat -f %m "$CACHE_FILE" 2>/dev/null || stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)))
-
-        if [[ $cache_age -lt $CACHE_MAX_AGE ]]; then
-            use_cache=true
-        fi
-    fi
-
-    if [[ "$use_cache" == "true" ]]; then
         cat "$CACHE_FILE"
     else
-        # Rebuild cache
+        # Build cache for first time
         local cache_dir
         cache_dir=$(dirname "$CACHE_FILE")
         mkdir -p "$cache_dir"
@@ -138,6 +126,9 @@ main() {
     # Rebuild cache if requested
     if [[ "$rebuild_cache" == "true" ]]; then
         rm -f "$CACHE_FILE"
+        # Force rebuild by calling get_projects which will recreate the cache
+        get_projects > /dev/null
+        exit 0
     fi
 
     # If list only, just output formatted projects and exit
@@ -159,13 +150,14 @@ main() {
         --height=100% \
         --border=rounded \
         --prompt="Select a project: " \
-        --header="* = active session | Enter = switch/create | Esc = cancel | Ctrl-R = rebuild cache" \
+        --header="* = active | Enter = switch/create | Ctrl-X = kill session | Ctrl-R = rebuild cache" \
         --delimiter=$'\t' \
         --with-nth=1 \
         --preview='echo {2}' \
         --preview-window=right:50%:wrap \
         --bind='ctrl-/:toggle-preview' \
         --bind="ctrl-r:reload(rm -f '$CACHE_FILE' && '$0' --list)" \
+        --bind="ctrl-x:execute-silent(echo {1} | sed 's/^[* ]*//' | xargs -I {} tmux kill-session -t {} 2>/dev/null)+reload($0 --list)" \
         --ansi \
         --reverse)
 
