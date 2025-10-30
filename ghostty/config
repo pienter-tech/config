@@ -100,10 +100,6 @@ keybind = super+comma=open_config
 # Toggle fullscreen
 keybind = super+ctrl+f=toggle_fullscreen
 
-# Pass Super+L to tmux for project selector
-# Map to Alt+L which tmux can handle reliably
-keybind = super+l=text:\x1bl
-
 # ============================================
 # Mouse
 # ============================================
@@ -139,14 +135,15 @@ macos-non-native-fullscreen = true
 # ============================================
 
 # Command to run (default shell with tmux)
-# Auto-start tmux on launch (attach to 'main' session or create it)
-command = /bin/zsh -c "tmux new-session -A -s main"
+# Auto-start tmux on launch (attach to latest session or create 'main')
+# This finds the most recently used session and attaches to it, or creates 'main' if none exist
+command = /bin/zsh -c "tmux attach -t $(tmux list-sessions -F '#{session_last_attached} #{session_name}' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2) 2>/dev/null || tmux new-session -A -s main"
 
 # Working directory
 # working-directory = inherit
 
 # Confirm before closing
-confirm-close-surface = false
+confirm-close-surface = true
 
 # Quick terminal toggle (like a dropdown terminal)
 # keybind = super+grave=toggle_quick_terminal
