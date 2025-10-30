@@ -37,7 +37,7 @@ return {
         },
         {
             mode = "n",
-            "<C-S-h>",
+            "<M-h>",
             function()
                 require("smart-splits").resize_left()
             end,
@@ -45,7 +45,7 @@ return {
         },
         {
             mode = "n",
-            "<C-S-j>",
+            "<M-j>",
             function()
                 require("smart-splits").resize_down()
             end,
@@ -53,7 +53,7 @@ return {
         },
         {
             mode = "n",
-            "<C-S-k>",
+            "<M-k>",
             function()
                 require("smart-splits").resize_up()
             end,
@@ -61,7 +61,7 @@ return {
         },
         {
             mode = "n",
-            "<C-S-l>",
+            "<M-l>",
             function()
                 require("smart-splits").resize_right()
             end,
