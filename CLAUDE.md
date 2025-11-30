@@ -124,7 +124,7 @@ These commands are defined in `claude/commands/*.md` with frontmatter specifying
 
 The `opencode/opencode.json` file configures:
 - Theme: Catppuccin
-- Model: anthropic/claude-sonnet-4-5
+- Model: anthropic/claude-opus-4-5
 - Permission system: Git read operations auto-allowed, others require approval
 - MCP integrations: Shortcut (enabled), Bitbucket, Browser, Figma, Context7 (disabled)
 - API providers: OpenAI, Google/Gemini with environment variable references

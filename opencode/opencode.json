@@ -3,7 +3,7 @@
   "theme": "catppuccin",
   "autoshare": false,
   "autoupdate": true,
-  "model": "anthropic/claude-sonnet-4-5-20250929",
+  "model": "anthropic/claude-opus-4-5",
   "permission": {
     "edit": "ask",
     "bash": {
@@ -35,7 +35,7 @@
     "figma": {
       "type": "remote",
       "url": "http://127.0.0.1:3845/mcp",
-      "enabled": false
+      "enabled": true
     },
     "browser": {
       "type": "local",
