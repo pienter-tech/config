@@ -26,6 +26,15 @@ return {
                 desc = "Close other Buffers",
             },
             {
+                mode = "n",
+                "<leader>bO",
+                function()
+                    require("snacks").bufdelete.other()
+                    vim.cmd("only")
+                end,
+                desc = "Close other Buffers and Windows",
+            },
+            {
                 "<leader>gg",
                 function()
                     require("snacks").lazygit()

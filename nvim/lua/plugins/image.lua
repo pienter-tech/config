@@ -1,7 +1,7 @@
 return {
-
     {
         "3rd/image.nvim",
+        enabled = true,
         opts = {
             backend = "ueberzug",
             processor = "magick_rock",
