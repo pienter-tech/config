@@ -1,6 +1,7 @@
 return {
     {
         "stevearc/overseer.nvim",
+        event = "VeryLazy",
         keys = {
             {
                 mode = "n",
@@ -11,7 +12,7 @@ return {
                 mode = "n",
                 "<leader>of",
                 function()
-                    require("overseer").run_template()
+                    require("overseer").run_task()
                 end,
                 desc = "Search tasks",
             },

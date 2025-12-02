@@ -11,7 +11,12 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons", "yavorski/lualine-macro-recording.nvim" },
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons",
+            "yavorski/lualine-macro-recording.nvim",
+            "stevearc/overseer.nvim",
+        },
         opts = {
             options = {
                 theme = "auto",
@@ -31,7 +36,12 @@ return {
                         end,
                     },
                     { "macro_recording", "%S" },
-                    "overseer",
+                    {
+                        "overseer",
+                        cond = function()
+                            return package.loaded["overseer"] ~= nil
+                        end,
+                    },
                 },
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
