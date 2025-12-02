@@ -24,6 +24,7 @@ return {
         "scss",
         "svelte",
         "templ",
+        "twig",
         "typescriptreact",
         "vue",
     },

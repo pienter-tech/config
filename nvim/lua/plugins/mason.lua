@@ -36,6 +36,7 @@ return {
                 "lua-language-server",
                 "markdownlint",
                 "prettier", -- prettier formatter
+                "python-lsp-server",
                 "remark-language-server",
                 "some-sass-language-server",
                 "stylua", -- lua formatter

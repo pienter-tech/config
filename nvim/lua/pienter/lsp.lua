@@ -20,6 +20,7 @@ vim.lsp.enable("taplo")
 vim.lsp.enable("vtsls")
 vim.lsp.enable("twiggy_language_server")
 vim.lsp.enable("vue_ls")
+vim.lsp.enable("pylsp")
 vim.lsp.enable("yamlls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
