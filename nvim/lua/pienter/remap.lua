@@ -30,6 +30,7 @@ key.set("n", "<leader>wk", "<C-w>k", { desc = "Go to window on top" })
 key.set("n", "<leader>w=", "<C-w>=", { desc = "Make windows equaly high en wide" })
 key.set("n", "<leader>w-", "<C-w>< <C-w>< <C-w>< <C-w>< <C-w>< <C-w>< <C-w>< <C-w><", { desc = "Make window smaller" })
 key.set("n", "<leader>w+", "<C-w>> <C-w>> <C-w>> <C-w>> <C-w>> <C-w>> <C-w>> <C-w>>", { desc = "Make window bigger" })
+
 -- Tabs
 key.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Create new tab" })
 key.set("n", "<leader>tt", ":tabnext #<CR>", { desc = "Go to previous tab" })
