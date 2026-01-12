@@ -6,7 +6,7 @@
 # @raycast.packageName Billit Tools
 
 -- Get email from environment variable
-set targetEmail to do shell script "echo $BILLIT_EMAIL"
+set targetEmail to do shell script "source ~/dev/projects/pienter/config/.env.public && echo $BILLIT_EMAIL"
 if targetEmail is "" then
 	return "Error: BILLIT_EMAIL environment variable not set."
 end if
