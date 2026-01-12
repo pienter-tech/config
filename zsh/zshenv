@@ -1,3 +1,6 @@
+# Public environment variables (non-sensitive)
+source ~/dev/projects/pienter/config/.env.public
+
 # EDITOR
 export EDITOR="nvim"
 export VISUAL="nvim"
