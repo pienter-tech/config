@@ -10,3 +10,8 @@ config.yml
 state.yml
 *.log
 dotfiles/claude.json
+claude/plans
+claude/plugins/marketplaces/claude-plugins-official
+claude/plugins/known_marketplaces.json
+claude/stats-cache.json
+.env.public
