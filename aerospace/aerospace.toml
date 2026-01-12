@@ -40,7 +40,7 @@ outer.right = 5
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome.app.lldpjakeahhdgfhchkaokjfceembkklp'
 check-further-callbacks = false
-run = ['move-node-to-workspace n']
+run = ['move-node-to-workspace t']
 
 [[on-window-detected]]
 if.window-title-regex-substring = 'NOTES'
@@ -103,11 +103,6 @@ check-further-callbacks = false
 run = ['move-node-to-workspace c']
 
 [[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-check-further-callbacks = false
-run = ['move-node-to-workspace s']
-
-[[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
 check-further-callbacks = false
 run = ['move-node-to-workspace c']
@@ -150,7 +145,7 @@ run = ['move-node-to-workspace m']
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome.app.jifiddggkmoodgpobpgdenkfjpkckmbe'
 check-further-callbacks = false
-run = ['move-node-to-workspace n']
+run = ['move-node-to-workspace t']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.TV'
@@ -201,6 +196,7 @@ c = ['GW2760', 'P2415Q', 'LG HDR 4K']
 b = ['built-in', 'built-in']
 d = ['GW2765', 'P2415Q', 'LG HDR 4K', 'PHL 346E2C']
 n = ['GW2760', 'built-in']
+t = ['GW2760', 'built-in']
 
 [mode.main.binding]
 
@@ -255,6 +251,7 @@ alt-cmd-ctrl-i = 'workspace i'
 alt-cmd-ctrl-n = 'workspace n'
 alt-cmd-ctrl-m = 'workspace m'
 alt-cmd-ctrl-s = 'workspace s'
+alt-cmd-ctrl-t = 'workspace t'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-cmd-ctrl-shift-1 = 'move-node-to-workspace 1'
@@ -267,6 +264,7 @@ alt-cmd-ctrl-shift-i = 'move-node-to-workspace i'
 alt-cmd-ctrl-shift-n = 'move-node-to-workspace n'
 alt-cmd-ctrl-shift-m = 'move-node-to-workspace m'
 alt-cmd-ctrl-shift-s = 'move-node-to-workspace s'
+alt-cmd-ctrl-shift-t = 'move-node-to-workspace t'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-cmd-ctrl-tab = 'workspace-back-and-forth'
