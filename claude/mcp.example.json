@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest", "--channel=dev"],
+      "env": {}
+    },
+    "bitbucket": {
+      "args": ["bitbucket-mcp"],
+      "command": "npx",
+      "env": {
+        "BITBUCKET_TOKEN": "${BITBUCKET_TOKEN}",
+        "BITBUCKET_URL": "${BITBUCKET_URL}"
+      }
+    },
+    "context7": {
+      "disabled": true,
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "figma": {
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "shortcut": {
+      "args": ["-y", "@shortcut/mcp@latest"],
+      "command": "npx",
+      "env": {
+        "SHORTCUT_API_TOKEN": "${SHORTCUT_API_TOKEN}"
+      }
+    }
+  }
+}
