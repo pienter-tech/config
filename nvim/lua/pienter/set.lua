@@ -7,6 +7,7 @@ vim.g.editorconfig_verbose = 1  -- Enable verbose mode for EditorConfig
 
 -- File handling and saving behavior
 opt.autowriteall = true  -- Automatically save files when changing focus
+opt.autoread = true  -- Automatically reload files when changed externally
 opt.confirm = true  -- Ask for confirmation before closing unsaved buffers
 
 -- Completion menu settings
