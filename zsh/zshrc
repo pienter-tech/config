@@ -42,6 +42,8 @@ setopt hist_find_no_dups
 ### ALIASES
 
 alias oc="opencode"
+alias cx="codex"
+alias cxr="codex resume --last"
 alias vim="nvim"
 alias v="nvim"
 alias cld="claude --permission-mode bypassPermissions"
@@ -109,6 +111,30 @@ function makc() {
 
     # Execute make command with all provided arguments
     (make -C "$CONFIG_DIR" "$@")
+}
+
+function cx-tnt() {
+    codex \
+        -c mcp_servers.shortcut.enabled=true \
+        -c mcp_servers.context7.enabled=true \
+        -c mcp_servers.chrome-devtools.enabled=true \
+        "$@"
+}
+
+function cx-tnt-figma() {
+    codex \
+        -c mcp_servers.shortcut.enabled=true \
+        -c mcp_servers.context7.enabled=true \
+        -c mcp_servers.chrome-devtools.enabled=true \
+        -c mcp_servers.figma.enabled=true \
+        "$@"
+}
+
+function cx-web() {
+    codex \
+        -c mcp_servers.context7.enabled=true \
+        -c mcp_servers.chrome-devtools.enabled=true \
+        "$@"
 }
 
 # Add command completion for make targets

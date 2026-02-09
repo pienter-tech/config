@@ -6,14 +6,6 @@
       "args": ["chrome-devtools-mcp@latest", "--channel=dev"],
       "env": {}
     },
-    "bitbucket": {
-      "args": ["bitbucket-mcp"],
-      "command": "npx",
-      "env": {
-        "BITBUCKET_TOKEN": "${BITBUCKET_TOKEN}",
-        "BITBUCKET_URL": "${BITBUCKET_URL}"
-      }
-    },
     "context7": {
       "disabled": true,
       "headers": {

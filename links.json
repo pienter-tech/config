@@ -24,6 +24,10 @@
     "dest": "/Users/korneel/.claude"
   },
   {
+    "src": "codex",
+    "dest": "/Users/korneel/.codex"
+  },
+  {
     "src": "zsh/zshenv",
     "dest": "/Users/korneel/.zshenv"
   },

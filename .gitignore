@@ -15,3 +15,14 @@ claude/plugins/marketplaces/claude-plugins-official
 claude/plugins/known_marketplaces.json
 claude/stats-cache.json
 .env.public
+claude/cache
+claude/paste-cache
+claude/plugins
+/claude/chrome/chrome-native-host
+# Codex: ignore everything by default, allow only manually maintained files
+codex/**
+!codex/config.toml
+!codex/rules/
+!codex/rules/default.rules
+!codex/AGENTS.md
+!codex/instructions.md
