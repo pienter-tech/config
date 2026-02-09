@@ -38,7 +38,7 @@ outer.top = 5
 outer.right = 5
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.lldpjakeahhdgfhchkaokjfceembkklp'
+if.app-id = 'net.imput.helium.app.lldpjakeahhdgfhchkaokjfceembkklp'
 check-further-callbacks = false
 run = ['move-node-to-workspace t']
 
@@ -68,14 +68,14 @@ check-further-callbacks = false
 run = 'move-node-to-workspace b'
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
+if.app-id = 'net.imput.helium'
 check-further-callbacks = false
 run = 'move-node-to-workspace i'
 
 [[on-window-detected]]
 if.app-id = 'com.raycast.macos'
 check-further-callbacks = false
-run = ['move-node-to-workspace i']
+run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Safari'
@@ -143,7 +143,7 @@ check-further-callbacks = false
 run = ['move-node-to-workspace m']
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.jifiddggkmoodgpobpgdenkfjpkckmbe'
+if.app-id = 'net.imput.helium.app.jifiddggkmoodgpobpgdenkfjpkckmbe'
 check-further-callbacks = false
 run = ['move-node-to-workspace t']
 
@@ -178,6 +178,16 @@ check-further-callbacks = false
 run = ['layout floating']
 
 [[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+check-further-callbacks = false
+run = ['move-node-to-workspace r']
+
+[[on-window-detected]]
+if.app-id = 'com.openai.codex'
+check-further-callbacks = false
+run = ['move-node-to-workspace r']
+
+[[on-window-detected]]
 if.app-id = 'com.spikehd.dorion'
 check-further-callbacks = false
 run = ['move-node-to-workspace s']
@@ -194,6 +204,7 @@ run = ['move-node-to-workspace m']
 i = ['GW2760', 'PHL 346E2C', 'built-in']
 c = ['GW2760', 'P2415Q', 'LG HDR 4K']
 b = ['built-in', 'built-in']
+r = ['built-in', 'built-in']
 d = ['GW2765', 'P2415Q', 'LG HDR 4K', 'PHL 346E2C']
 n = ['GW2760', 'built-in']
 t = ['GW2760', 'built-in']
@@ -252,6 +263,7 @@ alt-cmd-ctrl-n = 'workspace n'
 alt-cmd-ctrl-m = 'workspace m'
 alt-cmd-ctrl-s = 'workspace s'
 alt-cmd-ctrl-t = 'workspace t'
+alt-cmd-ctrl-r = 'workspace r'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-cmd-ctrl-shift-1 = 'move-node-to-workspace 1'
@@ -265,6 +277,7 @@ alt-cmd-ctrl-shift-n = 'move-node-to-workspace n'
 alt-cmd-ctrl-shift-m = 'move-node-to-workspace m'
 alt-cmd-ctrl-shift-s = 'move-node-to-workspace s'
 alt-cmd-ctrl-shift-t = 'move-node-to-workspace t'
+alt-cmd-ctrl-shift-r = 'move-node-to-workspace r'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-cmd-ctrl-tab = 'workspace-back-and-forth'
