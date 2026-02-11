@@ -51,7 +51,7 @@ This automatically moves all Ghostty windows to workspace `d` (same as WezTerm).
 tmux
 
 # 4. Or use project selector
-# Press: Alt+L (in tmux)
+# Press: Alt+P (in tmux)
 ```
 
 ### Window Management
@@ -99,7 +99,7 @@ Controls **panes** and **sessions** within a Ghostty window
 
 ```
 Prefix (§)                 Leader key
-Alt+L                      Project selector
+Alt+P                      Project selector
 Ctrl+H/J/K/L              Navigate panes (vim-aware)
 Ctrl+Shift+H/J/K/L        Resize panes (vim-aware)
 Prefix+H/J/K/L            Split panes
@@ -126,7 +126,7 @@ Super+0/+/−                Font size
 
 ```bash
 # 1. Open project selector
-Alt+L
+Alt+P
 
 # 2. Select your project (creates tmux session)
 # Type to search, Enter to select
@@ -153,13 +153,13 @@ Result:
 
 ```bash
 # 1. Open project 1
-Alt+L → Select "pienter__config"
+Alt+P → Select "pienter__config"
 
 # 2. Open new Ghostty window (Aerospace will tile it)
 Super+N
 
 # 3. In new window, open project 2
-Alt+L → Select "tnt__dry"
+Alt+P → Select "tnt__dry"
 
 # 4. Navigate between windows with Aerospace
 Alt+Cmd+Ctrl+H/L
@@ -174,7 +174,7 @@ Result: Two Ghostty windows, each with different tmux session, tiled by Aerospac
 # Just go to workspace 'd' and all Ghostty windows appear there
 
 Alt+Cmd+Ctrl+D    # Go to dev workspace
-Alt+L             # Open project
+Alt+P             # Open project
 ```
 
 ## Tips & Tricks
@@ -216,7 +216,7 @@ tmux ls
 tmux attach -t session-name
 
 # Or use project selector (shows active sessions with *)
-Alt+L
+Alt+P
 ```
 
 ### 4. Multiple Ghostty Windows, Same Session
@@ -256,7 +256,7 @@ Alt+Cmd+Ctrl+Tab    # Back and forth between last two workspaces
 
 # tmux session switching
 Alt+S               # Session chooser
-Alt+L               # Project selector (with search)
+Alt+P               # Project selector (with search)
 ```
 
 ## Troubleshooting
@@ -407,7 +407,7 @@ run = ['layout tiling']
 │   Alt+Cmd+Ctrl+=/−        Resize windows                │
 ├─────────────────────────────────────────────────────────┤
 │ TMUX (Multiplexer) - Prefix: §                          │
-│   Alt+L                   Project selector              │
+│   Alt+P                   Project selector              │
 │   Ctrl+H/J/K/L           Navigate panes                 │
 │   Ctrl+Shift+H/J/K/L     Resize panes                   │
 │   Prefix+H/J/K/L         Split panes                    │

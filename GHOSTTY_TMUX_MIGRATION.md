@@ -52,7 +52,7 @@ Tmux uses a "prefix" key for commands (like WezTerm's leader key):
 
 | Action | WezTerm | Ghostty + Tmux |
 |--------|---------|----------------|
-| Open project selector | `Super+L` | `Alt+L` |
+| Open project selector | `Super+L` | `Alt+P` |
 | Switch sessions | `Ctrl+Tab` | `Alt+S` |
 
 **Project Selector Features:**
@@ -149,20 +149,43 @@ tmux
 # command = /bin/zsh -c "tmux new-session -A -s main"
 
 # Option 3: Use project selector
-# Press Alt+L, select your project
+# Press Alt+P, select your project
 ```
 
 ### Working with Projects
 
-1. **Open project selector**: `Alt+L`
+1. **Open project selector**: `Alt+P`
 2. **Search** for your project (fuzzy search)
 3. **Press Enter** to create/switch to session
 4. **Active sessions** are marked with `*`
 
+### Branch-to-Worktree Workflow
+
+From inside a repo, once you've switched to a feature branch:
+
+```bash
+git switch -c feature/my-task   # or git checkout -b feature/my-task
+tmux-worktree-current-branch
+```
+
+This command will:
+- move your current branch into `<repo>/.worktrees/<branch>`
+- switch your current directory back to the default branch
+- write `.wakatime-project` in the new worktree
+- rebuild the tmux project selector cache automatically
+
+If you only want to refresh worktrees for the current repo (without a full cache rebuild):
+
+```bash
+tmux-worktree-sync-current-repo
+# or:
+tmux-project-selector --sync-current-repo
+```
+
 ### Switching Between Projects
 
 - **Quick switch**: `Alt+S` (choose from list)
-- **Project selector**: `Alt+L` (with search)
+- **Project selector**: `Alt+P` (with search)
 
 ### Managing Panes
 
@@ -187,7 +210,7 @@ tmux ls
 tmux attach -t session-name
 
 # Or use project selector
-Alt+L
+Alt+P
 ```
 
 ## Project Discovery
@@ -311,7 +334,7 @@ tmux show-environment PATH
 
 - [ ] Install Ghostty, tmux, and fzf
 - [ ] Verify configs are in place
-- [ ] Test project selector (`Alt+L`)
+- [ ] Test project selector (`Alt+P`)
 - [ ] Add Neovim integration
 - [ ] Test vim-aware navigation
 - [ ] Customize keybindings if needed
@@ -359,7 +382,7 @@ This creates or attaches to a "main" session on startup.
 │ Prefix: §                                               │
 ├─────────────────────────────────────────────────────────┤
 │ Projects                                                │
-│   Alt+L          Project selector                       │
+│   Alt+P          Project selector                       │
 │   Alt+S          Session chooser                        │
 │   Prefix+D       Detach session                         │
 ├─────────────────────────────────────────────────────────┤

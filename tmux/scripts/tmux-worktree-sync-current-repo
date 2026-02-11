@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    cat <<'EOF'
+Usage: tmux-worktree-sync-current-repo
+
+Sync only the current repository's worktrees into tmux project selector cache.
+Equivalent to: tmux-project-selector --sync-current-repo
+EOF
+    exit 0
+fi
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+selector_cmd="$script_dir/tmux-project-selector"
+
+if command -v tmux-project-selector >/dev/null 2>&1; then
+    tmux-project-selector --sync-current-repo
+elif [[ -x "$selector_cmd" ]]; then
+    "$selector_cmd" --sync-current-repo
+else
+    echo "Error: tmux-project-selector not found in PATH or alongside this script." >&2
+    exit 1
+fi

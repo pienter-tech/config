@@ -16,36 +16,118 @@ SEARCH_PATHS=(
 
 # Cache file for faster subsequent runs
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/tmux-projects-cache"
+METADATA_CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/tmux-projects-metadata-cache"
+METADATA_TTL_SECONDS=300
+
+# Normalize names for tmux session IDs
+sanitize_session_part() {
+    local input="$1"
+    local sanitized
+    sanitized=$(echo "$input" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')
+    if [[ -z "$sanitized" ]]; then
+        sanitized="project"
+    fi
+    printf '%s\n' "$sanitized"
+}
+
+# Gather git context for a project path
+get_git_context() {
+    local path="$1"
+    local root branch worktree_name
+
+    if git -C "$path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        root=$(basename "$(git -C "$path" rev-parse --show-toplevel 2>/dev/null)")
+        branch=$(git -C "$path" symbolic-ref --short HEAD 2>/dev/null || git -C "$path" rev-parse --short HEAD 2>/dev/null || echo "detached")
+        worktree_name=$(basename "$path")
+        printf '%s|%s|%s\n' "$root" "$branch" "$worktree_name"
+        return
+    fi
+
+    printf '||\n'
+}
+
+# Build a unique, readable session ID from path context
+build_session_name() {
+    local base_name="$1"
+    local path="$2"
+    local normalized hash
+
+    normalized=$(sanitize_session_part "$base_name")
+    hash=$(printf '%s' "$path" | cksum | awk '{print $1}')
+    printf '%s-%s\n' "$normalized" "${hash:0:6}"
+}
+
+# Return display label and session ID for fzf rows
+build_project_metadata() {
+    local label="$1"
+    local path="$2"
+    local root branch worktree_name
+    local display_label session_base session_name indicator
+
+    IFS='|' read -r root branch worktree_name <<<"$(get_git_context "$path")"
+
+    if [[ -n "$root" ]]; then
+        if is_linked_worktree_path "$path"; then
+            indicator=" "
+        else
+            indicator=""
+        fi
+        display_label="${indicator}${label} [${root}:${worktree_name} @ ${branch}]"
+        session_base="${root}-${worktree_name}"
+    else
+        display_label="$label"
+        session_base="$label"
+    fi
+
+    session_name=$(build_session_name "$session_base" "$path")
+    printf '%s\t%s\n' "$display_label" "$session_name"
+}
 
 # Get list of active tmux sessions
 get_active_sessions() {
     tmux list-sessions -F "#{session_name}" 2>/dev/null || true
 }
 
+# Return absolute git common dir for a repo/worktree path
+git_common_dir_abs() {
+    local path="$1"
+    local common
+
+    common=$(git -C "$path" rev-parse --git-common-dir 2>/dev/null) || return 1
+    (
+        cd "$path" && cd "$common" && pwd
+    )
+}
+
 # Find all projects with .wakatime-project files
 find_projects() {
+    local fd_bin
+    fd_bin=$(command -v fd || true)
+
     for search_path in "${SEARCH_PATHS[@]}"; do
         if [[ ! -d "$search_path" ]]; then
             continue
         fi
 
-        # Find all .wakatime-project files
-        while IFS= read -r -d '' wakatime_file; do
-            local project_dir
-            project_dir=$(dirname "$wakatime_file")
-
-            # Read project name from .wakatime-project file
-            local project_name
-            project_name=$(head -n 1 "$wakatime_file" | tr -d '\n\r')
-
-            # Skip if project name is empty
-            if [[ -z "$project_name" ]]; then
-                continue
-            fi
-
-            # Output project
-            printf '%s|%s\n' "$project_name" "$project_dir"
-        done < <(find "$search_path" -type f -name ".wakatime-project" -print0 2>/dev/null)
+        if [[ -n "$fd_bin" ]]; then
+            # fd is substantially faster than find on large trees.
+            while IFS= read -r wakatime_file; do
+                local project_dir project_name
+                project_dir="${wakatime_file%/*}"
+                project_name=$(head -n 1 "$wakatime_file" | tr -d '\n\r')
+                [[ -z "$project_name" ]] && continue
+                printf '%s|%s\n' "$project_name" "$project_dir"
+            done < <("$fd_bin" -HI -t f -g ".wakatime-project" "$search_path" 2>/dev/null)
+        else
+            # Fallback for environments without fd.
+            while IFS= read -r -d '' wakatime_file; do
+                local project_dir project_name
+                project_dir="${wakatime_file%/*}"
+                project_name=$(head -n 1 "$wakatime_file" | tr -d '\n\r')
+                [[ -z "$project_name" ]] && continue
+                printf '%s|%s\n' "$project_name" "$project_dir"
+            done < <(find "$search_path" -type f -name ".wakatime-project" -print0 2>/dev/null)
+        fi
     done
 }
 
@@ -60,35 +142,277 @@ get_projects() {
         cache_dir=$(dirname "$CACHE_FILE")
         mkdir -p "$cache_dir"
 
-        find_projects | sort -t'|' -k1,1 | tee "$CACHE_FILE"
+        find_projects | sort -t'|' -k1,1 -k2,2 | awk -F'|' '!seen[$0]++' | tee "$CACHE_FILE"
     fi
+}
+
+refresh_metadata_cache() {
+    local cache_dir tmp_file
+
+    cache_dir=$(dirname "$METADATA_CACHE_FILE")
+    mkdir -p "$cache_dir"
+    tmp_file=$(mktemp "${cache_dir}/tmux-projects-metadata-cache.XXXXXX")
+
+    while IFS='|' read -r label path; do
+        [[ -z "${label:-}" || -z "${path:-}" ]] && continue
+
+        local display_label session_name
+        IFS=$'\t' read -r display_label session_name <<<"$(build_project_metadata "$label" "$path")"
+        printf '%s|%s|%s|%s\n' "$label" "$path" "$display_label" "$session_name" >> "$tmp_file"
+    done < <(get_projects)
+
+    sort -t'|' -k1,1 -k2,2 "$tmp_file" | awk -F'|' '!seen[$0]++' > "$METADATA_CACHE_FILE"
+    rm -f "$tmp_file"
+}
+
+metadata_cache_is_stale() {
+    [[ ! -f "$METADATA_CACHE_FILE" ]] && return 0
+
+    local now mtime age
+    now=$(date +%s)
+
+    if [[ "$OSTYPE" == darwin* ]]; then
+        mtime=$(stat -f %m "$METADATA_CACHE_FILE" 2>/dev/null || echo 0)
+    else
+        mtime=$(stat -c %Y "$METADATA_CACHE_FILE" 2>/dev/null || echo 0)
+    fi
+
+    age=$((now - mtime))
+    (( age > METADATA_TTL_SECONDS ))
+}
+
+trigger_background_metadata_refresh() {
+    local lock_dir
+    lock_dir="${METADATA_CACHE_FILE}.lock"
+
+    (
+        if mkdir "$lock_dir" 2>/dev/null; then
+            trap 'rmdir "$lock_dir" 2>/dev/null || true' EXIT
+            refresh_metadata_cache >/dev/null 2>&1 || true
+        fi
+    ) >/dev/null 2>&1 &
+}
+
+notify() {
+    local message="$1"
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux display-message "$message" >/dev/null 2>&1 || true
+    fi
+    echo "$message" >&2
+}
+
+is_linked_worktree_path() {
+    local path="$1"
+    local git_file content
+    git_file="$path/.git"
+    [[ -f "$git_file" ]] || return 1
+    content=$(<"$git_file")
+    [[ "$content" == *"worktrees/"* ]]
+}
+
+prune_path_from_cache_file() {
+    local cache_file="$1"
+    local path="$2"
+    local cache_dir tmp_file
+
+    [[ -f "$cache_file" ]] || return 0
+
+    cache_dir=$(dirname "$cache_file")
+    mkdir -p "$cache_dir"
+    tmp_file=$(mktemp "${cache_dir}/tmux-projects-prune.XXXXXX")
+
+    awk -F'|' -v p="$path" '$2 != p { print }' "$cache_file" > "$tmp_file"
+    mv "$tmp_file" "$cache_file"
+}
+
+remove_worktree_entry() {
+    local path="$1"
+    local session_name="${2:-}"
+
+    if [[ -z "$path" ]]; then
+        echo "Error: --remove-worktree requires a path." >&2
+        exit 1
+    fi
+
+    if [[ ! -d "$path" ]]; then
+        prune_path_from_cache_file "$CACHE_FILE" "$path"
+        prune_path_from_cache_file "$METADATA_CACHE_FILE" "$path"
+        notify "Worktree path already missing. Removed stale selector entry."
+        return
+    fi
+
+    if ! git -C "$path" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        notify "Selected entry is not a git worktree."
+        return
+    fi
+
+    if ! is_linked_worktree_path "$path"; then
+        notify "Not a removable linked worktree (main repo worktree kept)."
+        return
+    fi
+
+    if [[ -n "$session_name" ]] && tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux kill-session -t "$session_name" >/dev/null 2>&1 || true
+    fi
+
+    if ! git -C "$path" worktree remove "$path" >/dev/null 2>&1; then
+        notify "Failed to remove worktree (possibly dirty)."
+        return
+    fi
+
+    prune_path_from_cache_file "$CACHE_FILE" "$path"
+    prune_path_from_cache_file "$METADATA_CACHE_FILE" "$path"
+    notify "Removed worktree and updated project selector."
+}
+
+ensure_metadata_cache() {
+    if [[ ! -f "$METADATA_CACHE_FILE" ]]; then
+        refresh_metadata_cache
+        return
+    fi
+
+    if metadata_cache_is_stale; then
+        trigger_background_metadata_refresh
+    fi
+}
+
+sync_current_repo_worktrees() {
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        echo "Error: --sync-current-repo must be run inside a git repository." >&2
+        exit 1
+    fi
+
+    local repo_root repo_common label_file repo_label cache_dir tmp_file metadata_tmp_file
+    local label path line_label line_path line_common line_display line_session
+    local display_label session_name
+    local -a worktree_paths=() refreshed_entries=()
+
+    repo_root=$(git rev-parse --show-toplevel)
+    repo_common=$(git_common_dir_abs "$repo_root")
+
+    label_file="$repo_root/.wakatime-project"
+    if [[ -f "$label_file" ]]; then
+        repo_label=$(head -n 1 "$label_file" | tr -d '\n\r')
+    else
+        repo_label=$(basename "$repo_root")
+    fi
+    if [[ -z "$repo_label" ]]; then
+        repo_label=$(basename "$repo_root")
+    fi
+
+    while IFS= read -r path; do
+        [[ -n "$path" ]] && worktree_paths+=("$path")
+    done < <(git -C "$repo_root" worktree list --porcelain | awk '/^worktree /{sub(/^worktree /, ""); print}')
+
+    # Bootstrap global caches once if missing, so repo sync never narrows the selector
+    # to only the current repository.
+    if [[ ! -f "$CACHE_FILE" ]]; then
+        get_projects >/dev/null
+    fi
+    if [[ ! -f "$METADATA_CACHE_FILE" ]]; then
+        refresh_metadata_cache >/dev/null
+    fi
+
+    cache_dir=$(dirname "$CACHE_FILE")
+    mkdir -p "$cache_dir"
+    tmp_file=$(mktemp "${cache_dir}/tmux-projects-cache.XXXXXX")
+
+    if [[ -f "$CACHE_FILE" ]]; then
+        while IFS='|' read -r line_label line_path; do
+            if [[ -z "${line_path:-}" ]]; then
+                continue
+            fi
+
+            if [[ -d "$line_path" ]] && line_common=$(git_common_dir_abs "$line_path"); then
+                if [[ "$line_common" == "$repo_common" ]]; then
+                    continue
+                fi
+            fi
+
+            printf '%s|%s\n' "$line_label" "$line_path" >> "$tmp_file"
+        done < "$CACHE_FILE"
+    fi
+
+    for path in "${worktree_paths[@]}"; do
+        if [[ -f "$path/.wakatime-project" ]]; then
+            label=$(head -n 1 "$path/.wakatime-project" | tr -d '\n\r')
+            if [[ -z "$label" ]]; then
+                label="$repo_label"
+                printf '%s\n' "$label" > "$path/.wakatime-project"
+            fi
+        else
+            label="$repo_label"
+            printf '%s\n' "$label" > "$path/.wakatime-project"
+        fi
+
+        refreshed_entries+=("${label}|${path}")
+    done
+
+    if [[ ${#refreshed_entries[@]} -gt 0 ]]; then
+        printf '%s\n' "${refreshed_entries[@]}" >> "$tmp_file"
+    fi
+
+    sort -t'|' -k1,1 -k2,2 "$tmp_file" | awk -F'|' '!seen[$0]++' > "$CACHE_FILE"
+    rm -f "$tmp_file"
+
+    metadata_tmp_file=$(mktemp "${cache_dir}/tmux-projects-metadata-cache.XXXXXX")
+
+    if [[ -f "$METADATA_CACHE_FILE" ]]; then
+        while IFS='|' read -r line_label line_path line_display line_session; do
+            if [[ -z "${line_path:-}" ]]; then
+                continue
+            fi
+
+            if [[ -d "$line_path" ]] && line_common=$(git_common_dir_abs "$line_path"); then
+                if [[ "$line_common" == "$repo_common" ]]; then
+                    continue
+                fi
+            fi
+
+            printf '%s|%s|%s|%s\n' "$line_label" "$line_path" "$line_display" "$line_session" >> "$metadata_tmp_file"
+        done < "$METADATA_CACHE_FILE"
+    fi
+
+    for path in "${worktree_paths[@]}"; do
+        if [[ -f "$path/.wakatime-project" ]]; then
+            label=$(head -n 1 "$path/.wakatime-project" | tr -d '\n\r')
+            [[ -z "$label" ]] && label="$repo_label"
+        else
+            label="$repo_label"
+        fi
+
+        IFS=$'\t' read -r display_label session_name <<<"$(build_project_metadata "$label" "$path")"
+        printf '%s|%s|%s|%s\n' "$label" "$path" "$display_label" "$session_name" >> "$metadata_tmp_file"
+    done
+
+    sort -t'|' -k1,1 -k2,2 "$metadata_tmp_file" | awk -F'|' '!seen[$0]++' > "$METADATA_CACHE_FILE"
+    rm -f "$metadata_tmp_file"
+
+    echo "Synced ${#worktree_paths[@]} worktree(s) for repo: $repo_root"
 }
 
 # Format projects for fzf
 format_projects() {
-    local active_sessions
-    active_sessions=$(get_active_sessions)
+    ensure_metadata_cache
+    local cache_dir sessions_file
+    cache_dir=$(dirname "$METADATA_CACHE_FILE")
+    mkdir -p "$cache_dir"
+    sessions_file=$(mktemp "${cache_dir}/tmux-active-sessions.XXXXXX")
+    get_active_sessions > "$sessions_file"
 
-    local active_projects=()
-    local inactive_projects=()
+    # Print active projects first.
+    awk -F'|' -v OFS=$'\t' '
+        NR == FNR { active[$1] = 1; next }
+        $2 != "" && $3 != "" && $4 != "" && ($4 in active) { print "* " $3, $4, $2 }
+    ' "$sessions_file" "$METADATA_CACHE_FILE"
 
-    while IFS='|' read -r label path; do
-        # Check if session is active
-        if echo "$active_sessions" | grep -q "^${label}$"; then
-            # Mark active sessions with * and use tab as delimiter
-            active_projects+=("* ${label}"$'\t'"${path}")
-        else
-            inactive_projects+=("  ${label}"$'\t'"${path}")
-        fi
-    done < <(get_projects)
+    # Then print inactive projects.
+    awk -F'|' -v OFS=$'\t' '
+        NR == FNR { active[$1] = 1; next }
+        $2 != "" && $3 != "" && $4 != "" && !($4 in active) { print "  " $3, $4, $2 }
+    ' "$sessions_file" "$METADATA_CACHE_FILE"
 
-    # Print active projects first, then inactive
-    if [[ ${#active_projects[@]} -gt 0 ]]; then
-        printf '%s\n' "${active_projects[@]}"
-    fi
-    if [[ ${#inactive_projects[@]} -gt 0 ]]; then
-        printf '%s\n' "${inactive_projects[@]}"
-    fi
+    rm -f "$sessions_file"
 }
 
 # Main function
@@ -96,6 +420,11 @@ main() {
     # Parse arguments
     local rebuild_cache=false
     local list_only=false
+    local refresh_list=false
+    local sync_current_repo=false
+    local remove_worktree=false
+    local remove_worktree_path=""
+    local remove_worktree_session=""
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -107,12 +436,37 @@ main() {
                 list_only=true
                 shift
                 ;;
+            --refresh-list)
+                refresh_list=true
+                shift
+                ;;
+            --sync-current-repo)
+                sync_current_repo=true
+                shift
+                ;;
+            --remove-worktree)
+                remove_worktree=true
+                remove_worktree_path="${2:-}"
+                remove_worktree_session="${3:-}"
+                if [[ -z "$remove_worktree_path" ]]; then
+                    echo "Error: --remove-worktree requires <path> [session]." >&2
+                    exit 1
+                fi
+                if [[ $# -ge 3 ]]; then
+                    shift 3
+                else
+                    shift 2
+                fi
+                ;;
             -h|--help)
                 echo "Usage: tmux-project-selector [OPTIONS]"
                 echo ""
                 echo "Options:"
                 echo "  -r, --rebuild    Rebuild project cache"
                 echo "  -l, --list       Just list projects (for fzf reload)"
+                echo "      --refresh-list      Rebuild caches and print formatted list"
+                echo "      --sync-current-repo  Refresh cache entries for current repo worktrees only"
+                echo "      --remove-worktree <path> [session]  Remove linked worktree and prune selector entry"
                 echo "  -h, --help       Show this help message"
                 exit 0
                 ;;
@@ -126,8 +480,29 @@ main() {
     # Rebuild cache if requested
     if [[ "$rebuild_cache" == "true" ]]; then
         rm -f "$CACHE_FILE"
+        rm -f "$METADATA_CACHE_FILE"
         # Force rebuild by calling get_projects which will recreate the cache
         get_projects > /dev/null
+        refresh_metadata_cache > /dev/null
+        exit 0
+    fi
+
+    if [[ "$refresh_list" == "true" ]]; then
+        rm -f "$CACHE_FILE"
+        rm -f "$METADATA_CACHE_FILE"
+        get_projects > /dev/null
+        refresh_metadata_cache > /dev/null
+        format_projects
+        exit 0
+    fi
+
+    if [[ "$sync_current_repo" == "true" ]]; then
+        sync_current_repo_worktrees
+        exit 0
+    fi
+
+    if [[ "$remove_worktree" == "true" ]]; then
+        remove_worktree_entry "$remove_worktree_path" "$remove_worktree_session"
         exit 0
     fi
 
@@ -150,14 +525,16 @@ main() {
         --height=100% \
         --border=rounded \
         --prompt="Select a project: " \
-        --header="* = active | Enter = switch/create | Ctrl-X = kill session | Ctrl-R = rebuild cache" \
+        --header="Ctrl-O = open in Codex | Ctrl-X = kill session | Ctrl-W = remove linked worktree | Ctrl-R = rebuild cache" \
         --delimiter=$'\t' \
         --with-nth=1 \
-        --preview='echo {2}' \
+        --preview='printf "Session: %s\nPath: %s\n" {2} {3}' \
         --preview-window=right:50%:wrap \
         --bind='ctrl-/:toggle-preview' \
-        --bind="ctrl-r:reload(rm -f '$CACHE_FILE' && '$0' --list)" \
-        --bind="ctrl-x:execute-silent(echo {1} | sed 's/^[* ]*//' | xargs -I {} tmux kill-session -t {} 2>/dev/null)+reload($0 --list)" \
+        --bind="ctrl-o:execute-silent(open -a 'Codex' {3})+abort" \
+        --bind="ctrl-r:reload($0 --refresh-list)" \
+        --bind="ctrl-x:execute-silent(tmux kill-session -t {2} 2>/dev/null)+reload($0 --list)" \
+        --bind="ctrl-w:execute-silent('$0' --remove-worktree {3} {2})+reload($0 --list)" \
         --ansi \
         --reverse)
 
@@ -165,30 +542,29 @@ main() {
         exit 0
     fi
 
-    # Extract label and path
-    local label path is_active
-    is_active=$(echo "$selected" | grep -q "^\*" && echo "true" || echo "false")
-    label=$(echo "$selected" | sed 's/^[* ]*//' | cut -f1)
-    path=$(echo "$selected" | cut -f2)
+    # Extract session and path from selected row
+    local session_name path
+    session_name=$(echo "$selected" | cut -f2)
+    path=$(echo "$selected" | cut -f3)
 
     # If session is already active, just switch to it
-    if [[ "$is_active" == "true" ]]; then
+    if tmux has-session -t "$session_name" 2>/dev/null; then
         if [[ -n "${TMUX:-}" ]]; then
             # We're inside tmux, switch session
-            tmux switch-client -t "$label"
+            tmux switch-client -t "$session_name"
         else
             # We're outside tmux, attach to session
-            tmux attach-session -t "$label"
+            tmux attach-session -t "$session_name"
         fi
     else
         # Create new session
         if [[ -n "${TMUX:-}" ]]; then
             # We're inside tmux, create and switch
-            tmux new-session -d -s "$label" -c "$path"
-            tmux switch-client -t "$label"
+            tmux new-session -d -s "$session_name" -c "$path"
+            tmux switch-client -t "$session_name"
         else
             # We're outside tmux, create and attach
-            tmux new-session -s "$label" -c "$path"
+            tmux new-session -s "$session_name" -c "$path"
         fi
     fi
 }
