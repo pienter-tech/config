@@ -1,0 +1,3 @@
+interface:
+  display_name: "Add Docs"
+  short_description: "Add language-appropriate code documentation to target files"

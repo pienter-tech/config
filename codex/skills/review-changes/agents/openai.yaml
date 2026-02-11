@@ -1,0 +1,3 @@
+interface:
+  display_name: "Review Changes"
+  short_description: "Run a focused code review on recent commits and diffs"

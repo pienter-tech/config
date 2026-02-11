@@ -26,3 +26,6 @@ codex/**
 !codex/rules/default.rules
 !codex/AGENTS.md
 !codex/instructions.md
+!codex/skills/
+!codex/skills/**
+codex/skills/.system/**

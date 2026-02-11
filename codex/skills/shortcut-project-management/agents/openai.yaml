@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shortcut Project Management"
+  short_description: "Manage Shortcut MCP tickets and branches"
+  default_prompt: "Use $shortcut-project-management to create or start a Shortcut story (via Shortcut MCP) and check out its branch."
