@@ -44,6 +44,7 @@ setopt hist_find_no_dups
 alias oc="opencode"
 alias cx="codex"
 alias cxr="codex resume --last"
+alias cxa="codex-app-here"
 alias vim="nvim"
 alias v="nvim"
 alias cld="claude --permission-mode bypassPermissions"
@@ -135,6 +136,10 @@ function cx-web() {
         -c mcp_servers.context7.enabled=true \
         -c mcp_servers.chrome-devtools.enabled=true \
         "$@"
+}
+
+function codex-app-here() {
+    open -a "Codex" "$PWD"
 }
 
 # Add command completion for make targets

@@ -29,3 +29,5 @@ codex/**
 !codex/skills/
 !codex/skills/**
 codex/skills/.system/**
+/codex/skills/openai-docs
+/codex/skills/figma-implement-design

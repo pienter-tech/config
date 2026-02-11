@@ -1,10 +1,22 @@
 model = "gpt-5.3-codex"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 
 [projects."/Users/korneel/dev/projects/pienter/garmin-timer"]
 trust_level = "trusted"
 
 [projects."/Users/korneel/dev/projects/pienter/config"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/democrazy"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/verhelst"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/flow"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/ascendere"]
 trust_level = "trusted"
 
 [mcp_servers.figma]
@@ -24,7 +36,8 @@ enabled = false
 [mcp_servers.shortcut]
 command = "npx"
 args = ["-y", "@shortcut/mcp@latest"]
-enabled = false
+env_vars = ["SHORTCUT_API_TOKEN"]
+enabled = true
 
-[mcp_servers.shortcut.env]
-SHORTCUT_API_TOKEN = "${SHORTCUT_API_TOKEN}"
+[features]
+collab = true
