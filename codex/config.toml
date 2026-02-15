@@ -19,6 +19,21 @@ trust_level = "trusted"
 [projects."/Users/korneel/dev/projects/tnt/ascendere"]
 trust_level = "trusted"
 
+[projects."/Users/korneel/dev/projects/tnt/musicmania"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/dry"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/dry-aws"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/verenig/full_stack"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/pienter/cli-tools"]
+trust_level = "trusted"
+
 [mcp_servers.figma]
 url = "http://127.0.0.1:3845/mcp"
 enabled = false
@@ -37,7 +52,10 @@ enabled = false
 command = "npx"
 args = ["-y", "@shortcut/mcp@latest"]
 env_vars = ["SHORTCUT_API_TOKEN"]
-enabled = true
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
 
 [features]
 collab = true
+apps = true
