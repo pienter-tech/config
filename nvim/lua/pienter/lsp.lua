@@ -48,12 +48,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/references") then
             map("n", "grr", vim.lsp.buf.references, "Show LSP references")
-            map("n", "gR", "<cmd>Telescope lsp_references<CR>", "Show LSP references")
+            map("n", "gR", function()
+                Snacks.picker.lsp_references()
+            end, "Show LSP references")
         end
 
         if client:supports_method("textDocument/definition") then
             map("n", "grd", vim.lsp.buf.definition, "Go to definition")
-            map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "Show LSP definitions")
+            map("n", "gd", function()
+                Snacks.picker.lsp_definitions()
+            end, "Show LSP definitions")
         end
 
         if client:supports_method("textDocument/declaration") then
@@ -61,11 +65,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
         if client:supports_method("textDocument/implementation") then
             map("n", "gri", vim.lsp.buf.implementation, "Show LSP implementations")
-            map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations")
+            map("n", "gi", function()
+                Snacks.picker.lsp_implementations()
+            end, "Show LSP implementations")
         end
 
         if client:supports_method("textDocument/typeDefinition") then
-            map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", "Show LSP type definitions")
+            map("n", "gt", function()
+                Snacks.picker.lsp_type_definitions()
+            end, "Show LSP type definitions")
         end
 
         if client:supports_method("textDocument/rename") then
@@ -83,7 +91,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --   navic.attach(client, args.buf)
         -- end
 
-        map("n", "<leader>cd", "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics")
+        map("n", "<leader>cd", function()
+            Snacks.picker.diagnostics_buffer()
+        end, "Show buffer diagnostics")
 
         map("n", "<leader>cD", vim.diagnostic.open_float, "Show line diagnostics")
 

@@ -58,6 +58,108 @@ return {
                 desc = "Notification History",
             },
             {
+                "<leader>fn",
+                function()
+                    if vim.api.nvim_buf_get_option(0, "filetype") == "netrw" and vim.fn.exists(":Rexplore") then
+                        vim.cmd("Rexplore")
+                    else
+                        vim.cmd("Explore")
+                    end
+                end,
+                desc = "Open netrw",
+                mode = "n",
+            },
+            {
+                "<leader>ff",
+                function()
+                    require("snacks").picker.files({ hidden = true })
+                end,
+                desc = "Find files",
+                mode = "n",
+            },
+            {
+                "<leader>fg",
+                function()
+                    require("snacks").picker.git_log_file()
+                end,
+                desc = "Current buffer git history",
+                mode = "n",
+            },
+            {
+                "<leader>fd",
+                function()
+                    require("snacks").picker.grep()
+                end,
+                desc = "Search files with grep",
+                mode = "n",
+            },
+            {
+                "<leader>fd",
+                function()
+                    require("snacks").picker.grep_word()
+                end,
+                desc = "Search files with grep",
+                mode = "x",
+            },
+            {
+                "<leader>fs",
+                function()
+                    require("snacks").picker.grep_word()
+                end,
+                desc = "Search for the string under your cursor or selection",
+                mode = "n",
+            },
+            {
+                "<leader>fm",
+                function()
+                    require("snacks").picker.marks()
+                end,
+                desc = "Find marks",
+                mode = "n",
+            },
+            {
+                "<leader>fb",
+                function()
+                    require("snacks").picker.buffers()
+                end,
+                desc = "Find files in buffers",
+                mode = "n",
+            },
+            {
+                "<leader>fh",
+                function()
+                    require("snacks").picker.help()
+                end,
+                desc = "Find help tags",
+                mode = "n",
+            },
+            {
+                "<leader>fr",
+                function()
+                    require("snacks").picker.resume()
+                end,
+                desc = "Resume previous find",
+                mode = "n",
+            },
+            {
+                "<leader>fp",
+                function()
+                    require("snacks").picker.pickers()
+                end,
+                desc = "Search pickers",
+                mode = "n",
+            },
+            {
+                "<leader>fM",
+                function()
+                    local telescope = require("telescope")
+                    telescope.load_extension("macroni")
+                    telescope.extensions.macroni.saved_macros()
+                end,
+                desc = "Search macros",
+                mode = "n",
+            },
+            {
                 "<leader>z",
                 function()
                     require("snacks").zen()
