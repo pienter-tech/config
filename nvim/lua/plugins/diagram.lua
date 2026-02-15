@@ -1,7 +1,7 @@
 return {
     {
         "3rd/diagram.nvim",
-        ft = { "markdown", "norg" },
+        ft = { "markdown" },
         dependencies = {
             "3rd/image.nvim",
         },
@@ -30,7 +30,7 @@ return {
                     require("diagram").show_diagram_hover()
                 end,
                 mode = "n",
-                ft = { "markdown", "norg" },
+                ft = { "markdown" },
                 desc = "Show diagram at cursor",
             },
         },
