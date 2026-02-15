@@ -320,7 +320,7 @@ local function create_context_with_prompt()
         prompt = "Enter new context name: ",
     }, function(input)
         if input and input ~= "" then
-            vim.cmd("ContextCreate " .. input)
+            M.create_context(input)
         end
     end)
 end

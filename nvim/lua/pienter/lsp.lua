@@ -1,79 +1,81 @@
-vim.notify("Run")
+local show_lsp_notifications = vim.g.lsp_debug_notifications == true
 
-vim.lsp.enable("astro")
-vim.lsp.enable("biome")
-vim.lsp.enable("css_variables")
-vim.lsp.enable("cssls")
-vim.lsp.enable("docker_compose_language_service")
-vim.lsp.enable("dockerls")
-vim.lsp.enable("emmet_language_server")
-vim.lsp.enable("eslint")
-vim.lsp.enable("gopls")
-vim.lsp.enable("html")
-vim.lsp.enable("intelephense")
-vim.lsp.enable("jsonls")
-vim.lsp.enable("lemminx")
-vim.lsp.enable("luals")
-vim.lsp.enable("remark_ls")
-vim.lsp.enable("somesass_ls")
-vim.lsp.enable("taplo")
-vim.lsp.enable("vtsls")
-vim.lsp.enable("twiggy_language_server")
-vim.lsp.enable("vue_ls")
-vim.lsp.enable("pylsp")
-vim.lsp.enable("yamlls")
+local lsp_servers = {
+    "astro",
+    "biome",
+    "css_variables",
+    "cssls",
+    "docker_compose_language_service",
+    "dockerls",
+    "emmet_language_server",
+    "eslint",
+    "gopls",
+    "html",
+    "intelephense",
+    "jsonls",
+    "lemminx",
+    "luals",
+    "remark_ls",
+    "somesass_ls",
+    "taplo",
+    "vtsls",
+    "twiggy_language_server",
+    "vue_ls",
+    "pylsp",
+    "yamlls",
+}
+
+for _, server in ipairs(lsp_servers) do
+    vim.lsp.enable(server)
+end
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("my.lsp", {}),
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        vim.notify("LSP started for " .. client.name, vim.log.levels.INFO, { title = "LSP" })
+        if show_lsp_notifications then
+            vim.notify("LSP started for " .. client.name, vim.log.levels.INFO, { title = "LSP" })
+        end
 
-        local keymap = vim.keymap
-        local opts = { noremap = true, silent = true }
-        opts.buffer = args.buf
-        opts.desc = "Show LSP references"
-
-        opts.desc = "Show LSP references"
-        keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        local function map(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, {
+                noremap = true,
+                silent = true,
+                buffer = args.buf,
+                desc = desc,
+            })
+        end
 
         if client:supports_method("textDocument/references") then
-            opts.desc = "Show LSP references"
-            keymap.set("n", "grr", vim.lsp.buf.references, opts) -- go to declaration
-            keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+            map("n", "grr", vim.lsp.buf.references, "Show LSP references")
+            map("n", "gR", "<cmd>Telescope lsp_references<CR>", "Show LSP references")
         end
 
         if client:supports_method("textDocument/definition") then
-            opts.desc = "Go to definition"
-            keymap.set("n", "grd", vim.lsp.buf.definition, opts) -- go to declaration
-            keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+            map("n", "grd", vim.lsp.buf.definition, "Go to definition")
+            map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "Show LSP definitions")
         end
 
         if client:supports_method("textDocument/declaration") then
-            opts.desc = "Go to declaration"
-            keymap.set("n", "grD", vim.lsp.buf.declaration, opts) -- go to declaration
+            map("n", "grD", vim.lsp.buf.declaration, "Go to declaration")
         end
         if client:supports_method("textDocument/implementation") then
-            opts.desc = "Show LSP implementations"
-            keymap.set("n", "gri", vim.lsp.buf.implementation, opts)
-            keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+            map("n", "gri", vim.lsp.buf.implementation, "Show LSP implementations")
+            map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations")
         end
 
-        if client:supports_method("textDocument/typeDefinition*") then
-            opts.desc = "Show LSP type definitions"
-            keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        if client:supports_method("textDocument/typeDefinition") then
+            map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", "Show LSP type definitions")
         end
 
         if client:supports_method("textDocument/rename") then
-            opts.desc = "Smart rename"
-            keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts) -- smart rename
-            keymap.set("n", "grn", vim.lsp.buf.rename, opts) -- smart rename
+            map("n", "<leader>cr", vim.lsp.buf.rename, "Smart rename")
+            map("n", "grn", vim.lsp.buf.rename, "Smart rename")
         end
 
         if client:supports_method("textDocument/codeAction") then
-            opts.desc = "See available code actions"
-            keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-            keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+            map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "See available code actions")
+            map({ "n", "v" }, "gra", vim.lsp.buf.code_action, "See available code actions")
         end
 
         -- if client.server_capabilities.documentSymbolProvider then
@@ -81,36 +83,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --   navic.attach(client, args.buf)
         -- end
 
-        opts.desc = "Show buffer diagnostics"
-        keymap.set("n", "<leader>cd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+        map("n", "<leader>cd", "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics")
 
-        opts.desc = "Show line diagnostics"
-        keymap.set("n", "<leader>cD", vim.diagnostic.open_float, opts) -- show diagnostics for line
+        map("n", "<leader>cD", vim.diagnostic.open_float, "Show line diagnostics")
 
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "<S-F2>", function()
+        map("n", "<S-F2>", function()
             vim.diagnostic.jump({ count = -1, float = true })
-        end, opts) -- jump to previous diagnostic in buffer
+        end, "Go to previous diagnostic")
 
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "<F2>", function()
+        map("n", "<F2>", function()
             vim.diagnostic.jump({ count = 1, float = true })
-        end, opts) -- jump to next diagnostic in buffer
+        end, "Go to next diagnostic")
 
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "<leader>@", function()
+        map("n", "<leader>@", function()
             vim.diagnostic.jump({ count = -1, float = true })
-        end, opts) -- jump to previous diagnostic in buffer
+        end, "Go to previous diagnostic")
 
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "<leader>2", function()
+        map("n", "<leader>2", function()
             vim.diagnostic.jump({ count = 1, float = true })
-        end, opts) -- jump to next diagnostic in buffer
+        end, "Go to next diagnostic")
 
-        opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "<F1>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+        map("n", "<F1>", vim.lsp.buf.hover, "Show documentation for what is under cursor")
 
-        opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "<leader>1", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+        map("n", "<leader>1", vim.lsp.buf.hover, "Show documentation for what is under cursor")
     end,
 })

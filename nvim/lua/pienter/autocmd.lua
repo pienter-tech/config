@@ -38,7 +38,10 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 vim.api.nvim_create_autocmd("VimLeavePre", {
     pattern = "*",
     callback = function()
-        require("overseer").close()
+        local ok, overseer = pcall(require, "overseer")
+        if ok then
+            overseer.close()
+        end
     end,
 })
 

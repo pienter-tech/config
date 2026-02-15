@@ -76,7 +76,7 @@ return {
         opts = {
             animate = {},
             bigfile = { enabled = true },
-            bugdelete = {},
+            bufdelete = {},
             dashboard = { enabled = false },
             debug = {},
             dim = {},

@@ -188,9 +188,6 @@ return {
                 time_format = "%H:%M",
                 -- A map for custom variables, the key should be the variable and the value a function
                 substitutions = {
-                    test = function ()
-                        return note.title
-                    end,
                     filename = function()
                         return vim.fn.expand("%:t")
                     end,
