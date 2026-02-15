@@ -13,6 +13,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export FAST_WORK_DIR=XDG
 export CONFIG_DIR="$HOME/dev/projects/pienter/config"
+export SNACKS_GHOSTTY=true
 export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
