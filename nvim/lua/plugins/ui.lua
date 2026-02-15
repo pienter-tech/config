@@ -160,6 +160,14 @@ return {
                 mode = "n",
             },
             {
+                "<leader>dm",
+                function()
+                    require("snacks").image.hover()
+                end,
+                desc = "Show image/diagram at cursor",
+                mode = "n",
+            },
+            {
                 "<leader>z",
                 function()
                     require("snacks").zen()
@@ -185,7 +193,7 @@ return {
             explorer = { enabled = false },
             git = {},
             gitbrowse = {},
-            image = { enabled = false },
+            image = { enabled = true },
             indent = { enabled = true, animate = { enabled = false } },
             input = { enabled = true },
             layout = { enabled = false },
