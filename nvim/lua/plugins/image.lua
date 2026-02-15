@@ -1,10 +1,10 @@
 return {
     {
         "3rd/image.nvim",
-        enabled = false,
+        enabled = true,
         opts = {
-            backend = "ueberzug",
-            processor = "magick_rock",
+            backend = "kitty",
+            processor = "magick_cli",
             integrations = {
                 markdown = {
                     enabled = true,
