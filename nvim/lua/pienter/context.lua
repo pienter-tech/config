@@ -158,6 +158,67 @@ function M.add_current_file()
     end
 end
 
+-- Add all file-backed buffers in open windows to context
+function M.add_open_window_files()
+    local context_file = get_current_context_file()
+    if not context_file then
+        vim.notify("No context selected", vim.log.levels.ERROR)
+        return
+    end
+
+    local files = {}
+    for line in io.lines(context_file) do
+        files[line] = true
+    end
+
+    local seen_buffers = {}
+    local files_to_add = {}
+    local open_file_count = 0
+
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if not seen_buffers[buf] and vim.bo[buf].buftype == "" then
+            seen_buffers[buf] = true
+
+            local filepath = vim.api.nvim_buf_get_name(buf)
+            if filepath ~= "" then
+                filepath = vim.fn.fnamemodify(filepath, ":p")
+                open_file_count = open_file_count + 1
+
+                if not files[filepath] then
+                    files[filepath] = true
+                    table.insert(files_to_add, filepath)
+                end
+            end
+        end
+    end
+
+    if #files_to_add == 0 then
+        if open_file_count == 0 then
+            vim.notify("No file-backed buffers in open windows", vim.log.levels.INFO)
+        else
+            vim.notify("All open window files are already in context", vim.log.levels.INFO)
+        end
+        return
+    end
+
+    local file = io.open(context_file, "a")
+    if not file then
+        vim.notify("Could not open context file for writing", vim.log.levels.ERROR)
+        return
+    end
+
+    for _, filepath in ipairs(files_to_add) do
+        file:write(filepath .. "\n")
+    end
+    file:close()
+
+    vim.notify(
+        string.format("Added %d of %d open file(s) to context", #files_to_add, open_file_count),
+        vim.log.levels.INFO
+    )
+end
+
 -- Remove file from context
 function M.remove_file(filepath)
     local context_file = get_current_context_file()
@@ -335,6 +396,7 @@ function M.setup()
         M.create_context(opts.args)
     end, { nargs = "?" })
     vim.api.nvim_create_user_command("ContextAddFile", M.add_current_file, {})
+    vim.api.nvim_create_user_command("ContextAddWindowFiles", M.add_open_window_files, {})
     vim.api.nvim_create_user_command("ContextRemoveFile", M.select_file_to_remove, {})
     vim.api.nvim_create_user_command("ContextList", M.create_context_buffer, {})
     vim.api.nvim_create_user_command("ContextCopyContents", M.copy_context_contents, {})
@@ -355,6 +417,11 @@ function M.setup()
             key = "<leader>ka",
             cmd = ":ContextAddFile<CR>",
             desc = "Add current file to context",
+        },
+        {
+            key = "<leader>kw",
+            cmd = ":ContextAddWindowFiles<CR>",
+            desc = "Add files from open windows to context",
         },
         {
             key = "<leader>kd",
