@@ -10,6 +10,7 @@ Select a local branch, create a dedicated git worktree, and jump into tmux.
 
 Behavior:
 - Prompt for a local branch via fzf
+- In picker: Ctrl-N to create a new branch from current selection
 - Create a new worktree for the selected branch
 - If selected branch is currently checked out here, switch current worktree to default branch first
 - Ensure .wakatime-project exists in the new worktree
@@ -165,22 +166,62 @@ open_tmux_session() {
     fi
 }
 
-select_branch() {
+trim_whitespace() {
+    local value="$1"
+    value="${value#"${value%%[![:space:]]*}"}"
+    value="${value%"${value##*[![:space:]]}"}"
+    printf '%s\n' "$value"
+}
+
+create_branch_from_selected() {
+    local repo_root="$1"
+    local base_branch="$2"
+    local new_branch
+
+    if [[ -z "$base_branch" ]]; then
+        return 1
+    fi
+
+    printf '\nCreate new branch from: %s\n' "$base_branch" > /dev/tty
+    read -r -p "New branch name: " new_branch </dev/tty || return 1
+    new_branch=$(trim_whitespace "$new_branch")
+
+    if [[ -z "$new_branch" ]]; then
+        printf 'Branch name cannot be empty.\n' > /dev/tty
+        read -r -n 1 -s -p "Press any key to continue..." </dev/tty || true
+        printf '\n' > /dev/tty
+        return 1
+    fi
+
+    if ! git -C "$repo_root" check-ref-format --branch "$new_branch" >/dev/null 2>&1; then
+        printf "Invalid branch name: %s\n" "$new_branch" > /dev/tty
+        read -r -n 1 -s -p "Press any key to continue..." </dev/tty || true
+        printf '\n' > /dev/tty
+        return 1
+    fi
+
+    if git -C "$repo_root" show-ref --verify --quiet "refs/heads/$new_branch"; then
+        printf "Branch already exists: %s\n" "$new_branch" > /dev/tty
+        read -r -n 1 -s -p "Press any key to continue..." </dev/tty || true
+        printf '\n' > /dev/tty
+        return 1
+    fi
+
+    git -C "$repo_root" branch "$new_branch" "$base_branch"
+    printf "Created branch '%s' from '%s'.\n" "$new_branch" "$base_branch" > /dev/tty
+    printf '%s\n' "$new_branch"
+}
+
+list_branch_entries() {
     local repo_root="$1"
     local current_branch="$2"
-    local worktree_info selection
+    local worktree_info
     local color_reset color_cyan color_green color_yellow
 
     color_reset=$'\033[0m'
     color_cyan=$'\033[36m'
     color_green=$'\033[32m'
     color_yellow=$'\033[33m'
-
-    if ! command -v fzf >/dev/null 2>&1; then
-        echo "Error: fzf is required but not installed." >&2
-        echo "Install with: brew install fzf" >&2
-        exit 1
-    fi
 
     worktree_info=$(git -C "$repo_root" worktree list --porcelain | awk '
         /^worktree / { path = $2 }
@@ -191,51 +232,87 @@ select_branch() {
         }
     ')
 
-    selection=$(
-        while IFS= read -r branch; do
-            [[ -z "$branch" ]] && continue
+    while IFS= read -r branch; do
+        [[ -z "$branch" ]] && continue
 
-            local marker status status_display checked_out_path display_path is_current_branch
-            marker=" "
-            is_current_branch=false
-            if [[ -n "$current_branch" && "$branch" == "$current_branch" ]]; then
-                is_current_branch=true
-                marker="${color_cyan}*${color_reset}"
-            fi
+        local marker status status_display checked_out_path display_path is_current_branch
+        marker=" "
+        is_current_branch=false
+        if [[ -n "$current_branch" && "$branch" == "$current_branch" ]]; then
+            is_current_branch=true
+            marker="${color_cyan}*${color_reset}"
+        fi
 
-            checked_out_path=$(printf '%s\n' "$worktree_info" | awk -F '\t' -v b="$branch" '$1 == b { print $2; exit }')
-            if [[ -n "$checked_out_path" ]]; then
-                if [[ "$is_current_branch" == "true" ]]; then
-                    status="current"
-                    status_display="${color_cyan}${status}${color_reset}"
-                else
-                    status="in use"
-                    status_display="${color_yellow}${status}${color_reset}"
-                fi
-                display_path=$(compact_path "$checked_out_path")
+        checked_out_path=$(printf '%s\n' "$worktree_info" | awk -F '\t' -v b="$branch" '$1 == b { print $2; exit }')
+        if [[ -n "$checked_out_path" ]]; then
+            if [[ "$is_current_branch" == "true" ]]; then
+                status="current"
+                status_display="${color_cyan}${status}${color_reset}"
             else
-                status="available"
-                status_display="${color_green}${status}${color_reset}"
-                display_path="-"
+                status="in use"
+                status_display="${color_yellow}${status}${color_reset}"
             fi
+            display_path=$(compact_path "$checked_out_path")
+        else
+            status="available"
+            status_display="${color_green}${status}${color_reset}"
+            display_path="-"
+        fi
 
-            printf '%s\t%s\t%s\t%s\n' "$marker" "$branch" "$status_display" "$display_path"
-        done < <(git -C "$repo_root" for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads) \
-            | fzf \
-                --height=100% \
-                --reverse \
-                --border=rounded \
-                --prompt="Worktree branch > " \
-                --header=$'* = current branch | in use = checked out in a worktree\nEnter = create worktree and open tmux session' \
-                --delimiter=$'\t' \
-                --with-nth=1,2,3 \
-                --bind='enter:accept' \
-                --ansi \
-                --preview='printf "Branch: %s\nStatus: %s\n" "{2}" "{3}"; if [[ "{4}" != "-" ]]; then printf "Path: %s\n" "{4}"; fi' \
-                --preview-window=right:45%:wrap
-    ) || true
+        printf '%s\t%s\t%s\t%s\n' "$marker" "$branch" "$status_display" "$display_path"
+    done < <(git -C "$repo_root" for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads)
+}
 
-    printf '%s\n' "$(printf '%s' "$selection" | cut -f2)"
+select_branch() {
+    local repo_root="$1"
+    local current_branch="$2"
+    local selection pressed_key selected_row selected_branch
+
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "Error: fzf is required but not installed." >&2
+        echo "Install with: brew install fzf" >&2
+        exit 1
+    fi
+
+    while true; do
+        selection=$(
+            list_branch_entries "$repo_root" "$current_branch" \
+                | fzf \
+                    --height=100% \
+                    --reverse \
+                    --border=rounded \
+                    --prompt="Worktree branch > " \
+                    --header=$'* = current branch | in use = checked out in a worktree\nEnter = create worktree and open tmux session | Ctrl-N = create branch from selection' \
+                    --delimiter=$'\t' \
+                    --with-nth=1,2,3 \
+                    --expect=ctrl-n \
+                    --bind='enter:accept' \
+                    --ansi \
+                    --preview='printf "Branch: %s\nStatus: %s\n" "{2}" "{3}"; if [[ "{4}" != "-" ]]; then printf "Path: %s\n" "{4}"; fi' \
+                    --preview-window=right:45%:wrap
+        ) || true
+
+        pressed_key=$(printf '%s\n' "$selection" | sed -n '1p')
+        selected_row=$(printf '%s\n' "$selection" | sed -n '2p')
+        selected_branch=$(printf '%s\n' "$selected_row" | cut -f2)
+
+        if [[ -z "$selected_branch" ]]; then
+            printf '\n'
+            return
+        fi
+
+        if [[ "$pressed_key" == "ctrl-n" ]]; then
+            selected_branch=$(create_branch_from_selected "$repo_root" "$selected_branch") || true
+            if [[ -n "$selected_branch" ]]; then
+                printf '%s\n' "$selected_branch"
+                return
+            fi
+            continue
+        fi
+
+        printf '%s\n' "$selected_branch"
+        return
+    done
 }
 
 main() {
