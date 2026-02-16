@@ -34,6 +34,9 @@ trust_level = "trusted"
 [projects."/Users/korneel/dev/projects/pienter/cli-tools"]
 trust_level = "trusted"
 
+[projects."/Users/korneel/dev/projects/aos/astro"]
+trust_level = "trusted"
+
 [mcp_servers.figma]
 url = "http://127.0.0.1:3845/mcp"
 enabled = false
