@@ -37,6 +37,12 @@ trust_level = "trusted"
 [projects."/Users/korneel/dev/projects/aos/astro"]
 trust_level = "trusted"
 
+[projects."/Users/korneel/dev/projects/tnt/encatc"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/center"]
+trust_level = "trusted"
+
 [mcp_servers.figma]
 url = "http://127.0.0.1:3845/mcp"
 enabled = false
@@ -60,5 +66,4 @@ env_vars = ["SHORTCUT_API_TOKEN"]
 url = "https://developers.openai.com/mcp"
 
 [features]
-collab = true
 apps = true

@@ -51,8 +51,10 @@ setopt hist_find_no_dups
 
 alias oc="opencode"
 alias cx="codex"
+alias cxf="codex -m gpt-5.3-codex-spark"
 alias cxr="codex resume --last"
 alias cxa="codex-app-here"
+alias cxcw="cx-commit-workflow"
 alias vim="nvim"
 alias v="nvim"
 alias cld="claude --permission-mode bypassPermissions"
@@ -144,6 +146,28 @@ function cx-web() {
         -c mcp_servers.context7.enabled=true \
         -c mcp_servers.chrome-devtools.enabled=true \
         "$@"
+}
+
+function cx-commit-workflow() {
+    local base_prompt='Use the $commit-workflow skill. Review the current git changes, split work into logical atomic commits, use Conventional Commit messages, run a secret scan on staged changes before each commit, and do not push.'
+    local model='gpt-5.3-codex-spark'
+    if [[ $# -gt 0 ]]; then
+        codex exec --full-auto -m "$model" \
+            -c mcp_servers.figma.enabled=false \
+            -c mcp_servers.context7.enabled=false \
+            -c mcp_servers.chrome-devtools.enabled=false \
+            -c mcp_servers.shortcut.enabled=false \
+            -c mcp_servers.openaiDeveloperDocs.enabled=false \
+            "$base_prompt Additional instructions: $*"
+    else
+        codex exec --full-auto -m "$model" \
+            -c mcp_servers.figma.enabled=false \
+            -c mcp_servers.context7.enabled=false \
+            -c mcp_servers.chrome-devtools.enabled=false \
+            -c mcp_servers.shortcut.enabled=false \
+            -c mcp_servers.openaiDeveloperDocs.enabled=false \
+            "$base_prompt"
+    fi
 }
 
 function codex-app-here() {
