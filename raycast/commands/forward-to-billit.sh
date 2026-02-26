@@ -10,6 +10,7 @@ set targetEmail to do shell script "source ~/dev/projects/pienter/config/.env.pu
 if targetEmail is "" then
 	return "Error: BILLIT_EMAIL environment variable not set."
 end if
+set fromEmail to do shell script "source ~/dev/projects/pienter/config/.env.public && echo $BILLIT_FROM_EMAIL"
 
 tell application "Mail"
 	-- Get the list of emails currently selected in the user interface
@@ -30,6 +31,11 @@ tell application "Mail"
 
 			-- Configure the forwarded message
 			tell forwardMessage
+				-- Optional fixed sender account (must exist in Mail)
+				if fromEmail is not "" then
+					set sender to fromEmail
+				end if
+
 				make new to recipient at end of to recipients with properties {address:targetEmail}
 				-- remove the next line if you want to review the email before sending
 				send
@@ -43,4 +49,3 @@ tell application "Mail"
 
 	return "Forwarded " & forwardCount & " email(s) to " & targetEmail
 end tell
-

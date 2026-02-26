@@ -10,6 +10,7 @@ set targetEmail to do shell script "source ~/dev/projects/pienter/config/.env.pu
 if targetEmail is "" then
 	return "Error: BILLIT_EMAIL environment variable not set."
 end if
+set fromEmail to do shell script "source ~/dev/projects/pienter/config/.env.public && echo $BILLIT_FROM_EMAIL"
 
 tell application "Finder"
 	set selectedFiles to selection
@@ -29,6 +30,11 @@ tell application "Mail"
 	set newMessage to make new outgoing message with properties {subject:"Files", visible:false}
 
 	tell newMessage
+		-- Optional fixed sender account (must exist in Mail)
+		if fromEmail is not "" then
+			set sender to fromEmail
+		end if
+
 		make new to recipient at end of to recipients with properties {address:targetEmail}
 
 		-- Attach each selected file
