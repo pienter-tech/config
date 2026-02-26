@@ -85,10 +85,14 @@ return {
         opts = {
             provider = "gemini",
             provider_options = {
-                openai = {
-                    model = 'gpt-5-mini'
-
-                }
+                gemini = {
+                    model = "gemini-2.5-flash",
+                    optional = {
+                        generationConfig = {
+                            maxOutputTokens = 128,
+                        },
+                    },
+                },
             },
             virtualtext = {
                 auto_trigger_ft = {},

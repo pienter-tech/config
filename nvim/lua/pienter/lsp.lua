@@ -5,6 +5,7 @@ local lsp_servers = {
     "biome",
     "css_variables",
     "cssls",
+    "copilot",
     "docker_compose_language_service",
     "dockerls",
     "emmet_language_server",
@@ -71,7 +72,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if client:supports_method("textDocument/typeDefinition") then
-            map("n", "gt", function()
+            map("n", "grt", function()
                 Snacks.picker.lsp_type_definitions()
             end, "Show LSP type definitions")
         end

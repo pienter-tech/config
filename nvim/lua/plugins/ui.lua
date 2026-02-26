@@ -80,7 +80,7 @@ return {
             {
                 "<leader>fg",
                 function()
-                    require("snacks").picker.git_log_file()
+                    require("pienter.git-file-history").open_file_history()
                 end,
                 desc = "Current buffer git history",
                 mode = "n",
@@ -209,7 +209,7 @@ return {
             terminal = { enabled = true },
             words = { enabled = true },
             zen = {
-                toggles = { dim = false}
+                toggles = { dim = false },
             },
             ---@type table<string, snacks.win.Config>
             styles = {
