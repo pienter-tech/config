@@ -6,3 +6,13 @@ linemode = "size"
 edit = [
   { run = 'nvim "$@"', desc = "$EDITOR", block = true },
 ]
+
+[plugin]
+# Work around SVG image-preview glitches by forcing SVGs through text preview.
+# This avoids terminal image-protocol side effects for this mime type.
+prepend_preloaders = [
+  { mime = "image/svg+xml", run = "noop" },
+]
+prepend_previewers = [
+  { mime = "image/svg+xml", run = "code" },
+]
