@@ -13,7 +13,7 @@ Key managed applications:
 - Window managers (Aerospace)
 - Homebrew packages and applications
 - Theme configurations (Catppuccin themes across all tools)
-- Claude Code and OpenCode configurations
+- Claude Code, Codex, and OpenCode configurations
 
 ## Architecture
 
@@ -39,7 +39,9 @@ These tools reference source paths in this repo and symlink them to their expect
 - `aerospace/`: AeroSpace window manager config
 - `brew/`: Homebrew package management (Brewfile + installation script)
 - `claude/`: Claude Code configuration
-  - `commands/`: Custom slash commands (commit, add-docs, review-changes)
+  - `commands/`: Custom slash commands (add-docs, commit-workflow, review-changes, openai-docs, use-skill, etc.)
+  - `mcp.json`: Active MCP server configuration
+  - `profiles/`: MCP profile overlays (tnt, tnt-figma, web, commit-workflow)
   - `settings.json`: Claude Code settings
   - `projects/`, `agents/`, `history.jsonl`: Generated runtime data
 - `fsh/`: Fast-syntax-highlighting themes
@@ -106,9 +108,15 @@ This repository includes Claude Code configuration in the `claude/` directory:
 
 ### Custom Slash Commands
 
-- `/commit`: Creates conventional commits (feat:, fix:, docs:, etc.) using git commands
+- `/commit` and `/commit-workflow`: Create conventional, atomic commits
 - `/add-docs`: Adds documentation for files
 - `/review-changes`: Reviews recent changes and commits
+- `/openai-docs`: Uses OpenAI official docs with citations
+- `/shortcut-project-management`: Creates/starts Shortcut stories
+- `/figma-implement-design`: Implements Figma designs with high fidelity
+- `/use-skill`: Loads and runs a Codex `SKILL.md` workflow
+- `/skill-creator`: Uses the Codex system skill for creating/updating skills
+- `/skill-installer`: Uses the Codex system skill for listing/installing skills
 
 These commands are defined in `claude/commands/*.md` with frontmatter specifying:
 - `allowed-tools`: Restricted tool permissions for safety
@@ -118,6 +126,8 @@ These commands are defined in `claude/commands/*.md` with frontmatter specifying
 ### Configuration Files
 
 - `claude/settings.json`: Claude Code preferences and settings
+- `claude/mcp.json`: MCP server definitions aligned with Codex defaults
+- `.claude/settings.local.json`: Project-local enabled MCP servers
 - Runtime data stored in `claude/projects/`, `claude/agents/`, `claude/history.jsonl`
 
 ## OpenCode Configuration
