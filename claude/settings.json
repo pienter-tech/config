@@ -1,37 +1,58 @@
 {
-  "autoUpdates": false,
   "env": {
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "DISABLE_AUTOUPDATER": "1"
   },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(bd :*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(go test ./...:*)",
+      "Bash(go get:*)",
+      "Bash(docker compose:*)",
+      "Bash(openspec:*)"
+    ]
+  },
   "hooks": {
     "PreCompact": [
       {
+        "matcher": "",
         "hooks": [
           {
-            "command": "bd prime",
-            "type": "command"
+            "type": "command",
+            "command": "bd prime"
           }
-        ],
-        "matcher": ""
+        ]
       }
     ],
     "SessionStart": [
       {
+        "matcher": "",
         "hooks": [
           {
-            "command": "bd prime",
-            "type": "command"
+            "type": "command",
+            "command": "bd prime"
           }
-        ],
-        "matcher": ""
+        ]
       }
     ]
   },
-  "includeCoAuthoredBy": false,
-  "permissions": {
-    "allow": [
-      "Bash(bd :*)"
-    ]
-  }
+  "enabledPlugins": {
+    "document-skills@anthropic-agent-skills": true,
+    "example-skills@anthropic-agent-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "autoUpdates": false
 }
