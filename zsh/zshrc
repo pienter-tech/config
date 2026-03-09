@@ -55,9 +55,10 @@ alias cxf="codex -m gpt-5.3-codex-spark"
 alias cxr="codex resume --last"
 alias cxa="codex-app-here"
 alias cxcw="cx-commit-workflow"
+alias cldcw="cld-commit-workflow"
 alias vim="nvim"
 alias v="nvim"
-alias cld="claude --permission-mode bypassPermissions"
+alias clda="claude-app-here"
 alias dcu="docker compose up -d --build"
 alias buu="brew update && brew upgrade"
 alias c="clear"
@@ -170,8 +171,44 @@ function cx-commit-workflow() {
     fi
 }
 
+function cld() {
+    local danger_flag=()
+    if [[ "$1" == "--danger" ]]; then
+        danger_flag=(--permission-mode bypassPermissions)
+        shift
+    fi
+    claude "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/mcp.json" "$@"
+}
+
+function cld-tnt() {
+    cld --mcp-config "$CONFIG_DIR/claude/profiles/tnt.json" "$@"
+}
+
+function cld-tnt-figma() {
+    cld --mcp-config "$CONFIG_DIR/claude/profiles/tnt-figma.json" "$@"
+}
+
+function cld-web() {
+    cld --mcp-config "$CONFIG_DIR/claude/profiles/web.json" "$@"
+}
+
+function cld-commit-workflow() {
+    local prompt='Review git changes, split into logical atomic commits with Conventional Commit messages. Do not push.'
+    [[ $# -gt 0 ]] && prompt="$prompt Additional instructions: $*"
+    claude -p \
+        --model claude-haiku-4-5-20251001 \
+        --tools "Bash" \
+        --allowedTools "Bash(git add:*) Bash(git status:*) Bash(git commit:*) Bash(git diff:*) Bash(git log:*) Bash(echo:*)" \
+        --no-session-persistence \
+        -- "$prompt"
+}
+
 function codex-app-here() {
     open -a "Codex" "$PWD"
+}
+
+function claude-app-here() {
+    open -a "Claude" "$PWD"
 }
 
 # Add command completion for make targets
