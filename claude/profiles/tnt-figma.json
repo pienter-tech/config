@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "shortcut": {
+      "command": "npx",
+      "args": ["-y", "@shortcut/mcp@latest"],
+      "env": {
+        "SHORTCUT_API_TOKEN": "${SHORTCUT_API_TOKEN}"
+      }
+    },
+    "context7": {
+      "type": "http",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest", "--channel=dev"],
+      "env": {}
+    },
+    "figma": {
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  }
+}
