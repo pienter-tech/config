@@ -1,4 +1,4 @@
-model = "gpt-5.3-codex"
+model = "gpt-5.4"
 model_reasoning_effort = "high"
 
 [projects."/Users/korneel/dev/projects/pienter/garmin-timer"]
@@ -41,6 +41,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/korneel/dev/projects/tnt/center"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/tnt/dry3"]
+trust_level = "trusted"
+
+[projects."/Users/korneel/dev/projects/openscad/bitboard"]
 trust_level = "trusted"
 
 [mcp_servers.figma]
