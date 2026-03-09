@@ -25,5 +25,27 @@
       "  }",
       "],"
     ]
+  },
+  "dap-dry-launc": {
+    "prefix": "dry-dap-launch",
+    "description": "",
+    "body": [
+      "{",
+      " \"version\": \"0.2.0\",",
+      " \"configurations\": [",
+      " {",
+      "   \"name\": \"Listen for Xdebug\",",
+      "   \"type\": \"php\",",
+      "   \"request\": \"launch\",",
+      "   \"port\": 9003,",
+      "   \"pathMappings\": {",
+      "     \"/var/www/default/\": \"${workspaceFolder}/\",",
+      "     \"/var/www/dry/src/dry/\": \"${workspaceFolder}/dry/\",",
+      "     \"/var/www/dry/vendor/composer/\": \"${workspaceFolder}/vendor/composer/\",",
+      "   }",
+      " }",
+      " ]",
+      "}"
+    ]
   }
 }

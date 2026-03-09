@@ -198,7 +198,15 @@ return {
             input = { enabled = true },
             layout = { enabled = false },
             lazygit = { enable = true },
-            picker = { enabled = true },
+            picker = {
+                enabled = true,
+                sources = {
+                    files = {
+                        -- Keep file picker confirms in the current window.
+                        confirm = { action = "jump", cmd = "edit" },
+                    },
+                },
+            },
             notifier = { enabled = true },
             quickfile = { enabled = true },
             rename = { enabled = false },
