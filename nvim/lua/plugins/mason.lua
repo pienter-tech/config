@@ -49,48 +49,4 @@ return {
             },
         },
     },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = {
-            "mason-org/mason.nvim",
-            "mfussenegger/nvim-dap",
-        },
-        opts = {
-            automatic_setup = true,
-            ensure_installed = {
-                "php",
-            },
-            handlers = {
-                function(config)
-                    require("mason-nvim-dap").default_setup(config)
-                end,
-                php = function(config)
-                    config.configurations = {
-                        {
-                            type = "php",
-                            request = "launch",
-                            name = "Dry Xdebug",
-                            port = 9003,
-                            stopOnEntry = false,
-                            pathMappings = {
-                                ["/var/www/html"] = "${workspaceFolder}",
-                                ["/var/www/dry/src/dry"] = "${workspaceFolder}/dry",
-                            },
-                        },
-                        {
-                            type = "php",
-                            request = "launch",
-                            name = "ASP Debug",
-                            port = 9003,
-                            stopOnEntry = false,
-                            pathMappings = {
-                                ["/var/www/html"] = "${workspaceFolder}/backend",
-                            },
-                        },
-                    }
-                    require("mason-nvim-dap").default_setup(config)
-                end,
-            },
-        },
-    },
 }

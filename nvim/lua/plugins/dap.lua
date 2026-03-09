@@ -1,7 +1,22 @@
 return {
     {
         "mfussenegger/nvim-dap",
-        config = function() end,
+        config = function()
+            local dap = require("dap")
+            local mason_settings = require("mason.settings")
+
+            local php_debug_adapter = vim.fn.exepath("php-debug-adapter")
+            if php_debug_adapter == "" then
+                php_debug_adapter = mason_settings.current.install_root_dir .. "/bin/php-debug-adapter"
+            end
+            if vim.fn.executable(php_debug_adapter) == 1 then
+                dap.adapters.php = {
+                    type = "executable",
+                    command = php_debug_adapter,
+                }
+            end
+
+        end,
         keys = {
             {
                 "<leader>dB",
@@ -125,47 +140,32 @@ return {
         opts = {},
     },
     {
-        "rcarriga/nvim-dap-ui",
+        "igorlfs/nvim-dap-view",
         dependencies = {
             "mfussenegger/nvim-dap",
-            "nvim-neotest/nvim-nio",
         },
         keys = {
             {
                 "<leader>du",
-                function()
-                    require("dapui").toggle()
-                end,
-                desc = "Toggle DAP UI",
+                "<cmd>DapViewToggle<CR>",
+                desc = "Toggle DAP View",
                 mode = "n",
             },
             {
                 "<leader>de",
-                function()
-                    require("dapui").eval()
-                end,
+                "<cmd>DapEval<CR>",
                 desc = "Eval",
                 mode = { "n", "v" },
             },
+            {
+                "<leader>dE",
+                "<cmd>DapViewWatch<CR>",
+                desc = "Watch Expression",
+                mode = { "n", "v" },
+            },
         },
-        opts = {},
-        config = function()
-            local dap = require("dap")
-            local dapui = require("dapui")
-
-            dapui.setup({})
-            dap.listeners.before.attach.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.launch.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.event_terminated.dapui_config = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited.dapui_config = function()
-                dapui.close()
-            end
-        end,
+        opts = {
+            auto_toggle = true,
+        },
     },
 }
