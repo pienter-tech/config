@@ -3,9 +3,13 @@ return {
     event = "BufReadPre",
     opts = {
         filetypes = { "*" },
-        user_default_options = {
-            mode = "background",
-            css = true,
+        options = {
+            parsers = {
+                css = true,
+            },
+            display = {
+                mode = "background",
+            },
         },
     },
 }
