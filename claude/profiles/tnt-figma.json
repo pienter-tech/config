@@ -1,12 +1,5 @@
 {
   "mcpServers": {
-    "shortcut": {
-      "command": "npx",
-      "args": ["-y", "@shortcut/mcp@latest"],
-      "env": {
-        "SHORTCUT_API_TOKEN": "${SHORTCUT_API_TOKEN}"
-      }
-    },
     "context7": {
       "type": "http",
       "headers": {
