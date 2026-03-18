@@ -193,7 +193,7 @@ return {
             explorer = { enabled = false },
             git = {},
             gitbrowse = {},
-            image = { enabled = true },
+            image = { enabled = true, ft = { "markdown" } },
             indent = { enabled = true, animate = { enabled = false } },
             input = { enabled = true },
             layout = { enabled = false },
