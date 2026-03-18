@@ -63,11 +63,6 @@ command = "npx"
 args = ["chrome-devtools-mcp@latest", "--channel=dev"]
 enabled = false
 
-[mcp_servers.shortcut]
-command = "npx"
-args = ["-y", "@shortcut/mcp@latest"]
-env_vars = ["SHORTCUT_API_TOKEN"]
-
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 

@@ -1,10 +1,10 @@
 interface:
   display_name: "Shortcut Project Management"
-  short_description: "Manage Shortcut MCP tickets and branches"
-  default_prompt: "Use $shortcut-project-management to create or start a Shortcut story (via Shortcut MCP) and check out its branch."
+  short_description: "Manage Shortcut tickets and branches via the shortcut CLI"
+  default_prompt: "Use $shortcut-project-management to create or start a Shortcut story (via the `short` CLI) and check out its branch."
 
 dependencies:
   tools:
-    - type: "mcp"
-      value: "shortcut"
-      description: "Shortcut MCP server"
+    - type: "cli"
+      value: "short"
+      description: "shortcut-cli (npm install @shortcut-cli/shortcut-cli -g)"
