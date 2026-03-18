@@ -32,3 +32,6 @@ codex/skills/.system/**
 /codex/skills/openai-docs
 /codex/skills/figma-implement-design
 /.nvimlog
+/claude/backups
+/shortcut-cli/config.json
+/claude/sessions
