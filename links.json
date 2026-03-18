@@ -1,5 +1,9 @@
 [
   {
+    "src": "shortcut-cli",
+    "dest": "/Users/korneel/.config/shortcut-cli"
+  },
+  {
     "src": "ueberzugpp",
     "dest": "/Users/korneel/.config/ueberzugpp"
   },
