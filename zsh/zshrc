@@ -127,7 +127,6 @@ function makc() {
 
 function cx-tnt() {
     codex \
-        -c mcp_servers.shortcut.enabled=true \
         -c mcp_servers.context7.enabled=true \
         -c mcp_servers.chrome-devtools.enabled=true \
         "$@"
@@ -135,7 +134,6 @@ function cx-tnt() {
 
 function cx-tnt-figma() {
     codex \
-        -c mcp_servers.shortcut.enabled=true \
         -c mcp_servers.context7.enabled=true \
         -c mcp_servers.chrome-devtools.enabled=true \
         -c mcp_servers.figma.enabled=true \
@@ -157,7 +155,6 @@ function cx-commit-workflow() {
             -c mcp_servers.figma.enabled=false \
             -c mcp_servers.context7.enabled=false \
             -c mcp_servers.chrome-devtools.enabled=false \
-            -c mcp_servers.shortcut.enabled=false \
             -c mcp_servers.openaiDeveloperDocs.enabled=false \
             "$base_prompt Additional instructions: $*"
     else
@@ -165,7 +162,6 @@ function cx-commit-workflow() {
             -c mcp_servers.figma.enabled=false \
             -c mcp_servers.context7.enabled=false \
             -c mcp_servers.chrome-devtools.enabled=false \
-            -c mcp_servers.shortcut.enabled=false \
             -c mcp_servers.openaiDeveloperDocs.enabled=false \
             "$base_prompt"
     fi
@@ -181,15 +177,30 @@ function cld() {
 }
 
 function cld-tnt() {
-    cld --mcp-config "$CONFIG_DIR/claude/profiles/tnt.json" "$@"
+    local danger_flag=()
+    if [[ "$1" == "--danger" ]]; then
+        danger_flag=(--danger)
+        shift
+    fi
+    cld "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/tnt.json" "$@"
 }
 
 function cld-tnt-figma() {
-    cld --mcp-config "$CONFIG_DIR/claude/profiles/tnt-figma.json" "$@"
+    local danger_flag=()
+    if [[ "$1" == "--danger" ]]; then
+        danger_flag=(--danger)
+        shift
+    fi
+    cld "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/tnt-figma.json" "$@"
 }
 
 function cld-web() {
-    cld --mcp-config "$CONFIG_DIR/claude/profiles/web.json" "$@"
+    local danger_flag=()
+    if [[ "$1" == "--danger" ]]; then
+        danger_flag=(--danger)
+        shift
+    fi
+    cld "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/web.json" "$@"
 }
 
 function cld-commit-workflow() {

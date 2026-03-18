@@ -1,5 +1,9 @@
 # Public environment variables (non-sensitive)
-source ~/dev/projects/pienter/config/.env.public
+if [[ -f "$CONFIG_DIR/.env.public" ]]; then
+  set -o allexport
+  source "$CONFIG_DIR/.env.public"
+  set +o allexport
+fi
 
 # EDITOR
 export EDITOR="nvim"
