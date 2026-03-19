@@ -1,4 +1,5 @@
 [
+  { "src": "augment", "dest": "/Users/korneel/.augment" },
   {
     "src": "shortcut-cli",
     "dest": "/Users/korneel/.config/shortcut-cli"

@@ -1,0 +1,69 @@
+{
+  "indexingAllowDirs": [
+    "/Users/korneel/dev/projects/pienter/config"
+  ],
+  "toolPermissions": [
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^bd(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^git add(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^git commit(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^git pull(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^git checkout -b(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^go test \\./\\.\\.\\.(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^go get(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^docker compose(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "shellInputRegex": "^openspec(\\s|$)",
+      "permission": { "type": "allow" }
+    },
+    {
+      "toolName": "launch-process",
+      "permission": { "type": "ask-user" }
+    }
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/korneel/.augment/hooks/session-start.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
