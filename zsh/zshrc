@@ -49,16 +49,9 @@ setopt hist_find_no_dups
 
 ### ALIASES
 
-alias oc="opencode"
-alias cx="codex"
-alias cxf="codex -m gpt-5.3-codex-spark"
-alias cxr="codex resume --last"
-alias cxa="codex-app-here"
-alias cxcw="cx-commit-workflow"
 alias cldcw="cld-commit-workflow"
 alias vim="nvim"
 alias v="nvim"
-alias clda="claude-app-here"
 alias dcu="docker compose up -d --build"
 alias buu="brew update && brew upgrade"
 alias c="clear"
@@ -99,74 +92,6 @@ function dce() {
   docker compose exec $1 bash
 }
 
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-# Function to run make commands from config directory
-function makc() {
-    if [[ ! -d "$CONFIG_DIR" ]]; then
-        echo "$(tput setaf 1)Error:$(tput sgr0) Config directory not found: $CONFIG_DIR"
-        return 1
-    fi
-
-    if [[ $# -eq 0 ]]; then
-        # If no arguments provided, show available make targets
-        (make -C "$CONFIG_DIR" help)
-        return
-    fi
-
-    # Execute make command with all provided arguments
-    (make -C "$CONFIG_DIR" "$@")
-}
-
-function cx-tnt() {
-    codex \
-        -c mcp_servers.context7.enabled=true \
-        -c mcp_servers.chrome-devtools.enabled=true \
-        "$@"
-}
-
-function cx-tnt-figma() {
-    codex \
-        -c mcp_servers.context7.enabled=true \
-        -c mcp_servers.chrome-devtools.enabled=true \
-        -c mcp_servers.figma.enabled=true \
-        "$@"
-}
-
-function cx-web() {
-    codex \
-        -c mcp_servers.context7.enabled=true \
-        -c mcp_servers.chrome-devtools.enabled=true \
-        "$@"
-}
-
-function cx-commit-workflow() {
-    local base_prompt='Use the $commit-workflow skill. Review the current git changes, split work into logical atomic commits, use Conventional Commit messages, run a secret scan on staged changes before each commit, and do not push.'
-    local model='gpt-5.3-codex-spark'
-    if [[ $# -gt 0 ]]; then
-        codex exec --full-auto -m "$model" \
-            -c mcp_servers.figma.enabled=false \
-            -c mcp_servers.context7.enabled=false \
-            -c mcp_servers.chrome-devtools.enabled=false \
-            -c mcp_servers.openaiDeveloperDocs.enabled=false \
-            "$base_prompt Additional instructions: $*"
-    else
-        codex exec --full-auto -m "$model" \
-            -c mcp_servers.figma.enabled=false \
-            -c mcp_servers.context7.enabled=false \
-            -c mcp_servers.chrome-devtools.enabled=false \
-            -c mcp_servers.openaiDeveloperDocs.enabled=false \
-            "$base_prompt"
-    fi
-}
-
 function cld() {
     local danger_flag=()
     if [[ "$1" == "--danger" ]]; then
@@ -179,47 +104,37 @@ function cld() {
 function cld-tnt() {
     local danger_flag=()
     if [[ "$1" == "--danger" ]]; then
-        danger_flag=(--danger)
+        danger_flag=(--permission-mode bypassPermissions)
         shift
     fi
-    cld "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/tnt.json" "$@"
+    claude "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/tnt.json" "$@"
 }
 
 function cld-tnt-figma() {
     local danger_flag=()
     if [[ "$1" == "--danger" ]]; then
-        danger_flag=(--danger)
+        danger_flag=(--permission-mode bypassPermissions)
         shift
     fi
-    cld "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/tnt-figma.json" "$@"
+    claude "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/tnt-figma.json" "$@"
 }
 
 function cld-web() {
     local danger_flag=()
     if [[ "$1" == "--danger" ]]; then
-        danger_flag=(--danger)
+        danger_flag=(--permission-mode bypassPermissions)
         shift
     fi
-    cld "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/web.json" "$@"
+    claude "${danger_flag[@]}" --mcp-config "$CONFIG_DIR/claude/profiles/web.json" "$@"
 }
 
 function cld-commit-workflow() {
-    local prompt='Review git changes, split into logical atomic commits with Conventional Commit messages. Do not push.'
+    local prompt='Commit changes Do not ask for user input'
     [[ $# -gt 0 ]] && prompt="$prompt Additional instructions: $*"
     claude -p \
-        --model claude-haiku-4-5-20251001 \
-        --tools "Bash" \
-        --allowedTools "Bash(git add:*) Bash(git status:*) Bash(git commit:*) Bash(git diff:*) Bash(git log:*) Bash(echo:*)" \
+        --agent commit \
         --no-session-persistence \
         -- "$prompt"
-}
-
-function codex-app-here() {
-    open -a "Codex" "$PWD"
-}
-
-function claude-app-here() {
-    open -a "Claude" "$PWD"
 }
 
 # Add command completion for make targets
@@ -251,17 +166,6 @@ function brew() {
     fi
 }
 
-
-### ANTHROPIC API KEY SELECTION
-
-# Set ANTHROPIC_API_KEY based on whether we're in a TNT subdirectory
-if echo "$PWD" | grep -qi 'tnt'; then
-  export ANTHROPIC_API_KEY="$CLAUDE_TNT_API_KEY"
-  # export ANTHROPIC_API_KEY="$CLAUDE_API_KEY"
-else
-  export ANTHROPIC_API_KEY="$CLAUDE_API_KEY"
-fi
-
 ### PATH
 
 export PATH=$PATH:$HOME/.bin:$HOME/.local/share/nvim/mason/bin:$HOME/go/bin:$HOME/.local/bin
@@ -286,9 +190,6 @@ autoload -Uz compinit && compinit
 compdef _makc_completion makc
 zinit cdreplay -q
 [ -z "$ZPROF" ] || zprof
-
-# Added
-export PATH="/Users/korneel/.codeium/windsurf/bin:$PATH"
 
 # bun completions
 [ -s "/Users/korneel/.bun/_bun" ] && source "/Users/korneel/.bun/_bun"
