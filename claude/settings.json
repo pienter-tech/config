@@ -42,20 +42,12 @@
     ]
   },
   "enabledPlugins": {
-    "document-skills@anthropic-agent-skills": true,
-    "example-skills@anthropic-agent-skills": true,
     "php-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
-    "anthropic-agent-skills": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/skills"
-      }
-    }
   },
   "skipDangerousModePermissionPrompt": true,
   "autoUpdates": false,
-  "model": "sonnet"
+  "voiceEnabled": true
 }
