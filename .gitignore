@@ -35,3 +35,12 @@ codex/skills/.system/**
 /claude/backups
 /shortcut-cli/config.json
 /claude/sessions
+/augment/binaries/ripgrep/v14.1.1-darwin-arm64
+/augment/observability
+/augment/task-storage
+/augment/.auggie.json
+/augment/session.json
+/augment/sessions
+/augment/auggie-path
+/augment/prompt-history.jsonl
+/augment/checkpoint-documents
